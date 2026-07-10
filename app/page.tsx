@@ -11,6 +11,7 @@ import { ProblemSlabs } from "@/components/marketing/ProblemSlabs";
 import { StitchedTimeline } from "@/components/StitchedTimeline";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import { PricingTiers } from "@/components/TierCard";
+import { CASES } from "@/lib/cases";
 
 const SYSTEM_SLABS = [
   {
@@ -46,29 +47,7 @@ const TIMELINE = [
   },
 ];
 
-const WORK = [
-  {
-    org: "Cedar Park Little League",
-    type: "Youth league",
-    result: "Reach more than doubled by mid-season; spring sign-ups filled in nine days.",
-    stat: "2.1×",
-    statLabel: "season reach",
-  },
-  {
-    org: "Harvest Table Food Pantry",
-    type: "Nonprofit",
-    result: "A site people trust and a December drive that outraised the last two combined.",
-    stat: "+64%",
-    statLabel: "volunteer sign-ups",
-  },
-  {
-    org: "Northside Robotics Boosters",
-    type: "Student community",
-    result: "Sponsors could finally find them — four new local backers in one build season.",
-    stat: "4",
-    statLabel: "new sponsors",
-  },
-];
+// Case studies live in lib/cases.ts, shared with /work.
 
 const FAQ = [
   {
@@ -221,28 +200,31 @@ export default function Home() {
               </h2>
             </Reveal>
             <div className="mt-10 grid gap-6 md:grid-cols-3">
-              {WORK.map((w, i) => (
-                <Reveal key={w.org} delay={i * 90}>
-                  <GlassPanel
-                    depth="mid"
-                    radius="lg"
-                    light
-                    contentClassName="flex h-full flex-col p-7"
-                  >
-                    <CareTag>{w.type}</CareTag>
-                    <h3 className="mt-3 text-lg font-semibold text-white">
-                      {w.org}
-                    </h3>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-ash-300">
-                      {w.result}
-                    </p>
-                    <div className="mt-6 border-t border-white/10 pt-4">
-                      <span className="tnum text-3xl font-bold text-denim-400">
-                        {w.stat}
-                      </span>
-                      <span className="care-tag ml-2">{w.statLabel}</span>
-                    </div>
-                  </GlassPanel>
+              {CASES.map((w, i) => (
+                <Reveal key={w.slug} delay={i * 90}>
+                  <Link href={`/work/${w.slug}`} className="block h-full">
+                    <GlassPanel
+                      depth="mid"
+                      radius="lg"
+                      light
+                      className="h-full transition-transform duration-200 hover:-translate-y-1"
+                      contentClassName="flex h-full flex-col p-7"
+                    >
+                      <CareTag>{w.type}</CareTag>
+                      <h3 className="mt-3 text-lg font-semibold text-white">
+                        {w.org}
+                      </h3>
+                      <p className="mt-3 flex-1 text-sm leading-relaxed text-ash-300">
+                        {w.summary}
+                      </p>
+                      <div className="mt-6 border-t border-white/10 pt-4">
+                        <span className="tnum text-3xl font-bold text-denim-400">
+                          {w.stat}
+                        </span>
+                        <span className="care-tag ml-2">{w.statLabel}</span>
+                      </div>
+                    </GlassPanel>
+                  </Link>
                 </Reveal>
               ))}
             </div>

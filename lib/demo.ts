@@ -14,6 +14,7 @@ import type {
  * switches every query to live data with no UI changes.
  */
 export const isDemoMode =
+  process.env.NEXT_PUBLIC_FORCE_DEMO === "1" ||
   !process.env.NEXT_PUBLIC_SUPABASE_URL ||
   !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 

@@ -23,10 +23,10 @@ export function SiteFooter() {
               <Link href="/#how" className="text-sm text-ash-300 hover:text-paper">
                 How it works
               </Link>
-              <Link href="/#work" className="text-sm text-ash-300 hover:text-paper">
+              <Link href="/work" className="text-sm text-ash-300 hover:text-paper">
                 Work
               </Link>
-              <Link href="/#pricing" className="text-sm text-ash-300 hover:text-paper">
+              <Link href="/pricing" className="text-sm text-ash-300 hover:text-paper">
                 Pricing
               </Link>
             </div>
