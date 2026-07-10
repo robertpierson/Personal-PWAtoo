@@ -1,0 +1,424 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Bandana tokens — the only place raw color values are allowed.      */
+/* ------------------------------------------------------------------ */
+:root {
+  /* FIELD */
+  --ink-900: #0c0d10;
+  --ink-800: #121419;
+  --ink-700: #191c22;
+  --graphite-600: #22262e;
+  --graphite-500: #2c313a;
+  --smoke-400: #454c57;
+  --ash-300: #8b94a1;
+
+  /* CONTRAST */
+  --white: #ffffff;
+  --paper: #eef1f5;
+
+  /* DENIM (pop; washed/raw indigo only) */
+  --indigo-raw: #1e3557;
+  --denim-600: #2e5680;
+  --denim-500: #3c74ae; /* PRIMARY */
+  --denim-400: #5a93cd;
+  --chambray-300: #9ac0e6;
+  --wash-200: #c9def2;
+
+  /* MICRO (rare) */
+  --selvedge: #c6432c;
+  --topstitch: #d8a441;
+
+  /* GLASS */
+  --glass-fill: rgba(60, 116, 174, 0.1);
+  --glass-edge: rgba(255, 255, 255, 0.38);
+  --glass-inner: rgba(154, 192, 230, 0.14);
+  --glass-shadow: rgba(6, 8, 12, 0.55);
+
+  /* RADIUS */
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 26px;
+  --r-pill: 999px;
+}
+
+@theme inline {
+  --color-ink-900: var(--ink-900);
+  --color-ink-800: var(--ink-800);
+  --color-ink-700: var(--ink-700);
+  --color-graphite-600: var(--graphite-600);
+  --color-graphite-500: var(--graphite-500);
+  --color-smoke-400: var(--smoke-400);
+  --color-ash-300: var(--ash-300);
+  --color-white: var(--white);
+  --color-paper: var(--paper);
+  --color-indigo-raw: var(--indigo-raw);
+  --color-denim-600: var(--denim-600);
+  --color-denim-500: var(--denim-500);
+  --color-denim-400: var(--denim-400);
+  --color-chambray-300: var(--chambray-300);
+  --color-wash-200: var(--wash-200);
+  --color-selvedge: var(--selvedge);
+  --color-topstitch: var(--topstitch);
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-pill: var(--r-pill);
+
+  --font-display: var(--font-cabinet), "Helvetica Neue", Arial, system-ui,
+    sans-serif;
+  --font-sans: var(--font-general), system-ui, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace,
+    monospace;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+body {
+  background: var(--ink-900);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--denim-600);
+  color: var(--white);
+}
+
+/* ------------------------------------------------------------------ */
+/* Type system                                                         */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .headline {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 6.5vw, 6.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    font-weight: 780;
+    color: var(--white);
+  }
+
+  .subhead {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  /* Denim care-label voice: — 100% ORGANIC STRATEGY */
+  .care-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ash-300);
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Liquid glass — four layers. Flat backdrop-blur is not liquid glass. */
+/* Layer order inside .glass:                                          */
+/*   .glass-base    translucency + saturation                          */
+/*   .glass-refract SVG-displaced duplicate of the backdrop, perimeter */
+/*   .glass-rim     specular rim + gradient border                     */
+/*   .glass-light   pointer / static specular highlight                */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .glass {
+    position: relative;
+    isolation: isolate;
+    border-radius: var(--glass-r, var(--r-md));
+    box-shadow: 0 24px 48px -24px var(--glass-shadow);
+    /* depth defaults (near) */
+    --glass-blur: 28px;
+    --glass-bg: var(--glass-fill);
+  }
+
+  .glass[data-depth="mid"] {
+    --glass-blur: 18px;
+    --glass-bg: rgba(60, 116, 174, 0.07);
+    box-shadow: 0 18px 36px -20px var(--glass-shadow);
+  }
+
+  .glass[data-depth="far"] {
+    --glass-blur: 10px;
+    --glass-bg: rgba(60, 116, 174, 0.05);
+    box-shadow: 0 12px 28px -18px var(--glass-shadow);
+  }
+
+  .glass-base,
+  .glass-refract,
+  .glass-rim,
+  .glass-light {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* 1 — translucency + saturation, denim-tinted, inner glow */
+  .glass-base {
+    background:
+      linear-gradient(160deg, var(--glass-inner), transparent 42%),
+      var(--glass-bg);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  }
+
+  /* 3 — refraction: displaced duplicate of the blurred backdrop,
+         masked to the perimeter so the edge warps, not the middle */
+  .glass-refract {
+    padding: 14px;
+    -webkit-backdrop-filter: blur(6px) url(#bandana-refract);
+    backdrop-filter: blur(6px) url(#bandana-refract);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+
+  /* 2 — specular rim: inset light catch + beveled gradient border */
+  .glass-rim {
+    box-shadow:
+      inset 0 1px 0 var(--glass-edge),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-rim::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.45),
+      rgba(255, 255, 255, 0.06) 28%,
+      rgba(154, 192, 230, 0.28) 62%,
+      rgba(255, 255, 255, 0.14)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+
+  /* 4 — specular highlight; PointerLight moves --mx/--my */
+  .glass-light {
+    background: radial-gradient(
+      240px circle at var(--mx, 50%) var(--my, -30%),
+      rgba(255, 255, 255, 0.13),
+      rgba(154, 192, 230, 0.05) 45%,
+      transparent 72%
+    );
+  }
+
+  .glass-content {
+    position: relative;
+  }
+}
+
+/* Guardrails ------------------------------------------------------- */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-base {
+    background: linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--indigo-raw) 55%, var(--ink-800)),
+      var(--ink-800) 70%
+    );
+  }
+  .glass-refract {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-base {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--indigo-raw) 55%, var(--ink-800)),
+      var(--ink-800) 70%
+    );
+  }
+  .glass-refract,
+  .glass-light {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-light {
+    background: radial-gradient(
+      240px circle at 50% -30%,
+      rgba(255, 255, 255, 0.1),
+      transparent 70%
+    );
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Matte denim — layered near-blacks, indigo dye bleed, twill grain    */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .matte {
+    position: relative;
+    background:
+      radial-gradient(
+        1200px 800px at 72% -12%,
+        rgba(30, 53, 87, 0.38),
+        transparent 60%
+      ),
+      radial-gradient(
+        900px 700px at 8% 112%,
+        rgba(30, 53, 87, 0.24),
+        transparent 55%
+      ),
+      linear-gradient(var(--ink-900), var(--ink-800));
+  }
+
+  .matte::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.6) 0 1px,
+        transparent 1px 4px
+      );
+    background-size: 180px 180px, 6px 6px;
+  }
+
+  .matte > * {
+    position: relative;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Buttons                                                             */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--r-pill);
+    font-family: var(--font-sans);
+    font-weight: 550;
+    font-size: 0.9375rem;
+    padding: 0.7rem 1.4rem;
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease,
+      background-color 200ms ease,
+      border-color 200ms ease;
+  }
+
+  .btn-primary {
+    color: var(--white);
+    background: linear-gradient(180deg, var(--denim-500), var(--denim-600));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 10px 24px -12px rgba(60, 116, 174, 0.65);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(180deg, var(--denim-400), var(--denim-500));
+  }
+
+  .btn-ghost {
+    color: var(--paper);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .btn-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  :is(.btn, a, button):focus-visible {
+    outline: 2px solid var(--denim-400);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      transition: none;
+    }
+    .btn-primary:hover {
+      transform: none;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Status system — one set, used everywhere                            */
+/* denim = needs action / in progress; white = done; faint = idle      */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-radius: var(--r-pill);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+  }
+
+  .status-chip::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: currentColor;
+  }
+
+  .status-action {
+    color: var(--chambray-300);
+    background: rgba(60, 116, 174, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(90, 147, 205, 0.35);
+  }
+
+  .status-done {
+    color: var(--paper);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  }
+
+  .status-idle {
+    color: var(--ash-300);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+  }
+}
