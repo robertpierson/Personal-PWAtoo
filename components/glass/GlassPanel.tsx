@@ -9,6 +9,9 @@ type GlassPanelProps = {
   depth?: "near" | "mid" | "far";
   /** Track the pointer with the specular highlight (client-side). */
   light?: boolean;
+  /** Perimeter refraction layer. Disable on persistent chrome (nav)
+      to cap concurrent backdrop-filter layers. */
+  refract?: boolean;
   className?: string;
   contentClassName?: string;
   children: ReactNode;
@@ -32,6 +35,7 @@ export function GlassPanel({
   radius = "md",
   depth = "near",
   light = false,
+  refract = true,
   className,
   contentClassName,
   children,
@@ -43,7 +47,7 @@ export function GlassPanel({
       style={{ "--glass-r": radiusVar[radius] } as React.CSSProperties}
     >
       <div className="glass-base" aria-hidden />
-      <div className="glass-refract" aria-hidden />
+      {refract && <div className="glass-refract" aria-hidden />}
       <div className="glass-rim" aria-hidden />
       {light ? <PointerLight /> : <div className="glass-light" aria-hidden />}
       <div className={`glass-content ${contentClassName ?? ""}`}>{children}</div>

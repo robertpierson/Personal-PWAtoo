@@ -379,6 +379,242 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
+/* Motion: reveals, nav condense, crew ticker, dye-bleed washes        */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 320ms ease-out,
+      transform 320ms ease-out;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal[data-shown] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Sticky glass nav — condenses and intensifies past the hero */
+  .site-nav {
+    transition:
+      padding 240ms ease,
+      background-color 240ms ease;
+  }
+
+  .site-nav .glass-base {
+    transition: background-color 240ms ease;
+  }
+
+  .site-nav[data-scrolled] .glass-base {
+    background-color: rgba(18, 20, 25, 0.55);
+    -webkit-backdrop-filter: blur(34px) saturate(160%);
+    backdrop-filter: blur(34px) saturate(160%);
+  }
+
+  /* Crew ticker — audience as slow-scrolling denim tag chips */
+  @keyframes ticker-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 0.75rem;
+    width: max-content;
+    animation: ticker-scroll 42s linear infinite;
+  }
+
+  .ticker-chip {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    border-radius: var(--r-pill);
+    padding: 0.45rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--chambray-300);
+    background: rgba(60, 116, 174, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(90, 147, 205, 0.25);
+  }
+
+  /* Problem slabs — misaligned vendors snapping into one system */
+  .slab {
+    transition: transform 480ms cubic-bezier(0.22, 0.9, 0.3, 1);
+    transform: translate(var(--slab-x, 0), var(--slab-y, 0))
+      rotate(var(--slab-r, 0deg));
+  }
+
+  [data-aligned] .slab {
+    --slab-x: 0px;
+    --slab-y: 0px;
+    --slab-r: 0deg;
+  }
+
+  /* Stitched timeline — topstitch hairline with thread nodes */
+  .stitch-line {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--topstitch) 0 6px,
+      transparent 6px 12px
+    );
+    width: 1px;
+    opacity: 0.55;
+  }
+
+  .stitch-node {
+    width: 11px;
+    height: 11px;
+    border-radius: 999px;
+    background: var(--ink-800);
+    box-shadow:
+      inset 0 0 0 1.5px var(--topstitch),
+      0 0 0 4px var(--ink-900);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .ticker-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: auto;
+    }
+    .slab {
+      transition: none;
+      --slab-x: 0px;
+      --slab-y: 0px;
+      --slab-r: 0deg;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Glass accordion (FAQ) — native details/summary                      */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::after {
+    content: "+";
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--ash-300);
+    transition: transform 200ms ease;
+  }
+
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+    color: var(--denim-400);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Before/After slider                                                 */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .ba-range {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    cursor: ew-resize;
+    margin: 0;
+  }
+
+  .ba-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: transparent;
+  }
+
+  .ba-range::-moz-range-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: transparent;
+    border: none;
+  }
+
+  .ba-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--ba, 50%);
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--glass-edge) 15%,
+      var(--glass-edge) 85%,
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  .ba-handle::after {
+    content: "↔";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    color: var(--white);
+    background: rgba(60, 116, 174, 0.35);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow:
+      inset 0 1px 0 var(--glass-edge),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Scorecard gauge                                                     */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .gauge-arc {
+    transition: stroke-dashoffset 700ms cubic-bezier(0.22, 0.9, 0.3, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gauge-arc {
+      transition: none;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /* Status system — one set, used everywhere                            */
 /* denim = needs action / in progress; white = done; faint = idle      */
 /* ------------------------------------------------------------------ */
