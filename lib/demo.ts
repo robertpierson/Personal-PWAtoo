@@ -1,6 +1,7 @@
 import type {
   Approval,
   CalendarItem,
+  ClientContent,
   InsightRow,
   Invoice,
   Organization,
@@ -130,6 +131,36 @@ export function demoCalendar(): CalendarItem[] {
       "End-of-season party planning survey — two minutes, one question that matters: tacos or pizza?",
       "drafting",
     ),
+  ];
+}
+
+export function demoContent(): ClientContent[] {
+  const wk = weekStart();
+  const piece = (
+    id: string,
+    title: string,
+    kind: ClientContent["kind"],
+    status: ClientContent["status"],
+    daysAgo: number,
+  ): ClientContent => ({
+    id,
+    org_id: demoOrg.id,
+    title,
+    kind,
+    storage_path: null,
+    preview_url: null,
+    status,
+    created_at: at(wk, -daysAgo, 10),
+    updated_at: at(wk, -Math.max(daysAgo - 2, 0), 15),
+  });
+
+  return [
+    piece("cc-1", "Game day graphics — June set", "design", "delivered", 18),
+    piece("cc-2", "Sponsor thank-you banner: Hilltop Hardware", "design", "delivered", 14),
+    piece("cc-3", "Opening day photo album", "photo", "delivered", 12),
+    piece("cc-4", "Meet-the-coaches card series", "design", "approved", 6),
+    piece("cc-5", "Photo day parent flyer", "document", "in_review", 3),
+    piece("cc-6", "Season highlight reel — 30s cut", "video", "drafting", 1),
   ];
 }
 
