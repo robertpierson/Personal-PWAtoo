@@ -335,18 +335,78 @@ body {
   .fall-glow {
     position: absolute;
     inset: 0;
+    overflow: hidden;
     pointer-events: none;
-    background:
-      radial-gradient(
-        620px 460px at var(--gx, 68%) var(--gy, 28%),
-        rgba(193, 95, 61, 0.34),
-        transparent 65%
-      ),
-      radial-gradient(820px 540px at 12% 18%, rgba(184, 146, 77, 0.26), transparent 62%),
-      radial-gradient(700px 520px at 88% 12%, rgba(142, 74, 51, 0.2), transparent 60%),
-      radial-gradient(900px 620px at 46% 96%, rgba(108, 122, 77, 0.22), transparent 62%),
-      radial-gradient(520px 420px at 26% 62%, rgba(193, 95, 61, 0.12), transparent 60%);
     mask-image: linear-gradient(#000 55%, transparent 96%);
+  }
+
+  /* plasma — saturated fall-color blobs drifting around the hero;
+     heavy blur keeps the copy readable as they pass under it */
+  .plasma {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(72px);
+    will-change: transform;
+  }
+
+  .plasma-a {
+    width: 46vw;
+    height: 46vw;
+    left: -10%;
+    top: -20%;
+    background: radial-gradient(circle, rgba(193, 95, 61, 0.42), transparent 68%);
+    animation: plasma-a 26s ease-in-out infinite alternate;
+  }
+
+  .plasma-b {
+    width: 38vw;
+    height: 38vw;
+    right: -8%;
+    top: 2%;
+    background: radial-gradient(circle, rgba(184, 146, 77, 0.4), transparent 68%);
+    animation: plasma-b 34s ease-in-out infinite alternate;
+  }
+
+  .plasma-c {
+    width: 44vw;
+    height: 44vw;
+    left: 28%;
+    bottom: -32%;
+    background: radial-gradient(circle, rgba(108, 122, 77, 0.36), transparent 68%);
+    animation: plasma-c 42s ease-in-out infinite alternate;
+  }
+
+  .plasma-d {
+    width: 30vw;
+    height: 30vw;
+    left: 52%;
+    top: -12%;
+    background: radial-gradient(circle, rgba(142, 74, 51, 0.32), transparent 68%);
+    animation: plasma-b 30s ease-in-out infinite alternate-reverse;
+  }
+
+  @keyframes plasma-a {
+    to {
+      transform: translate(58vw, 28vh) scale(1.18);
+    }
+  }
+
+  @keyframes plasma-b {
+    to {
+      transform: translate(-40vw, 34vh) scale(0.88);
+    }
+  }
+
+  @keyframes plasma-c {
+    to {
+      transform: translate(16vw, -26vh) scale(1.12);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .plasma {
+      animation: none;
+    }
   }
 
   /* halftone dot grid (canvas) — the pattern that bends around the
