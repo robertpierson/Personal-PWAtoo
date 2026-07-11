@@ -86,21 +86,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Founder — cold traffic needs a human in the first screen.
-              [FILL: real photo at public/founder.jpg; line approved by Robert] */}
-          <div className="mt-12 flex items-center gap-4">
-            <span
-              aria-hidden
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-graphite-600 font-mono text-sm text-white"
-            >
-              RP
-            </span>
-            <p className="max-w-md text-sm leading-relaxed text-ash-300">
-              <span className="text-white">Robert Pierson</span> — I run
-              Bandana. You&apos;ll talk to me, not a portal. DM me before you
-              pay us a dollar and ask anything.
-            </p>
-          </div>
         </section>
 
         <div className="pb-24">
