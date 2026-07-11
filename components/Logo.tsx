@@ -20,19 +20,23 @@ export function Logo({
       <svg
         width={size}
         height={size}
-        viewBox="0 0 32 32"
+        viewBox="0 0 240 240"
         fill="none"
         aria-hidden
       >
-        {/* two crossing folds — X mark with knot diamond at center */}
-        <path
-          d="M6 6 L20 16 6 26 6 21 13 16 6 11 Z"
-          fill="var(--paper)"
-        />
-        <path
-          d="M26 6 L12 16 26 26 26 21 19 16 26 11 Z"
-          fill="var(--paper)"
-        />
+        {/* brand X mark: crossing folds, Z-kinked lower arms,
+            knot diamond in the negative space */}
+        <g
+          stroke="var(--paper)"
+          strokeWidth="22"
+          strokeLinejoin="round"
+          strokeLinecap="butt"
+        >
+          <path d="M30 32 112 90" />
+          <path d="M210 32 128 90" />
+          <path d="M102 112 48 128 110 162 28 212" />
+          <path d="M138 112 192 128 130 162 212 212" />
+        </g>
       </svg>
       {wordmark && (
         <span
