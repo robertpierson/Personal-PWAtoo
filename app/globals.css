@@ -349,7 +349,18 @@ body {
     mask-image: linear-gradient(#000 55%, transparent 96%);
   }
 
-  /* grain — the "pattern" over the gradient */
+  /* halftone dot grid (canvas) — the pattern that bends around the
+     cursor; sits over the wash, fades out with the same mask */
+  .fall-dots {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    mask-image: linear-gradient(#000 55%, transparent 96%);
+  }
+
+  /* grain — texture over the gradient */
   .fall-glow::after {
     content: "";
     position: absolute;
