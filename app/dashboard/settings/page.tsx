@@ -4,7 +4,7 @@ import { getWorkspace } from "@/lib/data";
 import { isDemoMode } from "@/lib/demo";
 
 const inputClass =
-  "mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-paper outline-none transition focus:border-clay-400";
+  "mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-paper outline-none transition focus:border-rust-400";
 
 export default async function SettingsPage() {
   const { org, profile } = await getWorkspace();
@@ -46,7 +46,7 @@ export default async function SettingsPage() {
         </h2>
         <div className="mt-5 flex flex-col gap-3">
           {[
-            { name: "Instagram", detail: "@cedarparklittleleague", ok: true },
+            { name: "Instagram", detail: "@ridgelinerobotics", ok: true },
             { name: "Stripe", detail: "Billing and invoices", ok: true },
           ].map((c) => (
             <div
@@ -97,7 +97,7 @@ export default async function SettingsPage() {
               <input
                 type="checkbox"
                 defaultChecked={n.on}
-                className="h-4 w-4 accent-[var(--clay-500)]"
+                className="h-4 w-4 accent-[var(--rust-500)]"
               />
             </label>
           ))}

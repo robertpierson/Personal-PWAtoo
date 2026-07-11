@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { CalendarItem } from "@/lib/db/types";
 
 const THREAD: Record<string, string> = {
-  action: "var(--clay-500)",
+  action: "var(--rust-500)",
   done: "rgba(255,255,255,0.55)",
   idle: "var(--smoke-400)",
 };
@@ -89,15 +89,15 @@ export function CalendarGrid({
               onDrop={day ? () => drop(day) : undefined}
               className={`min-h-20 rounded-[var(--r-sm)] p-2 transition-colors ${
                 day ? "bg-white/3" : ""
-              } ${day && dragId ? "hover:bg-clay-600/20" : ""} ${
-                today ? "shadow-[inset_0_0_0_1.5px_var(--clay-500)]" : ""
+              } ${day && dragId ? "hover:bg-brick/20" : ""} ${
+                today ? "shadow-[inset_0_0_0_1.5px_var(--rust-500)]" : ""
               }`}
             >
               {day && (
                 <>
                   <span
                     className={`tnum text-xs ${
-                      today ? "font-bold text-clay-400" : "text-ash-300"
+                      today ? "font-bold text-rust-400" : "text-ash-300"
                     }`}
                   >
                     {day}

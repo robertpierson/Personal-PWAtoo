@@ -6,18 +6,18 @@ import { CareTag } from "@/components/CareTag";
 
 const VENDORS = [
   {
-    tag: "The website",
-    line: "Built in 2019 by a company that stopped answering email.",
+    tag: "The site",
+    line: "A Linktree and a Google Form from last spring.",
     offset: { "--slab-x": "-36px", "--slab-y": "6px", "--slab-r": "-4deg" },
   },
   {
     tag: "The socials",
-    line: "A volunteer with Canva and forty-five spare minutes a month.",
+    line: "Nine posts. Six are event flyers.",
     offset: { "--slab-x": "24px", "--slab-y": "-8px", "--slab-r": "3deg" },
   },
   {
-    tag: "The newsletter",
-    line: "Nobody, since March. The list is still growing, though.",
+    tag: "The receipts",
+    line: "None. You'll be describing this from memory in an interview.",
     offset: { "--slab-x": "-12px", "--slab-y": "14px", "--slab-r": "-2deg" },
   },
 ];

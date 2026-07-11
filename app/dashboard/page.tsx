@@ -108,7 +108,7 @@ export default async function ThisWeekPage() {
                 <dd className="tnum text-lg font-semibold text-white">
                   {latest.followers}
                   {prev && (
-                    <span className="ml-1.5 text-xs text-sand-300">
+                    <span className="ml-1.5 text-xs text-rust-300">
                       +{latest.followers - prev.followers}
                     </span>
                   )}
@@ -124,7 +124,7 @@ export default async function ThisWeekPage() {
           )}
           <Link
             href="/dashboard/insights"
-            className="mt-5 block text-sm text-clay-400 hover:text-sand-300"
+            className="mt-5 block text-sm text-rust-400 hover:text-rust-300"
           >
             Full numbers →
           </Link>

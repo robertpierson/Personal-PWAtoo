@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: `${brand.tagline} ${brand.promise}`,
     start_url: "/dashboard",
     display: "standalone",
-    background_color: "#f4f0e7", // --ink-800, brand cream (light field)
-    theme_color: "#f4f0e7",
+    background_color: "#22201f", // --ink-800, brand ink
+    theme_color: "#22201f",
     icons: [
       {
         src: "/icon.svg",

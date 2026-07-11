@@ -19,4 +19,11 @@ export const satoshi = localFont({
   display: "swap",
 });
 
+/** Tanker (Fontshare) — heavy utility display face, H1/H2 only. */
+export const tanker = localFont({
+  src: [{ path: "./fonts/Tanker-Regular.woff2", weight: "400", style: "normal" }],
+  variable: "--font-tanker",
+  display: "swap",
+});
+
 export const mono = GeistMono;

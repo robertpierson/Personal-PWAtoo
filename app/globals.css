@@ -4,41 +4,38 @@
 /* Bandana tokens — the only place raw color values are allowed.      */
 /* ------------------------------------------------------------------ */
 :root {
-  /* FIELD — light theme: white-to-cream field built around brand #F4F0E7.
-     Role-based names: "ink" = field/surface, "white"/"paper" = contrast
-     text. Values flipped for the light theme; roles unchanged. */
-  --ink-900: #fdfbf7;
-  --ink-800: #f4f0e7; /* brand cream */
-  --ink-700: #ece6d9;
-  --graphite-600: #ddd5c6;
-  --graphite-500: #cfc6b5;
-  --smoke-400: #8a8580;
-  --ash-300: #6b655d;
+  /* GROUND — near-black field built on brand ink #22201F */
+  --ink-900: #1a1815;
+  --ink-800: #22201f; /* brand ink — ground */
+  --ink-700: #2b2825;
+  --graphite-600: #363230;
+  --graphite-500: #413d39;
+  --smoke-400: #4d5458; /* brand slate — hairlines, muted chrome only */
+  --ash-300: #9ba0a4; /* slate lightened for AA muted text */
 
-  /* CONTRAST — dark text on the light field */
-  --white: #22201f; /* brand black */
-  --paper: #2b2825;
+  /* CONTRAST — cream text on ink */
+  --white: #f4f0e7; /* brand cream */
+  --paper: #ddd7c9;
 
-  /* Text on dark surfaces (nav pill, primary buttons) */
+  /* Text on accent surfaces (primary buttons) */
   --on-dark: #f4f0e7;
 
-  /* CLAY (pop; brand terracotta ramp) */
-  --rust-700: #8e4a33; /* brand rust */
-  --clay-600: #a75236;
-  --clay-500: #c15f3d; /* PRIMARY — brand terracotta */
-  --clay-400: #d57f5c;
-  --sand-300: #e5a886;
-  --cream-200: #f2d3c0;
+  /* RUST — action only: CTAs, links, accent words */
+  --brick: #8e4a33; /* hover state */
+  --rust-500: #c15f3d; /* PRIMARY action */
+  --rust-400: #d57f5c;
+  --rust-300: #e5a886;
+  --rust-200: #f2d3c0;
 
-  /* MICRO (rare) */
-  --selvedge: #6c7a4d; /* brand olive */
-  --topstitch: #b8924d; /* brand ochre */
+  /* ONE COLOR, ONE JOB */
+  --olive: #6c7a4d; /* growth / positive delta */
+  --gold: #b8924d; /* résumé-line emphasis */
 
-  /* GLASS — warm-white panes over the light field */
-  --glass-fill: rgba(255, 253, 248, 0.5);
-  --glass-edge: rgba(255, 255, 255, 0.9);
-  --glass-inner: rgba(193, 95, 61, 0.1);
-  --glass-shadow: rgba(90, 60, 40, 0.28);
+  /* GLASS — neutral panes; rust stays reserved for action */
+  --glass-fill: rgba(244, 240, 231, 0.05);
+  --glass-edge: rgba(255, 255, 255, 0.3);
+  --glass-inner: rgba(244, 240, 231, 0.05);
+  --glass-shadow: rgba(6, 5, 4, 0.55);
 
   /* RADIUS */
   --r-sm: 12px;
@@ -57,14 +54,13 @@
   --color-ash-300: var(--ash-300);
   --color-white: var(--white);
   --color-paper: var(--paper);
-  --color-rust-700: var(--rust-700);
-  --color-clay-600: var(--clay-600);
-  --color-clay-500: var(--clay-500);
-  --color-clay-400: var(--clay-400);
-  --color-sand-300: var(--sand-300);
-  --color-cream-200: var(--cream-200);
-  --color-selvedge: var(--selvedge);
-  --color-topstitch: var(--topstitch);
+  --color-brick: var(--brick);
+  --color-rust-500: var(--rust-500);
+  --color-rust-400: var(--rust-400);
+  --color-rust-300: var(--rust-300);
+  --color-rust-200: var(--rust-200);
+  --color-olive: var(--olive);
+  --color-gold: var(--gold);
   --color-on-dark: var(--on-dark);
 
   --radius-sm: var(--r-sm);
@@ -72,8 +68,8 @@
   --radius-lg: var(--r-lg);
   --radius-pill: var(--r-pill);
 
-  --font-display: var(--font-satoshi), "Helvetica Neue", Arial, system-ui,
-    sans-serif;
+  --font-display: var(--font-tanker), "Arial Black", "Helvetica Neue",
+    system-ui, sans-serif;
   --font-sans: var(--font-satoshi), system-ui, "Segoe UI", sans-serif;
   --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace,
     monospace;
@@ -90,7 +86,7 @@ body {
 }
 
 ::selection {
-  background: var(--clay-600);
+  background: var(--brick);
   color: var(--on-dark);
 }
 
@@ -98,21 +94,22 @@ body {
 /* Type system                                                         */
 /* ------------------------------------------------------------------ */
 @layer components {
+  /* Tanker ships one weight — heft comes from the face, not the axis */
   .headline {
     font-family: var(--font-display);
-    font-size: clamp(2.75rem, 6.5vw, 6.5rem);
-    line-height: 0.98;
-    letter-spacing: -0.02em;
-    font-weight: 780;
+    font-size: clamp(2.9rem, 6.8vw, 6.75rem);
+    line-height: 0.96;
+    letter-spacing: 0.005em;
+    font-weight: 400;
     color: var(--white);
   }
 
   .subhead {
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 2.8vw, 2.5rem);
-    line-height: 1.04;
-    letter-spacing: -0.015em;
-    font-weight: 700;
+    font-size: clamp(1.6rem, 3vw, 2.75rem);
+    line-height: 1.02;
+    letter-spacing: 0.01em;
+    font-weight: 400;
     color: var(--white);
   }
 
@@ -152,13 +149,13 @@ body {
 
   .glass[data-depth="mid"] {
     --glass-blur: 18px;
-    --glass-bg: rgba(255, 253, 248, 0.4);
+    --glass-bg: rgba(244, 240, 231, 0.035);
     box-shadow: 0 18px 36px -20px var(--glass-shadow);
   }
 
   .glass[data-depth="far"] {
     --glass-blur: 10px;
-    --glass-bg: rgba(255, 253, 248, 0.3);
+    --glass-bg: rgba(244, 240, 231, 0.025);
     box-shadow: 0 12px 28px -18px var(--glass-shadow);
   }
 
@@ -201,7 +198,7 @@ body {
   .glass-rim {
     box-shadow:
       inset 0 1px 0 var(--glass-edge),
-      inset 0 0 0 1px rgba(34, 32, 31, 0.08);
+      inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   }
 
   .glass-rim::before {
@@ -212,10 +209,10 @@ body {
     padding: 1px;
     background: linear-gradient(
       160deg,
-      rgba(255, 255, 255, 0.95),
-      rgba(34, 32, 31, 0.06) 28%,
-      rgba(142, 74, 51, 0.3) 62%,
-      rgba(255, 255, 255, 0.5)
+      rgba(255, 255, 255, 0.4),
+      rgba(255, 255, 255, 0.05) 30%,
+      rgba(77, 84, 88, 0.35) 65%,
+      rgba(255, 255, 255, 0.12)
     );
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
@@ -227,12 +224,12 @@ body {
     mask-composite: exclude;
   }
 
-  /* 4 — fall-palette spotlight; PointerLight moves --mx/--my */
+  /* 4 — quiet specular highlight; PointerLight moves --mx/--my */
   .glass-light {
     background: radial-gradient(
       240px circle at var(--mx, 50%) var(--my, -30%),
-      rgba(193, 95, 61, 0.14),
-      rgba(184, 146, 77, 0.07) 45%,
+      rgba(244, 240, 231, 0.09),
+      rgba(244, 240, 231, 0.03) 45%,
       transparent 72%
     );
   }
@@ -247,7 +244,7 @@ body {
   .glass-base {
     background: linear-gradient(
       155deg,
-      color-mix(in srgb, var(--rust-700) 55%, var(--ink-800)),
+      color-mix(in srgb, var(--brick) 55%, var(--ink-800)),
       var(--ink-800) 70%
     );
   }
@@ -262,7 +259,7 @@ body {
     backdrop-filter: none;
     background: linear-gradient(
       155deg,
-      color-mix(in srgb, var(--rust-700) 55%, var(--ink-800)),
+      color-mix(in srgb, var(--brick) 55%, var(--ink-800)),
       var(--ink-800) 70%
     );
   }
@@ -276,36 +273,20 @@ body {
   .glass-light {
     background: radial-gradient(
       240px circle at 50% -30%,
-      rgba(193, 95, 61, 0.1),
+      rgba(244, 240, 231, 0.07),
       transparent 70%
     );
   }
 }
 
 /* ------------------------------------------------------------------ */
-/* Matte field — white gradient with fall-palette glows. The strongest */
-/* glow sits top-right, under the nav Contact button.                  */
+/* Matte field — flat ink ground. No gradient meshes; the boldness     */
+/* budget is spent on the Receipt.                                     */
 /* ------------------------------------------------------------------ */
 @layer components {
   .matte {
     position: relative;
-    background:
-      radial-gradient(
-        1100px 750px at 82% -8%,
-        rgba(193, 95, 61, 0.3),
-        transparent 60%
-      ),
-      radial-gradient(
-        850px 650px at 2% 34%,
-        rgba(184, 146, 77, 0.2),
-        transparent 55%
-      ),
-      radial-gradient(
-        950px 700px at 55% 112%,
-        rgba(108, 122, 77, 0.18),
-        transparent 58%
-      ),
-      linear-gradient(#ffffff, var(--ink-800));
+    background: linear-gradient(var(--ink-900), var(--ink-800));
   }
 
   .matte > * {
@@ -336,7 +317,7 @@ body {
 
   .btn-primary {
     color: var(--on-dark);
-    background: linear-gradient(180deg, var(--clay-500), var(--clay-600));
+    background: linear-gradient(180deg, var(--rust-500), var(--brick));
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.28),
       inset 0 0 0 1px rgba(255, 255, 255, 0.08),
@@ -345,22 +326,22 @@ body {
 
   .btn-primary:hover {
     transform: translateY(-1px);
-    background: linear-gradient(180deg, var(--clay-400), var(--clay-500));
+    background: linear-gradient(180deg, var(--brick), var(--brick));
   }
 
   .btn-ghost {
     color: var(--paper);
-    border: 1px solid rgba(34, 32, 31, 0.18);
-    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(244, 240, 231, 0.18);
+    background: rgba(244, 240, 231, 0.03);
   }
 
   .btn-ghost:hover {
-    border-color: rgba(34, 32, 31, 0.34);
-    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(244, 240, 231, 0.34);
+    background: rgba(244, 240, 231, 0.07);
   }
 
   :is(.btn, a, button):focus-visible {
-    outline: 2px solid var(--clay-400);
+    outline: 2px solid var(--rust-400);
     outline-offset: 2px;
   }
 
@@ -399,25 +380,14 @@ body {
       background-color 240ms ease;
   }
 
-  /* Nav pill stays dark on the light field — the contrast layer the
-     white logo and wordmark sit on. */
   .site-nav .glass-base {
     transition: background-color 240ms ease;
-    background:
-      linear-gradient(160deg, rgba(193, 95, 61, 0.18), transparent 45%),
-      rgba(34, 32, 31, 0.86);
   }
 
   .site-nav[data-scrolled] .glass-base {
-    background-color: rgba(26, 24, 21, 0.92);
+    background-color: rgba(26, 24, 21, 0.65);
     -webkit-backdrop-filter: blur(34px) saturate(160%);
     backdrop-filter: blur(34px) saturate(160%);
-  }
-
-  .site-nav .glass-rim {
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.22),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   }
 
   /* Crew ticker — audience as slow-scrolling clay tag chips */
@@ -449,9 +419,9 @@ body {
     font-size: 0.6875rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--rust-700);
-    background: rgba(193, 95, 61, 0.1);
-    box-shadow: inset 0 0 0 1px rgba(193, 95, 61, 0.28);
+    color: var(--ash-300);
+    background: rgba(244, 240, 231, 0.04);
+    box-shadow: inset 0 0 0 1px rgba(77, 84, 88, 0.5);
   }
 
   /* Problem slabs — misaligned vendors snapping into one system */
@@ -467,11 +437,11 @@ body {
     --slab-r: 0deg;
   }
 
-  /* Stitched timeline — topstitch hairline with thread nodes */
+  /* Stitched timeline — gold hairline with thread nodes */
   .stitch-line {
     background-image: repeating-linear-gradient(
       to bottom,
-      var(--topstitch) 0 6px,
+      var(--gold) 0 6px,
       transparent 6px 12px
     );
     width: 1px;
@@ -484,7 +454,7 @@ body {
     border-radius: 999px;
     background: var(--ink-800);
     box-shadow:
-      inset 0 0 0 1.5px var(--topstitch),
+      inset 0 0 0 1.5px var(--gold),
       0 0 0 4px var(--ink-900);
   }
 
@@ -535,76 +505,7 @@ body {
 
   .faq-item[open] summary::after {
     transform: rotate(45deg);
-    color: var(--clay-400);
-  }
-}
-
-/* ------------------------------------------------------------------ */
-/* Before/After slider                                                 */
-/* ------------------------------------------------------------------ */
-@layer components {
-  .ba-range {
-    -webkit-appearance: none;
-    appearance: none;
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    cursor: ew-resize;
-    margin: 0;
-  }
-
-  .ba-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 999px;
-    background: transparent;
-  }
-
-  .ba-range::-moz-range-thumb {
-    width: 40px;
-    height: 40px;
-    border-radius: 999px;
-    background: transparent;
-    border: none;
-  }
-
-  .ba-handle {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: var(--ba, 50%);
-    width: 2px;
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--glass-edge) 15%,
-      var(--glass-edge) 85%,
-      transparent
-    );
-    pointer-events: none;
-  }
-
-  .ba-handle::after {
-    content: "↔";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 999px;
-    color: var(--white);
-    background: rgba(193, 95, 61, 0.35);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    box-shadow:
-      inset 0 1px 0 var(--glass-edge),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    color: var(--rust-400);
   }
 }
 
@@ -635,20 +536,79 @@ body {
   }
 
   .status-action {
-    color: var(--sand-300);
+    color: var(--rust-300);
     background: rgba(193, 95, 61, 0.16);
     box-shadow: inset 0 0 0 1px rgba(213, 127, 92, 0.35);
   }
 
   .status-done {
     color: var(--paper);
-    background: rgba(34, 32, 31, 0.06);
-    box-shadow: inset 0 0 0 1px rgba(34, 32, 31, 0.14);
+    background: rgba(244, 240, 231, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(244, 240, 231, 0.12);
   }
 
   .status-idle {
     color: var(--ash-300);
-    background: rgba(34, 32, 31, 0.03);
-    box-shadow: inset 0 0 0 1px rgba(34, 32, 31, 0.08);
+    background: rgba(244, 240, 231, 0.03);
+    box-shadow: inset 0 0 0 1px rgba(244, 240, 231, 0.07);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* The Receipt — the one loud thing on the site.                       */
+/* Cream paper card, mono type, dashed hairlines, perforated tear.     */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .receipt {
+    position: relative;
+    background: var(--white);
+    color: var(--ink-800);
+    font-family: var(--font-mono);
+    border-radius: 6px 6px 0 0;
+    box-shadow: 0 30px 60px -30px rgba(6, 5, 4, 0.8);
+  }
+
+  /* torn / perforated bottom edge: ink sawtooth eating into the paper */
+  .receipt::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -1px;
+    height: 12px;
+    background:
+      linear-gradient(-45deg, var(--ink-900) 6px, transparent 0),
+      linear-gradient(45deg, var(--ink-900) 6px, transparent 0);
+    background-size: 14px 14px;
+    background-position: bottom left;
+    background-repeat: repeat-x;
+  }
+
+  .receipt-rule {
+    border: none;
+    border-top: 1.5px dashed rgba(34, 32, 31, 0.35);
+    margin: 0;
+  }
+
+  /* line items print in, top to bottom */
+  .receipt-line {
+    animation: receipt-print 260ms ease-out both;
+    animation-delay: calc(var(--i, 0) * 80ms);
+  }
+
+  @keyframes receipt-print {
+    from {
+      opacity: 0;
+      transform: translateY(7px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .receipt-line {
+      animation: none;
+    }
   }
 }

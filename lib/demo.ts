@@ -37,9 +37,9 @@ const at = (base: Date, days: number, hour: number) => {
 
 export const demoOrg: Organization = {
   id: "demo-org",
-  name: "Cedar Park Little League",
-  slug: "cedar-park-little-league",
-  org_type: "Youth league",
+  name: "Ridgeline Robotics Club",
+  slug: "ridgeline-robotics-club",
+  org_type: "Robotics / engineering team",
   logo_url: null,
   created_at: "2026-02-03T15:00:00.000Z",
 };
@@ -48,7 +48,7 @@ export const demoUser: UserProfile = {
   id: "demo-user",
   org_id: demoOrg.id,
   role: "owner",
-  email: "board@cedarparklittleleague.org",
+  email: "founder@ridgelinerobotics.org",
   full_name: "Dana Whitfield",
   avatar_url: null,
   onboarded: true,
@@ -81,7 +81,7 @@ export function demoCalendar(): CalendarItem[] {
       0,
       9,
       "instagram",
-      "Opening day recap — 214 kids, 18 teams, zero rainouts. Thanks to every volunteer who showed up at 6am. ⚾",
+      "Regional qualifier recap — 3rd of 42 teams, and the drivetrain held. Build-season write-up on the site. 🤖",
       "shipped",
     ),
     item(
@@ -89,7 +89,7 @@ export function demoCalendar(): CalendarItem[] {
       1,
       17,
       "facebook",
-      "Snack stand volunteer slots for Saturday are live. Two-hour shifts, free coffee, best seat in the park.",
+      "New-member interest form is live. Ten minutes, no experience needed — we teach CAD from zero.",
       "shipped",
     ),
     item(
@@ -97,7 +97,7 @@ export function demoCalendar(): CalendarItem[] {
       3,
       12,
       "instagram",
-      "Meet the coaches: Marcus Lee, 11 seasons with the Cubs, still hasn't lost a pizza bet.",
+      "Meet the build leads: Marcus Lee, three seasons in, still hasn't lost a soldering-iron bet.",
       "awaiting_approval",
     ),
     item(
@@ -105,7 +105,7 @@ export function demoCalendar(): CalendarItem[] {
       4,
       9,
       "website",
-      "Field 2 maintenance closure June 14–15 — makeup games posted to the schedule page.",
+      "Workshop closed June 14–15 for competition travel — build hours move to the schedule page.",
       "awaiting_approval",
     ),
     item(
@@ -113,7 +113,7 @@ export function demoCalendar(): CalendarItem[] {
       5,
       10,
       "instagram",
-      "Photo day is coming. Clean jerseys, big smiles, order forms go home Thursday.",
+      "Demo day is coming. Working robots, big smiles, RSVP link in bio.",
       "awaiting_approval",
     ),
     item(
@@ -121,7 +121,7 @@ export function demoCalendar(): CalendarItem[] {
       5,
       18,
       "email",
-      "June newsletter: standings, photo day, and a thank-you to our sponsors at Hilltop Hardware.",
+      "June newsletter: qualifier results, demo day, and a thank-you to our sponsor Hilltop Hardware.",
       "approved",
     ),
     item(
@@ -129,7 +129,7 @@ export function demoCalendar(): CalendarItem[] {
       6,
       11,
       "facebook",
-      "End-of-season party planning survey — two minutes, one question that matters: tacos or pizza?",
+      "End-of-semester survey — two minutes, one question that matters: tacos or pizza?",
       "drafting",
     ),
   ];
@@ -159,7 +159,7 @@ export function demoContent(): ClientContent[] {
     piece("cc-1", "Game day graphics — June set", "design", "delivered", 18),
     piece("cc-2", "Sponsor thank-you banner: Hilltop Hardware", "design", "delivered", 14),
     piece("cc-3", "Opening day photo album", "photo", "delivered", 12),
-    piece("cc-4", "Meet-the-coaches card series", "design", "approved", 6),
+    piece("cc-4", "Meet-the-build-leads card series", "design", "approved", 6),
     piece("cc-5", "Photo day parent flyer", "document", "in_review", 3),
     piece("cc-6", "Season highlight reel — 30s cut", "video", "drafting", 1),
   ];

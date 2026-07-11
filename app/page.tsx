@@ -7,48 +7,52 @@ import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { CrewTicker } from "@/components/marketing/CrewTicker";
 import { ProblemSlabs } from "@/components/marketing/ProblemSlabs";
-import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
+import { Receipt } from "@/components/marketing/Receipt";
 import { PricingTiers } from "@/components/TierCard";
-import { CASES } from "@/lib/cases";
 
 const SYSTEM_SLABS = [
   {
     title: "Design & brand",
-    body: "Logo, site, templates — one look that holds together everywhere your name shows up.",
+    body: "One look everywhere your org shows up — site, socials, flyers, the works.",
   },
   {
     title: "Content & calendar",
-    body: "Posts written, designed, and scheduled weeks ahead. You approve; we ship.",
+    body: "Written, designed, scheduled. You approve, we ship — nothing publishes without your review.",
   },
   {
-    title: "Insights & reporting",
-    body: "A monthly report in plain English. What worked, what didn't, what's next.",
+    title: "The report",
+    body: "Real numbers, plain English, and the line you can put on a résumé.",
   },
 ];
 
-// Case studies live in lib/cases.ts, shared with /work.
-// The four-step process lives on /how-it-works.
-
-const FAQ = [
+const OBJECTIONS = [
   {
-    q: "We already have a Facebook page.",
-    a: "Perfect — that's an asset, not a problem. We take what exists, make it consistent with everything else, and keep it alive. The difference isn't the page; it's the cadence.",
+    q: "“Isn’t this just buying a résumé line?”",
+    a: "No — and it wouldn’t work if it were. We don’t invent anything. The org is yours, the work is real, the numbers come from things that actually happened. We execute at a level that’s hard to hit with eighteen credit hours. Ask us to fake a number and we’ll say no, because it falls apart the first time someone asks a follow-up — and someone will.",
   },
   {
-    q: "What if we don't like a post?",
-    a: "It never goes out. Every post sits in your approval queue first — approve it or request changes with a note. Nothing publishes without your review. That's the whole promise.",
+    q: "“What do I put on my résumé?”",
+    a: "Whatever the numbers support and nothing more.",
   },
   {
-    q: "Who owns our accounts and content?",
-    a: "You do, always. We work inside accounts you control, and everything we make — designs, photos, copy — is yours to keep, even if you leave.",
+    q: "“I’m starting from zero.”",
+    a: "Easiest case. Faster than fixing someone else’s mess.",
   },
   {
-    q: "We're volunteers. How much time does this actually take?",
-    a: "About ten minutes a week: open the queue, read a few posts, tap approve. We handle everything on either side of that.",
+    q: "“What if I don’t like a post?”",
+    a: "It never goes out. Approval queue first.",
   },
   {
-    q: "How is $59 a month realistic for real work?",
-    a: "Because you're buying a system, not an agency retainer. We build your templates and calendar once, then run them efficiently across the month. Small orgs don't need custom everything — they need consistent, good-looking, true.",
+    q: "“Who owns it?”",
+    a: "You do. Always. Even if you leave.",
+  },
+  {
+    q: "“I graduate in five months.”",
+    a: "That’s a semester of shipped work and five reports.",
+  },
+  {
+    q: "“How is $59 realistic?”",
+    a: "You’re buying a system, not a retainer. Templates and calendar built once, run across the month.",
   },
 ];
 
@@ -57,27 +61,45 @@ export default function Home() {
     <>
       <SiteNav />
       <MatteSection as="main" className="overflow-x-clip">
-        {/* HERO */}
-        <section className="mx-auto max-w-6xl px-6 pb-20 pt-36 sm:pt-44">
-          <div className="mx-auto max-w-3xl text-center">
-            <CareTag>Done-for-you online presence</CareTag>
+        {/* HERO — asymmetric, left-set */}
+        <section className="mx-auto max-w-6xl px-6 pb-16 pt-36 sm:pt-44">
+          <div className="max-w-3xl">
+            <CareTag>For students who run things</CareTag>
             <h1 className="headline mt-5">
-              Look the part.
+              Run something real.
               <br />
-              Stay the <span className="text-clay-500">part</span>.
+              Keep the <span className="text-rust-500">receipts</span>.
             </h1>
-            <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-ash-300">
-              One crew runs your website, socials, and reporting — and
-              nothing publishes without your review.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ash-300">
+              We run the site, the socials, and the reporting for your club,
+              org, or startup — so it actually grows, and so you finish the
+              semester with numbers you can put on a résumé and defend in an
+              interview.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <div className="mt-8 flex flex-wrap gap-4">
               <Link href="/contact" className="btn btn-primary">
                 Book an intro call
               </Link>
               <Link href="/how-it-works" className="btn btn-ghost">
-                How it works
+                See what you get
               </Link>
             </div>
+          </div>
+
+          {/* Founder — cold traffic needs a human in the first screen.
+              [FILL: real photo at public/founder.jpg; line approved by Robert] */}
+          <div className="mt-12 flex items-center gap-4">
+            <span
+              aria-hidden
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-graphite-600 font-mono text-sm text-white"
+            >
+              RP
+            </span>
+            <p className="max-w-md text-sm leading-relaxed text-ash-300">
+              <span className="text-white">Robert Pierson</span> — I run
+              Bandana. You&apos;ll talk to me, not a portal. DM me before you
+              pay us a dollar and ask anything.
+            </p>
           </div>
         </section>
 
@@ -85,38 +107,55 @@ export default function Home() {
           <CrewTicker />
         </div>
 
-        {/* PROBLEM — three vendors who never spoke */}
+        {/* THE RECEIPT — the one loud thing */}
+        <section className="mx-auto max-w-6xl px-6 pb-28">
+          <div className="grid items-center gap-14 lg:grid-cols-[1fr_1.1fr]">
+            <Reveal>
+              <CareTag>The product</CareTag>
+              <h2 className="subhead mt-4">
+                A résumé line you can actually defend.
+              </h2>
+              <p className="mt-5 max-w-md leading-relaxed text-ash-300">
+                Anyone can write &ldquo;Founder, Campus Org.&rdquo; Almost
+                nobody can answer the follow-up question. The monthly report
+                is the product: what ran, what grew, and how it reads on
+                paper.
+              </p>
+            </Reveal>
+            <Reveal delay={100}>
+              <Receipt />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* PROBLEM */}
         <section className="mx-auto max-w-6xl px-6 pb-28">
           <div className="grid items-center gap-14 lg:grid-cols-2">
             <Reveal>
               <CareTag>The usual setup</CareTag>
               <h2 className="subhead mt-4">
-                Three vendors. Zero conversations.
+                You did the work. Nobody can tell.
               </h2>
               <p className="mt-5 max-w-md leading-relaxed text-ash-300">
-                The website says one thing, the feed says another, and the
-                newsletter says nothing at all. Not because anyone failed —
-                because nobody was holding all three.
+                The org is real. The hours are real. But what exists online
+                wouldn&apos;t convince a recruiter — or your own members —
+                that anything happened.
               </p>
             </Reveal>
             <ProblemSlabs />
           </div>
         </section>
 
-        {/* ONE SYSTEM — three slabs, clay spines */}
+        {/* THE SYSTEM */}
         <section className="mx-auto max-w-6xl px-6 pb-28">
           <Reveal>
             <CareTag>The Bandana way</CareTag>
-            <h2 className="subhead mt-4">One system, holding together.</h2>
+            <h2 className="subhead mt-4">One crew. Your name on it.</h2>
           </Reveal>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {SYSTEM_SLABS.map((slab, i) => (
               <Reveal key={slab.title} delay={i * 90}>
-                <GlassPanel
-                  depth="mid"
-                  radius="lg"
-                  contentClassName="p-7 h-full"
-                >
+                <GlassPanel depth="mid" radius="lg" contentClassName="p-7 h-full">
                   <h3 className="text-lg font-semibold text-white">
                     {slab.title}
                   </h3>
@@ -129,57 +168,31 @@ export default function Home() {
           </div>
         </section>
 
-        {/* BEFORE / AFTER */}
-        <section className="mx-auto max-w-4xl px-6 pb-28">
-          <Reveal>
-            <div className="text-center">
-              <CareTag>Drag it</CareTag>
-              <h2 className="subhead mt-4">From dead link to game day.</h2>
-            </div>
-          </Reveal>
-          <Reveal delay={120} className="mt-10">
-            <BeforeAfterSlider />
-          </Reveal>
-        </section>
-
-        {/* WORK */}
+        {/* THE WORK — honest, no invented clients */}
         <section id="work" className="scroll-mt-28 px-6 pb-28">
           <div className="mx-auto max-w-6xl">
             <Reveal>
               <CareTag>The work</CareTag>
-              <h2 className="subhead mt-4">
-                Good organizations, looking the part.
-              </h2>
+              <h2 className="subhead mt-4">Real orgs. Real numbers.</h2>
+              <p className="mt-5 max-w-md leading-relaxed text-ash-300">
+                Every number on this site came from work we actually ran.
+                We&apos;re early — so right now that list is short, and we
+                won&apos;t pad it.
+              </p>
             </Reveal>
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
-              {CASES.map((w, i) => (
-                <Reveal key={w.slug} delay={i * 90}>
-                  <Link href={`/work/${w.slug}`} className="block h-full">
-                    <GlassPanel
-                      depth="mid"
-                      radius="lg"
-                      light
-                      className="h-full transition-transform duration-200 hover:-translate-y-1"
-                      contentClassName="flex h-full flex-col p-7"
-                    >
-                      <CareTag>{w.type}</CareTag>
-                      <h3 className="mt-3 text-lg font-semibold text-white">
-                        {w.org}
-                      </h3>
-                      <p className="mt-3 flex-1 text-sm leading-relaxed text-ash-300">
-                        {w.summary}
-                      </p>
-                      <div className="mt-6 border-t border-white/10 pt-4">
-                        <span className="tnum text-3xl font-bold text-clay-400">
-                          {w.stat}
-                        </span>
-                        <span className="care-tag ml-2">{w.statLabel}</span>
-                      </div>
-                    </GlassPanel>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
+            <Reveal delay={100} className="mt-10">
+              <GlassPanel depth="far" radius="lg" contentClassName="p-8">
+                {/* [FILL: real work + real numbers — named, anonymized
+                    ("a robotics club in Texas"), or omit entirely] */}
+                <CareTag>Concept — not a client engagement</CareTag>
+                <p className="mt-4 max-w-2xl leading-relaxed text-paper">
+                  This is where client work goes, labeled honestly: a name if
+                  they agree, &ldquo;a robotics club in Texas&rdquo; if they
+                  don&apos;t. Until then, this card stays a placeholder —
+                  because a fake case study dies at the first Google search.
+                </p>
+              </GlassPanel>
+            </Reveal>
           </div>
         </section>
 
@@ -190,9 +203,7 @@ export default function Home() {
               <div className="text-center">
                 <CareTag>Pricing</CareTag>
                 <h2 className="subhead mt-4">
-                  Priced like a utility bill,
-                  <br />
-                  not an agency.
+                  Costs less than your textbooks.
                 </h2>
               </div>
             </Reveal>
@@ -202,39 +213,19 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PROOF */}
-        <section className="px-6 pb-28">
-          <div className="mx-auto grid max-w-5xl gap-10 text-center sm:grid-cols-3">
-            {[
-              { stat: "10 min", label: "of your week, tops — the rest is ours" },
-              { stat: "100%", label: "of posts reviewed by you before shipping" },
-              { stat: "1 report", label: "a month, written in plain English" },
-            ].map((p, i) => (
-              <Reveal key={p.stat} delay={i * 90}>
-                <p className="tnum font-[var(--font-display)] text-5xl font-bold text-white">
-                  {p.stat}
-                </p>
-                <p className="mx-auto mt-3 max-w-[26ch] text-sm leading-relaxed text-ash-300">
-                  {p.label}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
-        {/* FAQ */}
+        {/* OBJECTIONS */}
         <section className="px-6 pb-28">
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <div className="text-center">
-                <CareTag>Fair questions</CareTag>
+                <CareTag>Straight answers</CareTag>
                 <h2 className="subhead mt-4">
-                  What the board will ask.
+                  What you&apos;re actually wondering.
                 </h2>
               </div>
             </Reveal>
             <div className="mt-10 space-y-4">
-              {FAQ.map((item, i) => (
+              {OBJECTIONS.map((item, i) => (
                 <Reveal key={item.q} delay={i * 60}>
                   <GlassPanel depth="far" radius="md" contentClassName="p-0">
                     <details className="faq-item group p-6">
@@ -252,7 +243,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CTA BAND */}
+        {/* CLOSING CTA */}
         <section className="px-6 pb-32">
           <div className="mx-auto max-w-4xl">
             <Reveal>
@@ -263,11 +254,12 @@ export default function Home() {
               >
                 <CareTag>Open enrollment, year round</CareTag>
                 <h2 className="headline mt-5">
-                  Join the <span className="text-clay-400">crew</span>.
+                  Join the <span className="text-rust-500">crew</span>.
                 </h2>
                 <p className="mx-auto mt-5 max-w-md leading-relaxed text-ash-300">
-                  One intro call. No deck, no pressure. Just an honest look
-                  at your presence and what it would take to look the part.
+                  One call, twenty minutes. No deck. We look at what
+                  you&apos;re running and tell you honestly whether we can
+                  make it grow.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-4">
                   <Link href="/contact" className="btn btn-primary">

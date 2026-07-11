@@ -5,19 +5,19 @@
  */
 export const brand = {
   name: "Bandana",
-  tagline: "Marketing that makes an impact.",
+  tagline: "Run something real. Keep the receipts.",
   promise: "Nothing publishes without your review.",
-  accent: "clay" as const,
+  accent: "rust" as const,
   /** Token names (CSS custom properties) that define the accent ramp. */
   accentRamp: [
-    "--rust-700",
-    "--clay-600",
-    "--clay-500",
-    "--clay-400",
-    "--sand-300",
-    "--cream-200",
+    "--brick",
+    "--rust-500",
+    "--rust-400",
+    "--rust-300",
+    "--rust-200",
   ],
-  microAccents: ["--selvedge", "--topstitch"],
+  /** One color, one job: olive = growth delta, gold = résumé emphasis. */
+  microAccents: ["--olive", "--gold"],
 } as const;
 
 export type Brand = typeof brand;

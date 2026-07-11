@@ -24,8 +24,8 @@ function ReachChart({ values }: { values: number[] }) {
     >
       <defs>
         <linearGradient id="reach-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="var(--clay-500)" stopOpacity="0.35" />
-          <stop offset="1" stopColor="var(--clay-500)" stopOpacity="0" />
+          <stop offset="0" stopColor="var(--rust-500)" stopOpacity="0.35" />
+          <stop offset="1" stopColor="var(--rust-500)" stopOpacity="0" />
         </linearGradient>
       </defs>
       {[0.25, 0.5, 0.75].map((f) => (
@@ -42,7 +42,7 @@ function ReachChart({ values }: { values: number[] }) {
       <polyline
         points={line}
         fill="none"
-        stroke="var(--clay-400)"
+        stroke="var(--rust-400)"
         strokeWidth="2.5"
         strokeLinejoin="round"
         strokeLinecap="round"
@@ -54,7 +54,7 @@ function ReachChart({ values }: { values: number[] }) {
           cy={y(v)}
           r="3"
           fill="var(--ink-900)"
-          stroke="var(--sand-300)"
+          stroke="var(--rust-300)"
           strokeWidth="1.5"
         />
       ))}
@@ -108,7 +108,7 @@ export default async function InsightsPage() {
             <p className="tnum mt-2 text-3xl font-bold text-white">
               {t.value.toLocaleString("en-US")}
             </p>
-            <p className="tnum mt-1 text-xs text-sand-300">
+            <p className="tnum mt-1 text-xs text-rust-300">
               {t.delta >= 0 ? "+" : ""}
               {t.delta.toLocaleString("en-US")} this week
             </p>
@@ -130,8 +130,8 @@ export default async function InsightsPage() {
             your name this week alone.
           </li>
           <li>
-            Follower growth is steady, not spiky. Steady is what funders and
-            families trust.
+            Follower growth is steady, not spiky. Steady is what recruiters and
+            sponsors trust.
           </li>
           <li>
             Profile views keep climbing — people who see a post are checking

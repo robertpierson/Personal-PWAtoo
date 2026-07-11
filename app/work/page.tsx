@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { GlassPanel } from "@/components/glass/GlassPanel";
 import { MatteSection } from "@/components/glass/MatteSection";
@@ -5,12 +6,11 @@ import { CareTag } from "@/components/CareTag";
 import { Reveal } from "@/components/Reveal";
 import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
-import { CASES } from "@/lib/cases";
 
-export const metadata = {
-  title: "Bandana — Work",
+export const metadata: Metadata = {
+  title: "Work — Bandana",
   description:
-    "Good organizations, looking the part. Case studies from the crew.",
+    "Real orgs, real numbers. Every number on this site came from work we actually ran.",
 };
 
 export default function WorkPage() {
@@ -18,52 +18,39 @@ export default function WorkPage() {
     <>
       <SiteNav />
       <MatteSection as="main" className="min-h-dvh">
-        <div className="mx-auto max-w-6xl px-6 pb-24 pt-36 sm:pt-44">
+        <div className="mx-auto max-w-4xl px-6 pb-24 pt-36 sm:pt-44">
           <CareTag>The work</CareTag>
           <h1 className="headline mt-4">
-            Good organizations,
+            Real orgs.
             <br />
-            looking the <span className="text-clay-400">part</span>.
+            Real <span className="text-rust-500">numbers</span>.
           </h1>
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-ash-300">
-            Real orgs, real seasons, real numbers. Every one reviewed and
-            approved by the people whose name is on it.
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ash-300">
+            Every number on this site came from work we actually ran.
+            We&apos;re early, so this list is short — and it stays honest.
+            Client work appears here named, anonymized, or not at all.
           </p>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {CASES.map((c, i) => (
-              <Reveal key={c.slug} delay={i * 90}>
-                <Link href={`/work/${c.slug}`} className="block h-full">
-                  <GlassPanel
-                    depth="mid"
-                    radius="lg"
-                    light
-                    className="h-full transition-transform duration-200 hover:-translate-y-1"
-                    contentClassName="flex h-full flex-col p-7"
-                  >
-                    <CareTag>{c.type}</CareTag>
-                    <h2 className="mt-3 text-lg font-semibold text-white">
-                      {c.org}
-                    </h2>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-ash-300">
-                      {c.summary}
-                    </p>
-                    <div className="mt-6 flex items-end justify-between border-t border-white/10 pt-4">
-                      <div>
-                        <span className="tnum text-3xl font-bold text-clay-400">
-                          {c.stat}
-                        </span>
-                        <span className="care-tag ml-2">{c.statLabel}</span>
-                      </div>
-                      <span className="text-sm text-sand-300">
-                        Read it →
-                      </span>
-                    </div>
-                  </GlassPanel>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal className="mt-12">
+            <GlassPanel depth="mid" radius="lg" contentClassName="p-8">
+              {/* [FILL: real work + real numbers. Label each card:
+                  named / anonymized ("a robotics club in Texas") /
+                  "Concept — not a client engagement"] */}
+              <CareTag>Concept — not a client engagement</CareTag>
+              <p className="mt-4 leading-relaxed text-paper">
+                This slot is reserved for the first real engagement. Until a
+                client agrees to be shown — by name or anonymized — nothing
+                sits here pretending to be one. A fake case study dies at the
+                first Google search, and so would we.
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-ash-300">
+                Want to be the first card? The intro call is twenty minutes.
+              </p>
+              <Link href="/contact" className="btn btn-primary mt-6">
+                Book an intro call
+              </Link>
+            </GlassPanel>
+          </Reveal>
         </div>
         <SiteFooter />
       </MatteSection>

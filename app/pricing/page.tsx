@@ -10,7 +10,7 @@ import { PricingTiers } from "@/components/TierCard";
 export const metadata = {
   title: "Bandana — Pricing",
   description:
-    "Priced like a utility bill, not an agency. $19, $59, or $179 a month; cancel anytime.",
+    "Costs less than your textbooks. $19, $59, or $179 a month; cancel with one email.",
 };
 
 const INCLUDED = [
@@ -28,8 +28,8 @@ const INCLUDED = [
     items: [
       "Setup fees",
       "Surprise invoices",
-      "Contracts that outlive your board term",
-      "Jargon in your monthly report",
+      "Contracts that outlive your semester",
+      "Invented numbers — a fake stat dies at the first follow-up question",
     ],
   },
 ];
@@ -43,13 +43,13 @@ export default function PricingPage() {
           <div className="text-center">
             <CareTag>Pricing</CareTag>
             <h1 className="headline mt-4">
-              Priced like a utility bill,
+              Costs less than
               <br />
-              not an <span className="text-clay-400">agency</span>.
+              your <span className="text-rust-500">textbooks</span>.
             </h1>
             <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-ash-300">
-              Pick the plan that matches your season. Upgrade, downgrade, or
-              walk away whenever — your stuff stays yours.
+              Pick the plan that matches your semester. Upgrade, downgrade,
+              or walk away whenever — your accounts and numbers stay yours.
             </p>
           </div>
 
@@ -65,7 +65,7 @@ export default function PricingPage() {
                   <ul className="mt-4 space-y-3">
                     {col.items.map((item) => (
                       <li key={item} className="flex gap-2.5 text-sm text-paper">
-                        <span aria-hidden style={{ color: i === 0 ? "var(--clay-400)" : "var(--selvedge)" }}>
+                        <span aria-hidden style={{ color: i === 0 ? "var(--rust-400)" : "var(--olive)" }}>
                           {i === 0 ? "—" : "✕"}
                         </span>
                         {item}

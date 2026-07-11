@@ -20,7 +20,7 @@ const TIMELINE = [
   },
   {
     title: "Presence audit",
-    body: "We read everything the internet says about you and hand you the same scorecard a funder or new family would build in their head.",
+    body: "We read everything the internet says about your org and hand you the same read a recruiter or a curious freshman would build in their head.",
   },
   {
     title: "Build & calendar",
@@ -28,7 +28,7 @@ const TIMELINE = [
   },
   {
     title: "Run & report",
-    body: "We post, you approve, everyone sees the numbers. One report a month, written for humans.",
+    body: "We post, you approve, the org grows. One report a month — the numbers, in plain English, and the résumé line they support.",
   },
 ];
 

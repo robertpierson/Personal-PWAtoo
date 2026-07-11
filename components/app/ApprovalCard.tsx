@@ -9,10 +9,10 @@ import { createClient } from "@/lib/supabase/client";
 import type { Approval, CalendarItem } from "@/lib/db/types";
 
 const PLATFORM_TINT: Record<string, string> = {
-  instagram: "linear-gradient(140deg, var(--rust-700), var(--clay-600))",
-  facebook: "linear-gradient(140deg, var(--clay-600), var(--rust-700))",
-  website: "linear-gradient(140deg, var(--graphite-600), var(--rust-700))",
-  email: "linear-gradient(140deg, var(--ink-700), var(--clay-600))",
+  instagram: "linear-gradient(140deg, var(--brick), var(--brick))",
+  facebook: "linear-gradient(140deg, var(--brick), var(--brick))",
+  website: "linear-gradient(140deg, var(--graphite-600), var(--brick))",
+  email: "linear-gradient(140deg, var(--ink-700), var(--brick))",
 };
 
 type Decision = "approved" | "changes_requested" | null;
@@ -64,7 +64,7 @@ export function ApprovalCard({
           style={{ background: PLATFORM_TINT[item.platform] }}
           aria-hidden
         >
-          <span className="care-tag" style={{ color: "var(--cream-200)" }}>
+          <span className="care-tag" style={{ color: "var(--rust-200)" }}>
             {platformLabel[item.platform]}
           </span>
           <p className="line-clamp-4 text-sm font-medium leading-snug text-white">
@@ -121,7 +121,7 @@ export function ApprovalCard({
                     rows={2}
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
-                    className="mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-paper outline-none transition focus:border-clay-400"
+                    className="mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-paper outline-none transition focus:border-rust-400"
                   />
                   <button
                     onClick={() => decide("changes_requested")}

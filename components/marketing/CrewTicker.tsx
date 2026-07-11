@@ -1,16 +1,16 @@
 const AUDIENCES = [
-  "Nonprofits",
-  "PTAs",
-  "Youth leagues",
-  "Community groups",
-  "Local businesses",
+  "Student orgs",
+  "Fraternities & sororities",
   "Startups",
-  "Student communities",
-  "Booster clubs",
-  "Neighborhood associations",
-  "Food pantries",
-  "Rec centers",
-  "Church groups",
+  "Robotics teams",
+  "Case clubs",
+  "Investment clubs",
+  "Nonprofits you started",
+  "Debate",
+  "Club sports",
+  "Hackathons",
+  "DECA / FBLA",
+  "Anything you're actually building",
 ];
 
 /** Audience list as slow-scrolling clay tag chips (paused for reduced motion). */

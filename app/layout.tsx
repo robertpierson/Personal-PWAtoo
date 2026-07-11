@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { satoshi, mono } from "./fonts";
+import { satoshi, tanker, mono } from "./fonts";
 import { GlassFilters } from "@/components/glass/GlassFilters";
 import { brand } from "@/brand.config";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: `${brand.name} — ${brand.tagline}`,
-  description: `Done-for-you online presence for local organizations: nonprofits, PTAs, youth leagues, community groups, and local businesses. ${brand.promise}`,
+  description: `We run the site, the socials, and the reporting for your club, org, or startup — so it grows, and you finish the semester with numbers you can defend in an interview. ${brand.promise}`,
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4f0e7", // --ink-800, brand cream (light field)
+  themeColor: "#22201f", // --ink-800, brand ink
 };
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${satoshi.variable} ${mono.variable}`}
+      className={`${satoshi.variable} ${tanker.variable} ${mono.variable}`}
     >
       <body>
         <GlassFilters />
