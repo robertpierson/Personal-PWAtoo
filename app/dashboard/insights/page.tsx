@@ -35,7 +35,7 @@ function ReachChart({ values }: { values: number[] }) {
           x2={W - pad}
           y1={H * f}
           y2={H * f}
-          stroke="rgba(255,255,255,0.06)"
+          stroke="color-mix(in srgb, var(--white) 8%, transparent)"
         />
       ))}
       <polygon points={area} fill="url(#reach-fill)" />

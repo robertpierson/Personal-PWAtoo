@@ -1,5 +1,6 @@
 import { GlassPanel } from "@/components/glass/GlassPanel";
 import { CareTag } from "@/components/CareTag";
+import { ThemeToggle } from "@/components/app/ThemeToggle";
 import { getWorkspace } from "@/lib/data";
 import { isDemoMode } from "@/lib/demo";
 
@@ -82,6 +83,16 @@ export default async function SettingsPage() {
           Team members you invite see the calendar and the numbers — never
           invoices or these settings.
         </p>
+      </GlassPanel>
+
+      <GlassPanel radius="lg" depth="mid" contentClassName="p-7">
+        <h2 className="text-base font-semibold text-white">Appearance</h2>
+        <p className="mt-2 text-xs leading-relaxed text-ash-300">
+          Applies everywhere, saved on this device.
+        </p>
+        <div className="mt-4">
+          <ThemeToggle />
+        </div>
       </GlassPanel>
 
       <GlassPanel radius="lg" depth="mid" contentClassName="p-7">

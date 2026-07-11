@@ -10,8 +10,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#22201f", // --ink-800, brand ink
+  themeColor: "#f4f0e7", // --ink-800, brand cream (light default)
 };
+
+// Applies the saved theme before first paint so dark mode never flashes
+// light. Runs inline in <head>; localStorage key: "bandana-theme".
+const themeBoot = `try{var t=localStorage.getItem("bandana-theme");if(t==="dark")document.documentElement.dataset.theme="dark"}catch(e){}`;
 
 export default function RootLayout({
   children,
@@ -22,7 +26,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${satoshi.variable} ${tanker.variable} ${mono.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBoot }} />
+      </head>
       <body>
         <GlassFilters />
         {children}
