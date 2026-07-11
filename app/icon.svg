@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- token values: --ink-800 #22201F, --paper #F4F0E7, --clay-500 #C15F3D -->
+  <!-- token values: ink-800 #22201F, paper #F4F0E7, clay-500 #C15F3D -->
   <rect width="64" height="64" rx="14" fill="#22201F"/>
   <path d="M12 17 30.4 30.7 12 30.7 Z M12 33.3 30.4 33.3 12 47 Z" fill="#F4F0E7"/>
   <path d="M52 17 33.6 30.7 52 30.7 Z M52 33.3 33.6 33.3 52 47 Z" fill="#C15F3D"/>
