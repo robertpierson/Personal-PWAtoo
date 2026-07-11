@@ -24,15 +24,14 @@ export function Logo({
         fill="none"
         aria-hidden
       >
-        {/* left fold — points in */}
+        {/* two crossing folds — X mark with knot diamond at center */}
         <path
-          d="M5 7.5 15.2 15.1 5 15.1 Z M5 16.9 15.2 16.9 5 24.5 Z"
+          d="M6 6 L20 16 6 26 6 21 13 16 6 11 Z"
           fill="var(--paper)"
         />
-        {/* right fold — mirrored, clay accent tips */}
         <path
-          d="M27 7.5 16.8 15.1 27 15.1 Z M27 16.9 16.8 16.9 27 24.5 Z"
-          fill="var(--clay-500)"
+          d="M26 6 L12 16 26 26 26 21 19 16 26 11 Z"
+          fill="var(--paper)"
         />
       </svg>
       {wordmark && (
