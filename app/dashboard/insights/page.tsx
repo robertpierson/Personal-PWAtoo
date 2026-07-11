@@ -64,6 +64,23 @@ function ReachChart({ values }: { values: number[] }) {
 
 export default async function InsightsPage() {
   const insights = await getInsights();
+
+  if (insights.length === 0) {
+    return (
+      <div className="mx-auto max-w-4xl">
+        <CareTag>Insights</CareTag>
+        <h1 className="subhead mt-2">The numbers, in plain English.</h1>
+        <GlassPanel radius="lg" depth="mid" className="mt-8" contentClassName="p-8">
+          <p className="text-paper">
+            No numbers yet. Once your first posts ship, reach, followers, and
+            engagement start landing here — with a plain-English read on what
+            they mean.
+          </p>
+        </GlassPanel>
+      </div>
+    );
+  }
+
   const latest = insights.at(-1)!;
   const first = insights[0];
   const prev = insights.at(-2);
