@@ -85,7 +85,7 @@ export default function Home() {
               <h1 className="headline mt-5">
                 Look the part.
                 <br />
-                Stay the <span className="text-denim-400">part</span>.
+                Stay the <span className="text-clay-400">part</span>.
               </h1>
               <p className="mt-6 max-w-md text-lg leading-relaxed text-ash-300">
                 One crew runs your website, socials, and reporting — and
@@ -128,7 +128,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ONE SYSTEM — three slabs, denim spines */}
+        {/* ONE SYSTEM — three slabs, clay spines */}
         <section className="mx-auto max-w-6xl px-6 pb-28">
           <Reveal>
             <CareTag>The Bandana way</CareTag>
@@ -140,7 +140,7 @@ export default function Home() {
                 <GlassPanel
                   depth="mid"
                   radius="lg"
-                  contentClassName="border-l-2 border-denim-500 p-7 h-full"
+                  contentClassName="border-l-2 border-clay-500 p-7 h-full"
                 >
                   <h3 className="text-lg font-semibold text-white">
                     {slab.title}
@@ -218,7 +218,7 @@ export default function Home() {
                         {w.summary}
                       </p>
                       <div className="mt-6 border-t border-white/10 pt-4">
-                        <span className="tnum text-3xl font-bold text-denim-400">
+                        <span className="tnum text-3xl font-bold text-clay-400">
                           {w.stat}
                         </span>
                         <span className="care-tag ml-2">{w.statLabel}</span>
@@ -311,7 +311,7 @@ export default function Home() {
               >
                 <CareTag>Open enrollment, year round</CareTag>
                 <h2 className="headline mt-5">
-                  Join the <span className="text-denim-400">crew</span>.
+                  Join the <span className="text-clay-400">crew</span>.
                 </h2>
                 <p className="mx-auto mt-5 max-w-md leading-relaxed text-ash-300">
                   One intro call. No deck, no pressure. Just an honest look

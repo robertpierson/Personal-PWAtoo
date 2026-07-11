@@ -4,36 +4,36 @@
 /* Bandana tokens — the only place raw color values are allowed.      */
 /* ------------------------------------------------------------------ */
 :root {
-  /* FIELD */
-  --ink-900: #0c0d10;
-  --ink-800: #121419;
-  --ink-700: #191c22;
-  --graphite-600: #22262e;
-  --graphite-500: #2c313a;
-  --smoke-400: #454c57;
-  --ash-300: #8b94a1;
+  /* FIELD — warm near-blacks built around brand #22201F */
+  --ink-900: #1a1815;
+  --ink-800: #22201f; /* brand black */
+  --ink-700: #2b2825;
+  --graphite-600: #363230;
+  --graphite-500: #413d39;
+  --smoke-400: #4d545b; /* brand slate */
+  --ash-300: #9b948a;
 
   /* CONTRAST */
   --white: #ffffff;
-  --paper: #eef1f5;
+  --paper: #f4f0e7; /* brand cream */
 
-  /* DENIM (pop; washed/raw indigo only) */
-  --indigo-raw: #1e3557;
-  --denim-600: #2e5680;
-  --denim-500: #3c74ae; /* PRIMARY */
-  --denim-400: #5a93cd;
-  --chambray-300: #9ac0e6;
-  --wash-200: #c9def2;
+  /* CLAY (pop; brand terracotta ramp) */
+  --rust-700: #8e4a33; /* brand rust */
+  --clay-600: #a75236;
+  --clay-500: #c15f3d; /* PRIMARY — brand terracotta */
+  --clay-400: #d57f5c;
+  --sand-300: #e5a886;
+  --cream-200: #f2d3c0;
 
   /* MICRO (rare) */
-  --selvedge: #c6432c;
-  --topstitch: #d8a441;
+  --selvedge: #6c7a4d; /* brand olive */
+  --topstitch: #b8924d; /* brand ochre */
 
   /* GLASS */
-  --glass-fill: rgba(60, 116, 174, 0.1);
+  --glass-fill: rgba(193, 95, 61, 0.1);
   --glass-edge: rgba(255, 255, 255, 0.38);
-  --glass-inner: rgba(154, 192, 230, 0.14);
-  --glass-shadow: rgba(6, 8, 12, 0.55);
+  --glass-inner: rgba(229, 168, 134, 0.14);
+  --glass-shadow: rgba(12, 9, 7, 0.55);
 
   /* RADIUS */
   --r-sm: 12px;
@@ -52,12 +52,12 @@
   --color-ash-300: var(--ash-300);
   --color-white: var(--white);
   --color-paper: var(--paper);
-  --color-indigo-raw: var(--indigo-raw);
-  --color-denim-600: var(--denim-600);
-  --color-denim-500: var(--denim-500);
-  --color-denim-400: var(--denim-400);
-  --color-chambray-300: var(--chambray-300);
-  --color-wash-200: var(--wash-200);
+  --color-rust-700: var(--rust-700);
+  --color-clay-600: var(--clay-600);
+  --color-clay-500: var(--clay-500);
+  --color-clay-400: var(--clay-400);
+  --color-sand-300: var(--sand-300);
+  --color-cream-200: var(--cream-200);
   --color-selvedge: var(--selvedge);
   --color-topstitch: var(--topstitch);
 
@@ -66,9 +66,9 @@
   --radius-lg: var(--r-lg);
   --radius-pill: var(--r-pill);
 
-  --font-display: var(--font-cabinet), "Helvetica Neue", Arial, system-ui,
+  --font-display: var(--font-satoshi), "Helvetica Neue", Arial, system-ui,
     sans-serif;
-  --font-sans: var(--font-general), system-ui, "Segoe UI", sans-serif;
+  --font-sans: var(--font-satoshi), system-ui, "Segoe UI", sans-serif;
   --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace,
     monospace;
 }
@@ -84,7 +84,7 @@ body {
 }
 
 ::selection {
-  background: var(--denim-600);
+  background: var(--clay-600);
   color: var(--white);
 }
 
@@ -110,7 +110,7 @@ body {
     color: var(--white);
   }
 
-  /* Denim care-label voice: — 100% ORGANIC STRATEGY */
+  /* Care-label voice: — 100% ORGANIC STRATEGY */
   .care-tag {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
@@ -146,13 +146,13 @@ body {
 
   .glass[data-depth="mid"] {
     --glass-blur: 18px;
-    --glass-bg: rgba(60, 116, 174, 0.07);
+    --glass-bg: rgba(193, 95, 61, 0.07);
     box-shadow: 0 18px 36px -20px var(--glass-shadow);
   }
 
   .glass[data-depth="far"] {
     --glass-blur: 10px;
-    --glass-bg: rgba(60, 116, 174, 0.05);
+    --glass-bg: rgba(193, 95, 61, 0.05);
     box-shadow: 0 12px 28px -18px var(--glass-shadow);
   }
 
@@ -166,7 +166,7 @@ body {
     pointer-events: none;
   }
 
-  /* 1 — translucency + saturation, denim-tinted, inner glow */
+  /* 1 — translucency + saturation, clay-tinted, inner glow */
   .glass-base {
     background:
       linear-gradient(160deg, var(--glass-inner), transparent 42%),
@@ -208,7 +208,7 @@ body {
       160deg,
       rgba(255, 255, 255, 0.45),
       rgba(255, 255, 255, 0.06) 28%,
-      rgba(154, 192, 230, 0.28) 62%,
+      rgba(229, 168, 134, 0.28) 62%,
       rgba(255, 255, 255, 0.14)
     );
     -webkit-mask:
@@ -226,7 +226,7 @@ body {
     background: radial-gradient(
       240px circle at var(--mx, 50%) var(--my, -30%),
       rgba(255, 255, 255, 0.13),
-      rgba(154, 192, 230, 0.05) 45%,
+      rgba(229, 168, 134, 0.05) 45%,
       transparent 72%
     );
   }
@@ -241,7 +241,7 @@ body {
   .glass-base {
     background: linear-gradient(
       155deg,
-      color-mix(in srgb, var(--indigo-raw) 55%, var(--ink-800)),
+      color-mix(in srgb, var(--rust-700) 55%, var(--ink-800)),
       var(--ink-800) 70%
     );
   }
@@ -256,7 +256,7 @@ body {
     backdrop-filter: none;
     background: linear-gradient(
       155deg,
-      color-mix(in srgb, var(--indigo-raw) 55%, var(--ink-800)),
+      color-mix(in srgb, var(--rust-700) 55%, var(--ink-800)),
       var(--ink-800) 70%
     );
   }
@@ -277,7 +277,7 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
-/* Matte denim — layered near-blacks, indigo dye bleed, twill grain    */
+/* Matte field — layered near-blacks, terracotta dye bleed, twill grain    */
 /* ------------------------------------------------------------------ */
 @layer components {
   .matte {
@@ -285,12 +285,12 @@ body {
     background:
       radial-gradient(
         1200px 800px at 72% -12%,
-        rgba(30, 53, 87, 0.38),
+        rgba(142, 74, 51, 0.38),
         transparent 60%
       ),
       radial-gradient(
         900px 700px at 8% 112%,
-        rgba(30, 53, 87, 0.24),
+        rgba(142, 74, 51, 0.24),
         transparent 55%
       ),
       linear-gradient(var(--ink-900), var(--ink-800));
@@ -340,16 +340,16 @@ body {
 
   .btn-primary {
     color: var(--white);
-    background: linear-gradient(180deg, var(--denim-500), var(--denim-600));
+    background: linear-gradient(180deg, var(--clay-500), var(--clay-600));
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.28),
       inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-      0 10px 24px -12px rgba(60, 116, 174, 0.65);
+      0 10px 24px -12px rgba(193, 95, 61, 0.65);
   }
 
   .btn-primary:hover {
     transform: translateY(-1px);
-    background: linear-gradient(180deg, var(--denim-400), var(--denim-500));
+    background: linear-gradient(180deg, var(--clay-400), var(--clay-500));
   }
 
   .btn-ghost {
@@ -364,7 +364,7 @@ body {
   }
 
   :is(.btn, a, button):focus-visible {
-    outline: 2px solid var(--denim-400);
+    outline: 2px solid var(--clay-400);
     outline-offset: 2px;
   }
 
@@ -413,7 +413,7 @@ body {
     backdrop-filter: blur(34px) saturate(160%);
   }
 
-  /* Crew ticker — audience as slow-scrolling denim tag chips */
+  /* Crew ticker — audience as slow-scrolling clay tag chips */
   @keyframes ticker-scroll {
     from {
       transform: translateX(0);
@@ -440,9 +440,9 @@ body {
     font-size: 0.6875rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--chambray-300);
-    background: rgba(60, 116, 174, 0.1);
-    box-shadow: inset 0 0 0 1px rgba(90, 147, 205, 0.25);
+    color: var(--sand-300);
+    background: rgba(193, 95, 61, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(213, 127, 92, 0.25);
   }
 
   /* Problem slabs — misaligned vendors snapping into one system */
@@ -526,7 +526,7 @@ body {
 
   .faq-item[open] summary::after {
     transform: rotate(45deg);
-    color: var(--denim-400);
+    color: var(--clay-400);
   }
 }
 
@@ -590,7 +590,7 @@ body {
     height: 40px;
     border-radius: 999px;
     color: var(--white);
-    background: rgba(60, 116, 174, 0.35);
+    background: rgba(193, 95, 61, 0.35);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     box-shadow:
@@ -616,7 +616,7 @@ body {
 
 /* ------------------------------------------------------------------ */
 /* Status system — one set, used everywhere                            */
-/* denim = needs action / in progress; white = done; faint = idle      */
+/* clay = needs action / in progress; white = done; faint = idle      */
 /* ------------------------------------------------------------------ */
 @layer components {
   .status-chip {
@@ -641,9 +641,9 @@ body {
   }
 
   .status-action {
-    color: var(--chambray-300);
-    background: rgba(60, 116, 174, 0.16);
-    box-shadow: inset 0 0 0 1px rgba(90, 147, 205, 0.35);
+    color: var(--sand-300);
+    background: rgba(193, 95, 61, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(213, 127, 92, 0.35);
   }
 
   .status-done {

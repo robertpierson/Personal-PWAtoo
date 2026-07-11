@@ -5,7 +5,7 @@ import type {
 } from "@/lib/db/types";
 
 /**
- * One status system: denim = needs action / in progress,
+ * One status system: clay = needs action / in progress,
  * white = done, faint = idle.
  */
 type StatusStyle = { label: string; cls: string };

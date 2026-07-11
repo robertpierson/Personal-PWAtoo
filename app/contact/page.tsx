@@ -28,7 +28,7 @@ const PAIN_POINTS = [
 ];
 
 const inputClass =
-  "mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-paper outline-none transition placeholder:text-smoke-400 focus:border-denim-400";
+  "mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-paper outline-none transition placeholder:text-smoke-400 focus:border-clay-400";
 
 export default function ContactPage() {
   const [step, setStep] = useState(1);
@@ -106,7 +106,7 @@ export default function ContactPage() {
                   className="h-1 flex-1 rounded-full transition-colors"
                   style={{
                     background:
-                      s <= step ? "var(--denim-500)" : "rgba(255,255,255,0.1)",
+                      s <= step ? "var(--clay-500)" : "rgba(255,255,255,0.1)",
                   }}
                 />
               ))}
@@ -158,7 +158,7 @@ export default function ContactPage() {
                       onClick={() => set({ orgType: t })}
                       className={`rounded-[var(--r-pill)] px-4 py-1.5 text-sm transition ${
                         form.orgType === t
-                          ? "bg-denim-600 text-white"
+                          ? "bg-clay-600 text-white"
                           : "bg-white/5 text-ash-300 hover:bg-white/10 hover:text-paper"
                       }`}
                     >
@@ -189,7 +189,7 @@ export default function ContactPage() {
                       onClick={() => togglePain(p)}
                       className={`rounded-[var(--r-sm)] px-4 py-3 text-left text-sm transition ${
                         form.pains.includes(p)
-                          ? "bg-denim-600/40 text-white shadow-[inset_0_0_0_1px_var(--denim-500)]"
+                          ? "bg-clay-600/40 text-white shadow-[inset_0_0_0_1px_var(--clay-500)]"
                           : "bg-white/4 text-ash-300 hover:bg-white/8 hover:text-paper"
                       }`}
                     >
@@ -230,9 +230,9 @@ export default function ContactPage() {
                   <p
                     className="mt-6 rounded-[var(--r-sm)] px-4 py-3 text-sm"
                     style={{
-                      color: "var(--wash-200)",
-                      background: "rgba(198, 67, 44, 0.14)",
-                      boxShadow: "inset 0 0 0 1px rgba(198, 67, 44, 0.35)",
+                      color: "var(--cream-200)",
+                      background: "rgba(142, 74, 51, 0.14)",
+                      boxShadow: "inset 0 0 0 1px rgba(142, 74, 51, 0.35)",
                     }}
                     role="alert"
                   >

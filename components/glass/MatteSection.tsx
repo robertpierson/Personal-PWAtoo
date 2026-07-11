@@ -7,7 +7,7 @@ type MatteSectionProps = {
 };
 
 /**
- * Matte denim field: layered near-blacks, indigo dye bleed,
+ * Matte field: layered warm near-blacks, terracotta dye bleed,
  * twill grain at ≤5% opacity. The backdrop glass sits over.
  */
 export function MatteSection({

@@ -106,7 +106,7 @@ export default function OnboardingPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 autoFocus
-                className="mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-paper outline-none transition focus:border-denim-400"
+                className="mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-paper outline-none transition focus:border-clay-400"
               />
 
               <p className="care-tag mt-6">What kind of organization?</p>
@@ -118,7 +118,7 @@ export default function OnboardingPage() {
                     onClick={() => setOrgType(t)}
                     className={`rounded-[var(--r-pill)] px-4 py-1.5 text-sm transition ${
                       orgType === t
-                        ? "bg-denim-600 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+                        ? "bg-clay-600 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
                         : "bg-white/5 text-ash-300 hover:bg-white/10 hover:text-paper"
                     }`}
                   >
@@ -159,9 +159,9 @@ export default function OnboardingPage() {
                 <p
                   className="mt-5 rounded-[var(--r-sm)] px-4 py-3 text-sm"
                   style={{
-                    color: "var(--wash-200)",
-                    background: "rgba(198, 67, 44, 0.14)",
-                    boxShadow: "inset 0 0 0 1px rgba(198, 67, 44, 0.35)",
+                    color: "var(--cream-200)",
+                    background: "rgba(142, 74, 51, 0.14)",
+                    boxShadow: "inset 0 0 0 1px rgba(142, 74, 51, 0.35)",
                   }}
                   role="alert"
                 >

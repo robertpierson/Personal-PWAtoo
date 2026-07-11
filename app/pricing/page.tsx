@@ -45,7 +45,7 @@ export default function PricingPage() {
             <h1 className="headline mt-4">
               Priced like a utility bill,
               <br />
-              not an <span className="text-denim-400">agency</span>.
+              not an <span className="text-clay-400">agency</span>.
             </h1>
             <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-ash-300">
               Pick the plan that matches your season. Upgrade, downgrade, or
@@ -65,7 +65,7 @@ export default function PricingPage() {
                   <ul className="mt-4 space-y-3">
                     {col.items.map((item) => (
                       <li key={item} className="flex gap-2.5 text-sm text-paper">
-                        <span aria-hidden style={{ color: i === 0 ? "var(--denim-400)" : "var(--selvedge)" }}>
+                        <span aria-hidden style={{ color: i === 0 ? "var(--clay-400)" : "var(--selvedge)" }}>
                           {i === 0 ? "—" : "✕"}
                         </span>
                         {item}

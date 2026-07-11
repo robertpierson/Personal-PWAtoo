@@ -5,17 +5,17 @@
  */
 export const brand = {
   name: "Bandana",
-  tagline: "Your whole online presence. One crew.",
+  tagline: "Marketing that makes an impact.",
   promise: "Nothing publishes without your review.",
-  accent: "denim" as const,
+  accent: "clay" as const,
   /** Token names (CSS custom properties) that define the accent ramp. */
   accentRamp: [
-    "--indigo-raw",
-    "--denim-600",
-    "--denim-500",
-    "--denim-400",
-    "--chambray-300",
-    "--wash-200",
+    "--rust-700",
+    "--clay-600",
+    "--clay-500",
+    "--clay-400",
+    "--sand-300",
+    "--cream-200",
   ],
   microAccents: ["--selvedge", "--topstitch"],
 } as const;

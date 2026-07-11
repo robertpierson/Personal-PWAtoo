@@ -66,7 +66,7 @@ export function PricingTiers() {
           className="relative h-7 w-13 rounded-[var(--r-pill)] bg-graphite-600 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] transition"
         >
           <span
-            className={`absolute top-1 h-5 w-5 rounded-full bg-denim-400 transition-all ${
+            className={`absolute top-1 h-5 w-5 rounded-full bg-clay-400 transition-all ${
               annual ? "left-7" : "left-1"
             }`}
           />
@@ -75,7 +75,7 @@ export function PricingTiers() {
           className={`text-sm ${annual ? "text-white" : "text-ash-300"}`}
         >
           Yearly
-          <span className="ml-1.5 text-xs text-chambray-300">
+          <span className="ml-1.5 text-xs text-sand-300">
             2 months free
           </span>
         </span>
@@ -114,7 +114,7 @@ export function PricingTiers() {
             <ul className="mt-6 flex-1 space-y-3">
               {tier.features.map((f) => (
                 <li key={f} className="flex gap-2.5 text-sm text-ash-300">
-                  <span aria-hidden style={{ color: "var(--denim-400)" }}>
+                  <span aria-hidden style={{ color: "var(--clay-400)" }}>
                     —
                   </span>
                   {f}

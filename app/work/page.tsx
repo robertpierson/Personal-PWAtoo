@@ -23,7 +23,7 @@ export default function WorkPage() {
           <h1 className="headline mt-4">
             Good organizations,
             <br />
-            looking the <span className="text-denim-400">part</span>.
+            looking the <span className="text-clay-400">part</span>.
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-ash-300">
             Real orgs, real seasons, real numbers. Every one reviewed and
@@ -50,12 +50,12 @@ export default function WorkPage() {
                     </p>
                     <div className="mt-6 flex items-end justify-between border-t border-white/10 pt-4">
                       <div>
-                        <span className="tnum text-3xl font-bold text-denim-400">
+                        <span className="tnum text-3xl font-bold text-clay-400">
                           {c.stat}
                         </span>
                         <span className="care-tag ml-2">{c.statLabel}</span>
                       </div>
-                      <span className="text-sm text-chambray-300">
+                      <span className="text-sm text-sand-300">
                         Read it →
                       </span>
                     </div>

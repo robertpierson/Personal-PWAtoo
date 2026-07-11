@@ -4,7 +4,7 @@ import { getWorkspace } from "@/lib/data";
 import { isDemoMode } from "@/lib/demo";
 
 const inputClass =
-  "mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-paper outline-none transition focus:border-denim-400";
+  "mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-paper outline-none transition focus:border-clay-400";
 
 export default async function SettingsPage() {
   const { org, profile } = await getWorkspace();
@@ -97,7 +97,7 @@ export default async function SettingsPage() {
               <input
                 type="checkbox"
                 defaultChecked={n.on}
-                className="h-4 w-4 accent-[var(--denim-500)]"
+                className="h-4 w-4 accent-[var(--clay-500)]"
               />
             </label>
           ))}

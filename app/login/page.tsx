@@ -43,9 +43,9 @@ function LoginCard() {
         <p
           className="mt-5 rounded-[var(--r-sm)] px-4 py-3 text-sm"
           style={{
-            color: "var(--wash-200)",
-            background: "rgba(198, 67, 44, 0.14)",
-            boxShadow: "inset 0 0 0 1px rgba(198, 67, 44, 0.35)",
+            color: "var(--cream-200)",
+            background: "rgba(142, 74, 51, 0.14)",
+            boxShadow: "inset 0 0 0 1px rgba(142, 74, 51, 0.35)",
           }}
           role="alert"
         >

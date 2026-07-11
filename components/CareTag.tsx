@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 /**
- * Denim care-label eyebrow: mono, uppercase, tracked.
+ * Care-label eyebrow: mono, uppercase, tracked.
  * Renders a leading em-dash stitch, e.g. `— 100% ORGANIC STRATEGY`.
  */
 export function CareTag({

@@ -1,27 +1,21 @@
 import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
 
-export const cabinet = localFont({
-  src: "./fonts/CabinetGrotesk-Variable.woff2",
-  variable: "--font-cabinet",
-  weight: "100 900",
-  display: "swap",
-});
-
-export const generalSans = localFont({
+/** Satoshi (Fontshare) — brand typeface for display and body. */
+export const satoshi = localFont({
   src: [
     {
-      path: "./fonts/GeneralSans-Variable.woff2",
-      weight: "200 700",
+      path: "./fonts/Satoshi-Variable.woff2",
+      weight: "300 900",
       style: "normal",
     },
     {
-      path: "./fonts/GeneralSans-VariableItalic.woff2",
-      weight: "200 700",
+      path: "./fonts/Satoshi-VariableItalic.woff2",
+      weight: "300 900",
       style: "italic",
     },
   ],
-  variable: "--font-general",
+  variable: "--font-satoshi",
   display: "swap",
 });
 

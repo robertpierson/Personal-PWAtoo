@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { cabinet, generalSans, mono } from "./fonts";
+import { satoshi, mono } from "./fonts";
 import { GlassFilters } from "@/components/glass/GlassFilters";
 import { brand } from "@/brand.config";
 import "./globals.css";
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0c0d10", // --ink-900
+  themeColor: "#22201f", // --ink-800, brand black
 };
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cabinet.variable} ${generalSans.variable} ${mono.variable}`}
+      className={`${satoshi.variable} ${mono.variable}`}
     >
       <body>
         <GlassFilters />

@@ -40,7 +40,7 @@ export function BeforeAfterSlider() {
         style={{
           clipPath: "inset(0 0 0 var(--ba))",
           background:
-            "linear-gradient(150deg, var(--indigo-raw), var(--ink-800) 70%)",
+            "linear-gradient(150deg, var(--rust-700), var(--ink-800) 70%)",
         }}
         aria-hidden
       >
@@ -49,25 +49,25 @@ export function BeforeAfterSlider() {
             <div className="flex items-center justify-between">
               <div className="h-3 w-2/5 rounded bg-white" />
               <div className="flex gap-1.5">
-                <span className="h-1.5 w-6 rounded bg-denim-400" />
+                <span className="h-1.5 w-6 rounded bg-clay-400" />
                 <span className="h-1.5 w-6 rounded bg-white/25" />
                 <span className="h-1.5 w-6 rounded bg-white/25" />
               </div>
             </div>
             <div className="mt-4 h-2 w-full rounded bg-white/20" />
             <div className="mt-2 h-2 w-4/5 rounded bg-white/20" />
-            <div className="mt-5 inline-flex items-center gap-2 rounded-[var(--r-pill)] bg-denim-600 px-3 py-1.5">
+            <div className="mt-5 inline-flex items-center gap-2 rounded-[var(--r-pill)] bg-clay-600 px-3 py-1.5">
               <span className="text-xs font-medium text-white">
                 This week&apos;s games — live schedule
               </span>
             </div>
             <div className="mt-5 grid grid-cols-3 gap-2">
-              <div className="h-14 rounded bg-denim-500" />
-              <div className="h-14 rounded bg-denim-400/70" />
-              <div className="h-14 rounded bg-chambray-300/60" />
+              <div className="h-14 rounded bg-clay-500" />
+              <div className="h-14 rounded bg-clay-400/70" />
+              <div className="h-14 rounded bg-sand-300/60" />
             </div>
           </div>
-          <p className="care-tag mt-4" style={{ color: "var(--chambray-300)" }}>
+          <p className="care-tag mt-4" style={{ color: "var(--sand-300)" }}>
             After — one system, kept current
           </p>
         </div>

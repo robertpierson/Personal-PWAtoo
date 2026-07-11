@@ -76,7 +76,7 @@ export default async function CasePage({
             <div className="grid gap-4 sm:grid-cols-3">
               {c.results.map((r) => (
                 <GlassPanel key={r.label} depth="near" radius="md" light contentClassName="p-6 text-center">
-                  <p className="tnum text-4xl font-bold text-denim-400">
+                  <p className="tnum text-4xl font-bold text-clay-400">
                     {r.stat}
                   </p>
                   <p className="mt-2 text-xs leading-relaxed text-ash-300">

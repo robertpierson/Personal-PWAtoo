@@ -13,7 +13,7 @@ const AUDIENCES = [
   "Church groups",
 ];
 
-/** Audience list as slow-scrolling denim tag chips (paused for reduced motion). */
+/** Audience list as slow-scrolling clay tag chips (paused for reduced motion). */
 export function CrewTicker() {
   return (
     <div

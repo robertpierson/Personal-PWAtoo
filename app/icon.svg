@@ -1,14 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- token values: --ink-900, --denim-400/600, --indigo-raw, --selvedge -->
-  <rect width="64" height="64" rx="14" fill="#0C0D10"/>
-  <defs>
-    <linearGradient id="m" x1="16" y1="12" x2="48" y2="52">
-      <stop offset="0" stop-color="#5A93CD"/>
-      <stop offset=".55" stop-color="#2E5680"/>
-      <stop offset="1" stop-color="#1E3557"/>
-    </linearGradient>
-  </defs>
-  <path d="M32 8.5 55.5 32 32 55.5 8.5 32Z" fill="url(#m)" stroke="rgba(255,255,255,0.22)" stroke-linejoin="round"/>
-  <path d="M32 16.4 47.6 32 32 47.6 16.4 32Z" fill="none" stroke="rgba(255,255,255,0.55)" stroke-dasharray="3.6 4.2" stroke-linejoin="round"/>
-  <rect x="46" y="29.6" width="4.8" height="4.8" fill="#C6432C"/>
+  <!-- token values: --ink-800 #22201F, --paper #F4F0E7, --clay-500 #C15F3D -->
+  <rect width="64" height="64" rx="14" fill="#22201F"/>
+  <path d="M12 17 30.4 30.7 12 30.7 Z M12 33.3 30.4 33.3 12 47 Z" fill="#F4F0E7"/>
+  <path d="M52 17 33.6 30.7 52 30.7 Z M52 33.3 33.6 33.3 52 47 Z" fill="#C15F3D"/>
 </svg>

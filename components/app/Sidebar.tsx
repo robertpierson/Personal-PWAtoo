@@ -33,7 +33,7 @@ function NavLinks({ vertical }: { vertical: boolean }) {
               vertical ? "px-4 py-2.5" : "shrink-0 px-4 py-2"
             } ${
               active
-                ? "bg-denim-600/40 font-medium text-white shadow-[inset_0_0_0_1px_var(--denim-500)]"
+                ? "bg-clay-600/40 font-medium text-white shadow-[inset_0_0_0_1px_var(--clay-500)]"
                 : "text-ash-300 hover:bg-white/5 hover:text-paper"
             }`}
           >

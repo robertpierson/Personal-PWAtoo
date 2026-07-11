@@ -74,7 +74,7 @@ function Gauge({ label, value }: { label: string; value: number }) {
             cy="36"
             r="30"
             fill="none"
-            stroke="var(--denim-500)"
+            stroke="var(--clay-500)"
             strokeWidth="5"
             strokeLinecap="round"
             strokeDasharray={C}
@@ -124,7 +124,7 @@ export function Scorecard() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your organization's name"
-          className="w-full rounded-[var(--r-pill)] border border-white/12 bg-ink-800/70 px-5 py-3 text-paper outline-none transition placeholder:text-smoke-400 focus:border-denim-400"
+          className="w-full rounded-[var(--r-pill)] border border-white/12 bg-ink-800/70 px-5 py-3 text-paper outline-none transition placeholder:text-smoke-400 focus:border-clay-400"
         />
         <button type="submit" className="btn btn-primary shrink-0">
           Read it
@@ -165,8 +165,8 @@ export function Scorecard() {
             <div
               className="mt-7 rounded-[var(--r-md)] p-5"
               style={{
-                background: "rgba(60, 116, 174, 0.1)",
-                boxShadow: "inset 0 0 0 1px rgba(90, 147, 205, 0.25)",
+                background: "rgba(193, 95, 61, 0.1)",
+                boxShadow: "inset 0 0 0 1px rgba(213, 127, 92, 0.25)",
               }}
             >
               <CareTag>What a funder sees</CareTag>

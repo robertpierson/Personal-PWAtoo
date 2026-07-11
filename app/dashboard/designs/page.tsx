@@ -4,10 +4,10 @@ import { getContent } from "@/lib/data";
 import { contentStatus } from "@/lib/status";
 
 const KIND_TINT: Record<string, string> = {
-  design: "linear-gradient(140deg, var(--denim-600), var(--indigo-raw))",
-  photo: "linear-gradient(140deg, var(--indigo-raw), var(--graphite-600))",
-  video: "linear-gradient(140deg, var(--graphite-600), var(--denim-600))",
-  document: "linear-gradient(140deg, var(--ink-700), var(--indigo-raw))",
+  design: "linear-gradient(140deg, var(--clay-600), var(--rust-700))",
+  photo: "linear-gradient(140deg, var(--rust-700), var(--graphite-600))",
+  video: "linear-gradient(140deg, var(--graphite-600), var(--clay-600))",
+  document: "linear-gradient(140deg, var(--ink-700), var(--rust-700))",
 };
 
 export default async function DesignsPage() {
@@ -37,7 +37,7 @@ export default async function DesignsPage() {
                 style={{ background: KIND_TINT[piece.kind] }}
                 aria-hidden
               >
-                <span className="care-tag" style={{ color: "var(--wash-200)" }}>
+                <span className="care-tag" style={{ color: "var(--cream-200)" }}>
                   {piece.kind}
                 </span>
               </div>
