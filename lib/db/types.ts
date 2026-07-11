@@ -34,3 +34,5 @@ export type CalendarItem =
 export type Approval = Database["public"]["Tables"]["approvals_queue"]["Row"];
 export type Invoice = Database["public"]["Tables"]["invoices"]["Row"];
 export type InsightRow = Database["public"]["Tables"]["insights"]["Row"];
+export type Lead = Database["public"]["Tables"]["leads"]["Row"];
+export type LeadInsert = Database["public"]["Tables"]["leads"]["Insert"];

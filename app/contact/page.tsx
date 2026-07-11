@@ -7,6 +7,7 @@ import { CareTag } from "@/components/CareTag";
 import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { isDemoMode } from "@/lib/demo";
+import { createClient } from "@/lib/supabase/client";
 
 const ORG_TYPES = [
   "Nonprofit",
@@ -32,6 +33,8 @@ const inputClass =
 export default function ContactPage() {
   const [step, setStep] = useState(1);
   const [sent, setSent] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: "",
     org: "",
@@ -41,6 +44,31 @@ export default function ContactPage() {
     email: "",
     note: "",
   });
+
+  const submit = async () => {
+    setPending(true);
+    setError(null);
+    // Demo mode has no live backend — just show the thank-you screen.
+    if (!isDemoMode) {
+      const supabase = createClient();
+      const { error: insertError } = await supabase.from("leads").insert({
+        name: form.name.trim(),
+        org: form.org.trim(),
+        org_type: form.orgType || null,
+        website: form.website.trim() || null,
+        pains: form.pains,
+        email: form.email.trim(),
+        note: form.note.trim() || null,
+      });
+      if (insertError) {
+        setError("Couldn't send that just now. Try once more?");
+        setPending(false);
+        return;
+      }
+    }
+    setSent(true);
+    setPending(false);
+  };
 
   const set = (patch: Partial<typeof form>) =>
     setForm((f) => ({ ...f, ...patch }));
@@ -197,23 +225,45 @@ export default function ContactPage() {
             )}
 
             {!sent && (
-              <div className="mt-8 flex gap-3">
-                {step > 1 && (
-                  <button
-                    onClick={() => setStep(step - 1)}
-                    className="btn btn-ghost flex-1"
+              <>
+                {error && (
+                  <p
+                    className="mt-6 rounded-[var(--r-sm)] px-4 py-3 text-sm"
+                    style={{
+                      color: "var(--wash-200)",
+                      background: "rgba(198, 67, 44, 0.14)",
+                      boxShadow: "inset 0 0 0 1px rgba(198, 67, 44, 0.35)",
+                    }}
+                    role="alert"
                   >
-                    Back
-                  </button>
+                    {error}
+                  </p>
                 )}
-                <button
-                  onClick={() => (step === 3 ? setSent(true) : setStep(step + 1))}
-                  disabled={!canNext}
-                  className="btn btn-primary flex-1 disabled:opacity-50"
-                >
-                  {step === 3 ? "Send it" : "Continue"}
-                </button>
-              </div>
+                <div className="mt-8 flex gap-3">
+                  {step > 1 && (
+                    <button
+                      onClick={() => setStep(step - 1)}
+                      disabled={pending}
+                      className="btn btn-ghost flex-1"
+                    >
+                      Back
+                    </button>
+                  )}
+                  <button
+                    onClick={() =>
+                      step === 3 ? submit() : setStep(step + 1)
+                    }
+                    disabled={!canNext || pending}
+                    className="btn btn-primary flex-1 disabled:opacity-50"
+                  >
+                    {step === 3
+                      ? pending
+                        ? "Sending…"
+                        : "Send it"
+                      : "Continue"}
+                  </button>
+                </div>
+              </>
             )}
           </GlassPanel>
         </div>

@@ -247,6 +247,42 @@ export type Database = {
           },
         ]
       }
+      leads: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          note: string | null
+          org: string
+          org_type: string | null
+          pains: string[]
+          website: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          note?: string | null
+          org: string
+          org_type?: string | null
+          pains?: string[]
+          website?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          note?: string | null
+          org?: string
+          org_type?: string | null
+          pains?: string[]
+          website?: string | null
+        }
+        Relationships: []
+      }
       organizations: {
         Row: {
           created_at: string
