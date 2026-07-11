@@ -118,7 +118,7 @@ export default function OnboardingPage() {
                     onClick={() => setOrgType(t)}
                     className={`rounded-[var(--r-pill)] px-4 py-1.5 text-sm transition ${
                       orgType === t
-                        ? "bg-clay-600 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+                        ? "bg-clay-600 text-on-dark shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
                         : "bg-white/5 text-ash-300 hover:bg-white/10 hover:text-paper"
                     }`}
                   >

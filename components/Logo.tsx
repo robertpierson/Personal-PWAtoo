@@ -27,7 +27,7 @@ export function Logo({
         {/* brand X mark: crossing folds, Z-kinked lower arms,
             knot diamond in the negative space */}
         <g
-          stroke="var(--paper)"
+          stroke="currentColor"
           strokeWidth="22"
           strokeLinejoin="round"
           strokeLinecap="butt"
@@ -40,7 +40,6 @@ export function Logo({
       </svg>
       {wordmark && (
         <span
-          className="text-white"
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 640,

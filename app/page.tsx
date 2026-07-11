@@ -5,10 +5,8 @@ import { CareTag } from "@/components/CareTag";
 import { Reveal } from "@/components/Reveal";
 import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
-import { Scorecard } from "@/components/marketing/Scorecard";
 import { CrewTicker } from "@/components/marketing/CrewTicker";
 import { ProblemSlabs } from "@/components/marketing/ProblemSlabs";
-import { StitchedTimeline } from "@/components/StitchedTimeline";
 import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import { PricingTiers } from "@/components/TierCard";
 import { CASES } from "@/lib/cases";
@@ -28,26 +26,8 @@ const SYSTEM_SLABS = [
   },
 ];
 
-const TIMELINE = [
-  {
-    title: "Intro call",
-    body: "Twenty minutes. You talk, we listen. No deck, no pressure — just where your presence stands and where it hurts.",
-  },
-  {
-    title: "Presence audit",
-    body: "We read everything the internet says about you and hand you the same scorecard a funder or new family would build in their head.",
-  },
-  {
-    title: "Build & calendar",
-    body: "Site refreshed, brand tightened, and your first month of content drafted and loaded into your approval queue.",
-  },
-  {
-    title: "Run & report",
-    body: "We post, you approve, everyone sees the numbers. One report a month, written for humans.",
-  },
-];
-
 // Case studies live in lib/cases.ts, shared with /work.
+// The four-step process lives on /how-it-works.
 
 const FAQ = [
   {
@@ -77,32 +57,27 @@ export default function Home() {
     <>
       <SiteNav />
       <MatteSection as="main" className="overflow-x-clip">
-        {/* HERO — Presence Scorecard front and center */}
+        {/* HERO */}
         <section className="mx-auto max-w-6xl px-6 pb-20 pt-36 sm:pt-44">
-          <div className="grid items-center gap-14 lg:grid-cols-[1fr_1.05fr]">
-            <div>
-              <CareTag>Done-for-you online presence</CareTag>
-              <h1 className="headline mt-5">
-                Look the part.
-                <br />
-                Stay the <span className="text-clay-400">part</span>.
-              </h1>
-              <p className="mt-6 max-w-md text-lg leading-relaxed text-ash-300">
-                One crew runs your website, socials, and reporting — and
-                nothing publishes without your review.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Link href="/contact" className="btn btn-primary">
-                  Book an intro call
-                </Link>
-                <Link href="/#how" className="btn btn-ghost">
-                  How it works
-                </Link>
-              </div>
+          <div className="mx-auto max-w-3xl text-center">
+            <CareTag>Done-for-you online presence</CareTag>
+            <h1 className="headline mt-5">
+              Look the part.
+              <br />
+              Stay the <span className="text-clay-500">part</span>.
+            </h1>
+            <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-ash-300">
+              One crew runs your website, socials, and reporting — and
+              nothing publishes without your review.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <Link href="/contact" className="btn btn-primary">
+                Book an intro call
+              </Link>
+              <Link href="/how-it-works" className="btn btn-ghost">
+                How it works
+              </Link>
             </div>
-            <Reveal delay={120}>
-              <Scorecard />
-            </Reveal>
           </div>
         </section>
 
@@ -140,7 +115,7 @@ export default function Home() {
                 <GlassPanel
                   depth="mid"
                   radius="lg"
-                  contentClassName="border-l-2 border-clay-500 p-7 h-full"
+                  contentClassName="p-7 h-full"
                 >
                   <h3 className="text-lg font-semibold text-white">
                     {slab.title}
@@ -165,29 +140,6 @@ export default function Home() {
           <Reveal delay={120} className="mt-10">
             <BeforeAfterSlider />
           </Reveal>
-        </section>
-
-        {/* HOW WE WORK */}
-        <section id="how" className="scroll-mt-28 px-6 pb-28">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid gap-14 lg:grid-cols-[1fr_1.2fr]">
-              <Reveal>
-                <CareTag>How we work</CareTag>
-                <h2 className="subhead mt-4">
-                  Four steps.
-                  <br />
-                  No mystery.
-                </h2>
-                <p className="mt-5 max-w-sm leading-relaxed text-ash-300">
-                  A stitched-down process we run the same way every time —
-                  so you always know what happens next.
-                </p>
-              </Reveal>
-              <Reveal delay={100}>
-                <StitchedTimeline steps={TIMELINE} />
-              </Reveal>
-            </div>
-          </div>
         </section>
 
         {/* WORK */}

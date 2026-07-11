@@ -158,7 +158,7 @@ export default function ContactPage() {
                       onClick={() => set({ orgType: t })}
                       className={`rounded-[var(--r-pill)] px-4 py-1.5 text-sm transition ${
                         form.orgType === t
-                          ? "bg-clay-600 text-white"
+                          ? "bg-clay-600 text-on-dark"
                           : "bg-white/5 text-ash-300 hover:bg-white/10 hover:text-paper"
                       }`}
                     >

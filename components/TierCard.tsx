@@ -104,11 +104,14 @@ export function PricingTiers() {
             </div>
 
             <p className="tnum mt-5 text-5xl font-bold text-white">
-              ${annual ? tier.yearly : tier.monthly}
-              <span className="text-base font-medium text-ash-300">
-                {annual ? " /yr" : " /mo"}
-              </span>
+              ${annual ? (tier.yearly / 12).toFixed(2) : tier.monthly}
+              <span className="text-base font-medium text-ash-300"> /mo</span>
             </p>
+            {annual && (
+              <p className="tnum mt-1.5 text-xs text-ash-300">
+                billed ${tier.yearly} yearly
+              </p>
+            )}
             <p className="mt-3 text-sm text-paper">{tier.line}</p>
 
             <ul className="mt-6 flex-1 space-y-3">

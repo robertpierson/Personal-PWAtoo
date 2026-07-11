@@ -4,18 +4,23 @@
 /* Bandana tokens — the only place raw color values are allowed.      */
 /* ------------------------------------------------------------------ */
 :root {
-  /* FIELD — warm near-blacks built around brand #22201F */
-  --ink-900: #1a1815;
-  --ink-800: #22201f; /* brand black */
-  --ink-700: #2b2825;
-  --graphite-600: #363230;
-  --graphite-500: #413d39;
-  --smoke-400: #4d545b; /* brand slate */
-  --ash-300: #9b948a;
+  /* FIELD — light theme: white-to-cream field built around brand #F4F0E7.
+     Role-based names: "ink" = field/surface, "white"/"paper" = contrast
+     text. Values flipped for the light theme; roles unchanged. */
+  --ink-900: #fdfbf7;
+  --ink-800: #f4f0e7; /* brand cream */
+  --ink-700: #ece6d9;
+  --graphite-600: #ddd5c6;
+  --graphite-500: #cfc6b5;
+  --smoke-400: #8a8580;
+  --ash-300: #6b655d;
 
-  /* CONTRAST */
-  --white: #ffffff;
-  --paper: #f4f0e7; /* brand cream */
+  /* CONTRAST — dark text on the light field */
+  --white: #22201f; /* brand black */
+  --paper: #2b2825;
+
+  /* Text on dark surfaces (nav pill, primary buttons) */
+  --on-dark: #f4f0e7;
 
   /* CLAY (pop; brand terracotta ramp) */
   --rust-700: #8e4a33; /* brand rust */
@@ -29,11 +34,11 @@
   --selvedge: #6c7a4d; /* brand olive */
   --topstitch: #b8924d; /* brand ochre */
 
-  /* GLASS */
-  --glass-fill: rgba(193, 95, 61, 0.1);
-  --glass-edge: rgba(255, 255, 255, 0.38);
-  --glass-inner: rgba(229, 168, 134, 0.14);
-  --glass-shadow: rgba(12, 9, 7, 0.55);
+  /* GLASS — warm-white panes over the light field */
+  --glass-fill: rgba(255, 253, 248, 0.5);
+  --glass-edge: rgba(255, 255, 255, 0.9);
+  --glass-inner: rgba(193, 95, 61, 0.1);
+  --glass-shadow: rgba(90, 60, 40, 0.28);
 
   /* RADIUS */
   --r-sm: 12px;
@@ -60,6 +65,7 @@
   --color-cream-200: var(--cream-200);
   --color-selvedge: var(--selvedge);
   --color-topstitch: var(--topstitch);
+  --color-on-dark: var(--on-dark);
 
   --radius-sm: var(--r-sm);
   --radius-md: var(--r-md);
@@ -85,7 +91,7 @@ body {
 
 ::selection {
   background: var(--clay-600);
-  color: var(--white);
+  color: var(--on-dark);
 }
 
 /* ------------------------------------------------------------------ */
@@ -146,13 +152,13 @@ body {
 
   .glass[data-depth="mid"] {
     --glass-blur: 18px;
-    --glass-bg: rgba(193, 95, 61, 0.07);
+    --glass-bg: rgba(255, 253, 248, 0.4);
     box-shadow: 0 18px 36px -20px var(--glass-shadow);
   }
 
   .glass[data-depth="far"] {
     --glass-blur: 10px;
-    --glass-bg: rgba(193, 95, 61, 0.05);
+    --glass-bg: rgba(255, 253, 248, 0.3);
     box-shadow: 0 12px 28px -18px var(--glass-shadow);
   }
 
@@ -195,7 +201,7 @@ body {
   .glass-rim {
     box-shadow:
       inset 0 1px 0 var(--glass-edge),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+      inset 0 0 0 1px rgba(34, 32, 31, 0.08);
   }
 
   .glass-rim::before {
@@ -206,10 +212,10 @@ body {
     padding: 1px;
     background: linear-gradient(
       160deg,
-      rgba(255, 255, 255, 0.45),
-      rgba(255, 255, 255, 0.06) 28%,
-      rgba(229, 168, 134, 0.28) 62%,
-      rgba(255, 255, 255, 0.14)
+      rgba(255, 255, 255, 0.95),
+      rgba(34, 32, 31, 0.06) 28%,
+      rgba(142, 74, 51, 0.3) 62%,
+      rgba(255, 255, 255, 0.5)
     );
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
@@ -221,12 +227,12 @@ body {
     mask-composite: exclude;
   }
 
-  /* 4 — specular highlight; PointerLight moves --mx/--my */
+  /* 4 — fall-palette spotlight; PointerLight moves --mx/--my */
   .glass-light {
     background: radial-gradient(
       240px circle at var(--mx, 50%) var(--my, -30%),
-      rgba(255, 255, 255, 0.13),
-      rgba(229, 168, 134, 0.05) 45%,
+      rgba(193, 95, 61, 0.14),
+      rgba(184, 146, 77, 0.07) 45%,
       transparent 72%
     );
   }
@@ -270,46 +276,36 @@ body {
   .glass-light {
     background: radial-gradient(
       240px circle at 50% -30%,
-      rgba(255, 255, 255, 0.1),
+      rgba(193, 95, 61, 0.1),
       transparent 70%
     );
   }
 }
 
 /* ------------------------------------------------------------------ */
-/* Matte field — layered near-blacks, terracotta dye bleed, twill grain    */
+/* Matte field — white gradient with fall-palette glows. The strongest */
+/* glow sits top-right, under the nav Contact button.                  */
 /* ------------------------------------------------------------------ */
 @layer components {
   .matte {
     position: relative;
     background:
       radial-gradient(
-        1200px 800px at 72% -12%,
-        rgba(142, 74, 51, 0.38),
+        1100px 750px at 82% -8%,
+        rgba(193, 95, 61, 0.3),
         transparent 60%
       ),
       radial-gradient(
-        900px 700px at 8% 112%,
-        rgba(142, 74, 51, 0.24),
+        850px 650px at 2% 34%,
+        rgba(184, 146, 77, 0.2),
         transparent 55%
       ),
-      linear-gradient(var(--ink-900), var(--ink-800));
-  }
-
-  .matte::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.045;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-      repeating-linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.6) 0 1px,
-        transparent 1px 4px
-      );
-    background-size: 180px 180px, 6px 6px;
+      radial-gradient(
+        950px 700px at 55% 112%,
+        rgba(108, 122, 77, 0.18),
+        transparent 58%
+      ),
+      linear-gradient(#ffffff, var(--ink-800));
   }
 
   .matte > * {
@@ -339,7 +335,7 @@ body {
   }
 
   .btn-primary {
-    color: var(--white);
+    color: var(--on-dark);
     background: linear-gradient(180deg, var(--clay-500), var(--clay-600));
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.28),
@@ -354,13 +350,13 @@ body {
 
   .btn-ghost {
     color: var(--paper);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(34, 32, 31, 0.18);
+    background: rgba(255, 255, 255, 0.35);
   }
 
   .btn-ghost:hover {
-    border-color: rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(34, 32, 31, 0.34);
+    background: rgba(255, 255, 255, 0.6);
   }
 
   :is(.btn, a, button):focus-visible {
@@ -403,14 +399,25 @@ body {
       background-color 240ms ease;
   }
 
+  /* Nav pill stays dark on the light field — the contrast layer the
+     white logo and wordmark sit on. */
   .site-nav .glass-base {
     transition: background-color 240ms ease;
+    background:
+      linear-gradient(160deg, rgba(193, 95, 61, 0.18), transparent 45%),
+      rgba(34, 32, 31, 0.86);
   }
 
   .site-nav[data-scrolled] .glass-base {
-    background-color: rgba(18, 20, 25, 0.55);
+    background-color: rgba(26, 24, 21, 0.92);
     -webkit-backdrop-filter: blur(34px) saturate(160%);
     backdrop-filter: blur(34px) saturate(160%);
+  }
+
+  .site-nav .glass-rim {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   }
 
   /* Crew ticker — audience as slow-scrolling clay tag chips */
@@ -433,6 +440,8 @@ body {
   .ticker-chip {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    min-width: 13.5rem;
     white-space: nowrap;
     border-radius: var(--r-pill);
     padding: 0.45rem 1rem;
@@ -440,9 +449,9 @@ body {
     font-size: 0.6875rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--sand-300);
+    color: var(--rust-700);
     background: rgba(193, 95, 61, 0.1);
-    box-shadow: inset 0 0 0 1px rgba(213, 127, 92, 0.25);
+    box-shadow: inset 0 0 0 1px rgba(193, 95, 61, 0.28);
   }
 
   /* Problem slabs — misaligned vendors snapping into one system */
@@ -600,21 +609,6 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
-/* Scorecard gauge                                                     */
-/* ------------------------------------------------------------------ */
-@layer components {
-  .gauge-arc {
-    transition: stroke-dashoffset 700ms cubic-bezier(0.22, 0.9, 0.3, 1);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .gauge-arc {
-      transition: none;
-    }
-  }
-}
-
-/* ------------------------------------------------------------------ */
 /* Status system — one set, used everywhere                            */
 /* clay = needs action / in progress; white = done; faint = idle      */
 /* ------------------------------------------------------------------ */
@@ -648,13 +642,13 @@ body {
 
   .status-done {
     color: var(--paper);
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    background: rgba(34, 32, 31, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(34, 32, 31, 0.14);
   }
 
   .status-idle {
     color: var(--ash-300);
-    background: rgba(255, 255, 255, 0.03);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+    background: rgba(34, 32, 31, 0.03);
+    box-shadow: inset 0 0 0 1px rgba(34, 32, 31, 0.08);
   }
 }
