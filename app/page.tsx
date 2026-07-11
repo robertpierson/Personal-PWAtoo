@@ -6,6 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { CrewTicker } from "@/components/marketing/CrewTicker";
+import { FallGlow } from "@/components/marketing/FallGlow";
 import { ProblemSlabs } from "@/components/marketing/ProblemSlabs";
 import { Receipt } from "@/components/marketing/Receipt";
 import { PricingTiers } from "@/components/TierCard";
@@ -61,9 +62,10 @@ export default function Home() {
     <>
       <SiteNav />
       <MatteSection as="main" className="overflow-x-clip">
-        {/* HERO — asymmetric, left-set */}
-        <section className="mx-auto max-w-6xl px-6 pb-16 pt-36 sm:pt-44">
-          <div className="max-w-3xl">
+        {/* HERO — asymmetric, left-set, pointer-reactive fall glow */}
+        <FallGlow>
+          <section className="mx-auto max-w-6xl px-6 pb-16 pt-36 sm:pt-44">
+            <div className="max-w-3xl">
             <CareTag>For students who run things</CareTag>
             <h1 className="headline mt-5">
               Run something real.
@@ -86,11 +88,12 @@ export default function Home() {
             </div>
           </div>
 
-        </section>
+          </section>
 
-        <div className="pb-24">
-          <CrewTicker />
-        </div>
+          <div className="pb-24">
+            <CrewTicker />
+          </div>
+        </FallGlow>
 
         {/* THE RECEIPT — the one loud thing */}
         <section className="mx-auto max-w-6xl px-6 pb-28">

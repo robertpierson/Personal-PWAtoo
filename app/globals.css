@@ -314,8 +314,7 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
-/* Matte field — flat ink ground. No gradient meshes; the boldness     */
-/* budget is spent on the Receipt.                                     */
+/* Matte field — flat ground; the hero adds its own fall-glow layer.   */
 /* ------------------------------------------------------------------ */
 @layer components {
   .matte {
@@ -325,6 +324,44 @@ body {
 
   .matte > * {
     position: relative;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Fall glow — patterned fall-palette gradient behind the hero.        */
+/* The lead rust blob follows the pointer (--gx/--gy via rAF lerp).    */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .fall-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        620px 460px at var(--gx, 68%) var(--gy, 28%),
+        rgba(193, 95, 61, 0.34),
+        transparent 65%
+      ),
+      radial-gradient(820px 540px at 12% 18%, rgba(184, 146, 77, 0.26), transparent 62%),
+      radial-gradient(700px 520px at 88% 12%, rgba(142, 74, 51, 0.2), transparent 60%),
+      radial-gradient(900px 620px at 46% 96%, rgba(108, 122, 77, 0.22), transparent 62%),
+      radial-gradient(520px 420px at 26% 62%, rgba(193, 95, 61, 0.12), transparent 60%);
+    mask-image: linear-gradient(#000 55%, transparent 96%);
+  }
+
+  /* grain — the "pattern" over the gradient */
+  .fall-glow::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.16;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    mix-blend-mode: soft-light;
+  }
+
+  [data-theme="dark"] .fall-glow {
+    opacity: 0.8;
   }
 }
 
