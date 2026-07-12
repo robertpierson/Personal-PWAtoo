@@ -3,35 +3,44 @@
 import { useEffect, useRef, type ReactNode } from "react";
 
 /**
- * Hero background: drifting plasma blobs in the fall palette (CSS
- * keyframes) under a halftone dot grid on canvas. The dots ride a slow
- * traveling wave, and pointer movement drops ripples that spread
- * through the field like water. Decorative only.
+ * Hero background: drifting plasma blobs (CSS) behind a pseudo-3D
+ * dot-ocean on canvas — a perspective-projected particle plane rolling
+ * with layered swell, colored by wave height in the fall palette and
+ * fading with depth. The pointer drops gentle ripples into the swell:
+ * new waves in the ocean, never a storm. Decorative only.
  */
 
-const DOT_COLORS = [
-  "rgba(193, 95, 61, 0.5)", // rust
-  "rgba(193, 95, 61, 0.5)",
-  "rgba(184, 146, 77, 0.5)", // gold
-  "rgba(108, 122, 77, 0.45)", // olive
-  "rgba(142, 74, 51, 0.45)", // brick
+// world-space field
+const COLS = 110;
+const ROWS = 54;
+const WORLD_W = 2600;
+const Z_NEAR = 40;
+const Z_FAR = 1900;
+const FOCAL = 380;
+const CAM_Y = 520; // camera height above the plane
+
+// swell
+const SWELL = 26;
+
+// pointer ripples — deliberately gentle
+const RIPPLE_AMP = 10;
+const RIPPLE_SPEED = 170; // world units/s
+const RIPPLE_LENGTH = 190;
+const RIPPLE_LIFE = 3;
+const MAX_RIPPLES = 8;
+
+// height-indexed palette: trough → crest (olive/brick low, rust mid,
+// gold/cream crests) — the "gradient varying" across the wave
+const PALETTE = [
+  [108, 122, 77], // olive
+  [142, 74, 51], // brick
+  [193, 95, 61], // rust
+  [193, 95, 61],
+  [184, 146, 77], // gold
+  [214, 178, 112], // lit crest
 ];
 
-const SPACING = 26;
-
-// ambient wave
-const WAVE_AMP = 4.5;
-const WAVE_SPEED = 1.4;
-
-// cursor ripples
-const RIPPLE_SPEED = 260; // px/s outward
-const RIPPLE_LENGTH = 90; // wavelength px
-const RIPPLE_AMP = 14;
-const RIPPLE_LIFE = 2.4; // seconds
-const MAX_RIPPLES = 14;
-
-type Dot = { x: number; y: number; r: number; color: string };
-type Ripple = { x: number; y: number; t0: number };
+type Ripple = { x: number; z: number; t0: number };
 
 export function FallGlow({ children }: { children: ReactNode }) {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -44,63 +53,69 @@ export function FallGlow({ children }: { children: ReactNode }) {
     if (!wrap || !canvas || !ctx) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let dots: Dot[] = [];
     let ripples: Ripple[] = [];
     let raf = 0;
+    let width = 0;
+    let height = 0;
+    let horizon = 0;
     let last = { x: -9999, y: -9999, t: 0 };
 
-    const hash = (a: number, b: number) => {
-      const n = Math.sin(a * 127.1 + b * 311.7) * 43758.5453;
-      return n - Math.floor(n);
-    };
-
-    const build = () => {
+    const resize = () => {
       const rect = wrap.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      width = rect.width;
+      height = rect.height;
+      horizon = height * 0.3;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      dots = [];
-      for (let y = SPACING / 2; y < rect.height; y += SPACING) {
-        for (let x = SPACING / 2; x < rect.width; x += SPACING) {
-          const h = hash(x, y);
-          const ox = ((y / SPACING) | 0) % 2 ? SPACING / 2 : 0;
-          dots.push({
-            x: x + ox + (h - 0.5) * 6,
-            y: y + (hash(y, x) - 0.5) * 6,
-            r: 1.1 + h * 1.6,
-            color: DOT_COLORS[(h * DOT_COLORS.length) | 0],
-          });
-        }
-      }
     };
 
+    // layered sines = rolling ocean swell
+    const swell = (x: number, z: number, t: number) =>
+      SWELL *
+        0.55 *
+        Math.sin(0.0035 * x + t * 0.55 + 0.8 * Math.sin(0.0016 * z + t * 0.3)) +
+      SWELL * 0.3 * Math.sin(0.0021 * z - t * 0.8) +
+      SWELL * 0.18 * Math.sin(0.006 * (x + z * 0.6) + t * 1.15);
+
     const draw = (t: number) => {
-      const rect = wrap.getBoundingClientRect();
-      ctx.clearRect(0, 0, rect.width, rect.height);
-      const tw = t * WAVE_SPEED;
-      for (const d of dots) {
-        // ambient traveling wave, diagonal across the field
-        let dx = 2 * Math.cos(0.016 * d.y + tw * 0.9);
-        let dy = WAVE_AMP * Math.sin(0.02 * d.x + 0.024 * d.y + tw);
-        // cursor ripples — radial sin wave expanding from each drop
-        for (const rp of ripples) {
-          const age = t - rp.t0;
-          const rx = d.x - rp.x;
-          const ry = d.y - rp.y;
-          const dist = Math.hypot(rx, ry) || 1;
-          const phase = (dist - RIPPLE_SPEED * age) / RIPPLE_LENGTH;
-          if (phase > 0 || phase < -2.5) continue; // only near the front
-          const decay =
-            Math.exp(-dist / 420) * Math.max(0, 1 - age / RIPPLE_LIFE);
-          const amp = RIPPLE_AMP * decay * Math.sin(phase * Math.PI * 2);
-          dx += (rx / dist) * amp;
-          dy += (ry / dist) * amp;
+      ctx.clearRect(0, 0, width, height);
+      const cx = width / 2;
+      for (let j = 0; j < ROWS; j++) {
+        const wz = Z_NEAR + ((Z_FAR - Z_NEAR) * j * j) / (ROWS * ROWS); // denser near
+        const scale = FOCAL / (FOCAL + wz);
+        const depth = 1 - (wz - Z_NEAR) / (Z_FAR - Z_NEAR);
+        for (let i = 0; i <= COLS; i++) {
+          const wx = (i / COLS - 0.5) * WORLD_W;
+          let h = swell(wx, wz, t);
+          for (const rp of ripples) {
+            const age = t - rp.t0;
+            const dist = Math.hypot(wx - rp.x, wz - rp.z);
+            const front = dist - RIPPLE_SPEED * age;
+            if (front > 0 || front < -RIPPLE_LENGTH * 2) continue;
+            const decay =
+              Math.exp(-dist / 700) * Math.max(0, 1 - age / RIPPLE_LIFE);
+            h +=
+              RIPPLE_AMP *
+              decay *
+              Math.sin(((Math.PI * 2) / RIPPLE_LENGTH) * front);
+          }
+          const sx = cx + wx * scale;
+          if (sx < -8 || sx > width + 8) continue;
+          const sy = horizon + (CAM_Y - h) * scale;
+          // color by height: trough → crest across the palette
+          const n = Math.min(
+            PALETTE.length - 1,
+            Math.max(0, ((h / SWELL + 1) / 2) * PALETTE.length) | 0,
+          );
+          const [cr, cg, cb] = PALETTE[n];
+          const alpha = 0.16 + 0.5 * depth + 0.12 * (h / SWELL);
+          ctx.beginPath();
+          ctx.arc(sx, sy, 0.5 + 3.2 * scale, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${cr}, ${cg}, ${cb}, ${alpha.toFixed(3)})`;
+          ctx.fill();
         }
-        ctx.beginPath();
-        ctx.arc(d.x + dx, d.y + dy, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = d.color;
-        ctx.fill();
       }
     };
 
@@ -111,26 +126,31 @@ export function FallGlow({ children }: { children: ReactNode }) {
       raf = requestAnimationFrame(loop);
     };
 
+    // screen → world on the plane (h≈0), for dropping ripples
     const onMove = (e: PointerEvent) => {
       if (reduced.matches) return;
       const r = wrap.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
+      const sx = e.clientX - r.left;
+      const sy = e.clientY - r.top;
+      const scale = (sy - horizon) / CAM_Y;
+      if (scale <= 0.05) return; // above the horizon — no water there
+      const wz = FOCAL / scale - FOCAL;
+      if (wz < Z_NEAR || wz > Z_FAR) return;
+      const wx = (sx - width / 2) / scale;
       const t = performance.now() / 1000;
-      // drop a ripple when the cursor has moved far or enough time passed
-      if (t - last.t > 0.09 && Math.hypot(x - last.x, y - last.y) > 32) {
-        ripples.push({ x, y, t0: t });
+      if (t - last.t > 0.12 && Math.hypot(sx - last.x, sy - last.y) > 40) {
+        ripples.push({ x: wx, z: wz, t0: t });
         if (ripples.length > MAX_RIPPLES) ripples.shift();
-        last = { x, y, t };
+        last = { x: sx, y: sy, t };
       }
     };
 
-    build();
+    resize();
     draw(0);
     if (!reduced.matches) raf = requestAnimationFrame(loop);
 
     const ro = new ResizeObserver(() => {
-      build();
+      resize();
       draw(performance.now() / 1000);
     });
     ro.observe(wrap);
