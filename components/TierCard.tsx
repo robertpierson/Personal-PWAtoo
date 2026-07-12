@@ -10,8 +10,8 @@ import { CareTag } from "@/components/CareTag";
 // dashboard and paste the URLs]
 const STRIPE_LINKS: Record<string, string | undefined> = {
   Starter: process.env.NEXT_PUBLIC_STRIPE_LINK_STARTER,
-  Chapter: process.env.NEXT_PUBLIC_STRIPE_LINK_CHAPTER,
-  Founder: process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDER,
+  Growth: process.env.NEXT_PUBLIC_STRIPE_LINK_GROWTH,
+  Studio: process.env.NEXT_PUBLIC_STRIPE_LINK_STUDIO,
 };
 
 const TIERS = [
@@ -19,37 +19,43 @@ const TIERS = [
     name: "Starter",
     monthly: 19,
     yearly: 190,
+    credits: 5,
     line: "Exists, and looks like it.",
     features: [
       "One-page site, hosted and maintained",
       "One post a week, written and designed",
       "Monthly summary email",
+      "5 build credits a month",
     ],
     featured: false,
   },
   {
-    name: "Chapter",
+    name: "Growth",
     monthly: 59,
     yearly: 590,
-    line: "The whole thing, run for you.",
+    credits: 15,
+    line: "The whole presence, run for you.",
     features: [
-      "Full site, kept current",
+      "Full site — built, hosted, kept current",
       "Three posts a week across your channels",
       "Approvals app — you review before it ships",
       "The monthly report — your numbers, your receipts",
+      "15 build credits a month",
     ],
     featured: true,
   },
   {
-    name: "Founder",
+    name: "Studio",
     monthly: 179,
     yearly: 1790,
-    line: "A marketing team, for the price of a tutor.",
+    credits: 40,
+    line: "A full marketing team, on call.",
     features: [
-      "Everything in Chapter",
+      "Everything in Growth",
       "Email newsletter, written and sent",
-      "Campaign design (events, fundraisers, launches)",
+      "Campaign & event support (launches, fundraisers)",
       "Quarterly strategy call",
+      "40 build credits a month",
     ],
     featured: false,
   },
@@ -163,8 +169,8 @@ export function PricingTiers() {
         card.
       </p>
       <p className="mt-2 text-center text-sm text-ash-300">
-        Paying from a club budget? We&apos;ll send you a one-page
-        justification to hand to your student-activities office.
+        Paying from an organization budget? We&apos;ll send a one-page
+        justification for whoever signs off.
       </p>
     </div>
   );

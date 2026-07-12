@@ -165,6 +165,54 @@ export type Database = {
           },
         ]
       }
+      design_requests: {
+        Row: {
+          brief: string
+          created_at: string
+          id: string
+          kind: Database["public"]["Enums"]["content_kind"]
+          org_id: string
+          requested_by: string | null
+          status: Database["public"]["Enums"]["design_request_status"]
+          title: string
+        }
+        Insert: {
+          brief: string
+          created_at?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["content_kind"]
+          org_id: string
+          requested_by?: string | null
+          status?: Database["public"]["Enums"]["design_request_status"]
+          title: string
+        }
+        Update: {
+          brief?: string
+          created_at?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["content_kind"]
+          org_id?: string
+          requested_by?: string | null
+          status?: Database["public"]["Enums"]["design_request_status"]
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "design_requests_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "design_requests_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       insights: {
         Row: {
           engagement: number
@@ -286,6 +334,7 @@ export type Database = {
       organizations: {
         Row: {
           created_at: string
+          credits: number
           id: string
           logo_url: string | null
           name: string
@@ -294,6 +343,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          credits?: number
           id?: string
           logo_url?: string | null
           name: string
@@ -302,6 +352,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          credits?: number
           id?: string
           logo_url?: string | null
           name?: string
@@ -371,6 +422,11 @@ export type Database = {
         | "shipped"
       content_kind: "design" | "photo" | "video" | "document"
       content_status: "drafting" | "in_review" | "approved" | "delivered"
+      design_request_status:
+        | "requested"
+        | "in_progress"
+        | "delivered"
+        | "declined"
       invoice_status: "outstanding" | "paid" | "void"
       user_role: "owner" | "member"
     }
@@ -512,6 +568,12 @@ export const Constants = {
       ],
       content_kind: ["design", "photo", "video", "document"],
       content_status: ["drafting", "in_review", "approved", "delivered"],
+      design_request_status: [
+        "requested",
+        "in_progress",
+        "delivered",
+        "declined",
+      ],
       invoice_status: ["outstanding", "paid", "void"],
       user_role: ["owner", "member"],
     },

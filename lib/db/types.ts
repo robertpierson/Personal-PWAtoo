@@ -36,3 +36,7 @@ export type Invoice = Database["public"]["Tables"]["invoices"]["Row"];
 export type InsightRow = Database["public"]["Tables"]["insights"]["Row"];
 export type Lead = Database["public"]["Tables"]["leads"]["Row"];
 export type LeadInsert = Database["public"]["Tables"]["leads"]["Insert"];
+export type DesignRequest =
+  Database["public"]["Tables"]["design_requests"]["Row"];
+export type DesignRequestStatus =
+  Database["public"]["Enums"]["design_request_status"];

@@ -1,7 +1,15 @@
+import Link from "next/link";
 import { GlassPanel } from "@/components/glass/GlassPanel";
 import { CareTag } from "@/components/CareTag";
+import { EmptySlot } from "@/components/app/EmptySlot";
 import { getInvoices } from "@/lib/data";
 import { invoiceStatus } from "@/lib/status";
+
+const PLANS = [
+  { name: "Starter", price: 19, credits: 5, line: "Exists, and looks like it." },
+  { name: "Growth", price: 59, credits: 15, line: "The whole presence, run for you." },
+  { name: "Studio", price: 179, credits: 40, line: "A full marketing team, on call." },
+];
 
 const money = (cents: number) =>
   `$${(cents / 100).toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
@@ -39,7 +47,54 @@ export default async function InvoicesPage() {
             .
           </p>
         )}
+        <p className="mt-2 text-xs text-ash-300">
+          We bill by direct bank transfer — details arrive with each
+          invoice. No card on file, ever.
+        </p>
       </GlassPanel>
+
+      {/* Zero balance — pick or change your plan right here */}
+      {outstanding === 0 && (
+        <section className="mt-8" aria-label="Choose a plan">
+          <CareTag>Choose your plan</CareTag>
+          <p className="mt-2 max-w-md text-sm leading-relaxed text-ash-300">
+            Nothing owing. Pick the plan that fits and we&apos;ll set up
+            billing — each plan grants monthly build credits.
+          </p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+            {PLANS.map((p) => (
+              <GlassPanel
+                key={p.name}
+                depth="far"
+                radius="md"
+                contentClassName="flex h-full flex-col p-5"
+              >
+                <CareTag>{p.name}</CareTag>
+                <p className="tnum mt-2 text-3xl font-bold text-white">
+                  ${p.price}
+                  <span className="text-sm font-medium text-ash-300"> /mo</span>
+                </p>
+                <p className="mt-1 text-xs" style={{ color: "var(--gold)" }}>
+                  ✦ {p.credits} build credits monthly
+                </p>
+                <p className="mt-2 flex-1 text-xs leading-relaxed text-ash-300">
+                  {p.line}
+                </p>
+                <Link href="/pricing" className="btn btn-ghost mt-4 text-xs">
+                  See what&apos;s included
+                </Link>
+              </GlassPanel>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {invoices.length === 0 && (
+        <EmptySlot title="Invoices" className="mt-8">
+          Monthly invoices appear here with their status and payment
+          details. Nothing yet — you haven&apos;t been billed.
+        </EmptySlot>
+      )}
 
       <div className="mt-6 flex flex-col gap-3">
         {invoices.map((inv) => {

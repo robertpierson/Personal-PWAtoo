@@ -46,23 +46,27 @@ export default async function SettingsPage() {
           Connected accounts
         </h2>
         <div className="mt-5 flex flex-col gap-3">
-          {[
-            { name: "Instagram", detail: "@ridgelinerobotics", ok: true },
-            { name: "Stripe", detail: "Billing and invoices", ok: true },
-          ].map((c) => (
-            <div
-              key={c.name}
-              className="flex items-center justify-between rounded-[var(--r-sm)] bg-white/4 px-4 py-3"
-            >
-              <div>
-                <p className="text-sm font-medium text-white">{c.name}</p>
-                <p className="text-xs text-ash-300">{c.detail}</p>
-              </div>
-              <span className={`status-chip ${c.ok ? "status-done" : "status-action"}`}>
-                {c.ok ? "Connected" : "Reconnect"}
-              </span>
+          <div className="flex items-center justify-between rounded-[var(--r-sm)] bg-white/4 px-4 py-3">
+            <div>
+              <p className="text-sm font-medium text-white">Instagram</p>
+              <p className="text-xs text-ash-300">@ridgelinerobotics</p>
             </div>
-          ))}
+            <span className="status-chip status-done">Connected</span>
+          </div>
+        </div>
+      </GlassPanel>
+
+      <GlassPanel radius="lg" depth="mid" contentClassName="p-7">
+        <h2 className="text-base font-semibold text-white">Payments</h2>
+        <div className="mt-5 rounded-[var(--r-sm)] bg-white/4 px-4 py-3">
+          <p className="text-sm font-medium text-white">
+            Direct bank transfer
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-ash-300">
+            Invoices arrive with transfer details each month. We don&apos;t
+            store card numbers or payment processors on your account —
+            there&apos;s nothing here to remove.
+          </p>
         </div>
       </GlassPanel>
 

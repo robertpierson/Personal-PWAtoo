@@ -3,6 +3,7 @@ import {
   demoApprovals,
   demoCalendar,
   demoContent,
+  demoDesignRequests,
   demoInsights,
   demoInvoices,
   demoOrg,
@@ -14,6 +15,7 @@ import type {
   Approval,
   CalendarItem,
   ClientContent,
+  DesignRequest,
   InsightRow,
   Invoice,
   Organization,
@@ -104,6 +106,16 @@ export async function getInvoices(): Promise<Invoice[]> {
     .from("invoices")
     .select("*")
     .order("issued_at", { ascending: false });
+  return data ?? [];
+}
+
+export async function getDesignRequests(): Promise<DesignRequest[]> {
+  if (isDemoMode) return demoDesignRequests();
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("design_requests")
+    .select("*")
+    .order("created_at", { ascending: false });
   return data ?? [];
 }
 

@@ -2,6 +2,7 @@ import type {
   Approval,
   CalendarItem,
   ClientContent,
+  DesignRequest,
   InsightRow,
   Invoice,
   Organization,
@@ -41,6 +42,7 @@ export const demoOrg: Organization = {
   slug: "ridgeline-robotics-club",
   org_type: "Robotics / engineering team",
   logo_url: null,
+  credits: 15,
   created_at: "2026-02-03T15:00:00.000Z",
 };
 
@@ -230,4 +232,31 @@ export function demoInsights(): InsightRow[] {
     engagement: engagement[i],
     profile_views: views[i],
   }));
+}
+
+export function demoDesignRequests(): DesignRequest[] {
+  const wk = weekStart();
+  return [
+    {
+      id: "dr-1",
+      org_id: demoOrg.id,
+      requested_by: demoUser.id,
+      title: "Demo-day poster, print + story size",
+      kind: "design",
+      brief:
+        "Poster for the June demo day — needs date, RSVP link, and the new mark. One print version, one Instagram story crop.",
+      status: "in_progress",
+      created_at: at(wk, -3, 10),
+    },
+    {
+      id: "dr-2",
+      org_id: demoOrg.id,
+      requested_by: demoUser.id,
+      title: "Sponsor one-pager refresh",
+      kind: "document",
+      brief: "Update last season's sponsor sheet with the new numbers.",
+      status: "delivered",
+      created_at: at(wk, -12, 15),
+    },
+  ];
 }

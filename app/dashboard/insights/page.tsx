@@ -66,16 +66,48 @@ export default async function InsightsPage() {
   const insights = await getInsights();
 
   if (insights.length === 0) {
+    // Placeholder dashboard — every metric this page will report,
+    // waiting for the first month of shipped work.
+    const PLANNED = [
+      "Followers",
+      "Reach",
+      "Engagement",
+      "Profile views",
+      "Site traffic",
+      "Event sign-ups",
+      "Newsletter subscribers",
+      "Sponsor replies",
+    ];
     return (
       <div className="mx-auto max-w-4xl">
         <CareTag>Insights</CareTag>
         <h1 className="subhead mt-2">The numbers, in plain English.</h1>
-        <GlassPanel radius="lg" depth="mid" className="mt-8" contentClassName="p-8">
-          <p className="text-paper">
-            No numbers yet. Once your first posts ship, reach, followers, and
-            engagement start landing here — with a plain-English read on what
-            they mean.
-          </p>
+        <p className="mt-3 max-w-md text-sm leading-relaxed text-ash-300">
+          Once your first posts ship, every tile below starts filling in —
+          with a monthly plain-English read on what the numbers mean.
+        </p>
+
+        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {PLANNED.map((label) => (
+            <GlassPanel key={label} depth="far" radius="md" contentClassName="p-5">
+              <p className="care-tag">{label}</p>
+              <p className="tnum mt-2 text-3xl font-bold text-ash-300">—</p>
+              <p className="mt-1 text-xs text-ash-300">tracking starts soon</p>
+            </GlassPanel>
+          ))}
+        </div>
+
+        <GlassPanel radius="lg" depth="mid" className="mt-6" contentClassName="p-6">
+          <CareTag>Reach — weekly</CareTag>
+          <div
+            className="mt-4 grid h-40 place-items-center rounded-[var(--r-sm)] text-sm text-ash-300"
+            style={{
+              border:
+                "1.5px dashed color-mix(in srgb, var(--white) 18%, transparent)",
+            }}
+          >
+            Your reach chart draws itself here after the first week.
+          </div>
         </GlassPanel>
       </div>
     );

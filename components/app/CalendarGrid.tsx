@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { GlassPanel } from "@/components/glass/GlassPanel";
-import { calendarStatus, platformLabel } from "@/lib/status";
+import { calendarStatus, formatSlot, platformLabel } from "@/lib/status";
 import { createClient } from "@/lib/supabase/client";
 import type { CalendarItem } from "@/lib/db/types";
 
@@ -31,6 +31,7 @@ export function CalendarGrid({
 }) {
   const [items, setItems] = useState(initialItems);
   const [dragId, setDragId] = useState<string | null>(null);
+  const [view, setView] = useState<"month" | "list">("month");
 
   const now = new Date();
   const year = now.getFullYear();
@@ -71,8 +72,67 @@ export function CalendarGrid({
     }
   };
 
+  const upcoming = [...items].sort(
+    (a, b) =>
+      new Date(a.scheduled_at).getTime() - new Date(b.scheduled_at).getTime(),
+  );
+
   return (
     <GlassPanel radius="lg" depth="mid" contentClassName="p-4 sm:p-6">
+      <div
+        role="radiogroup"
+        aria-label="Calendar view"
+        className="mb-5 flex w-fit rounded-[var(--r-pill)] border border-white/15 p-1"
+      >
+        {(["month", "list"] as const).map((v) => (
+          <button
+            key={v}
+            role="radio"
+            aria-checked={view === v}
+            onClick={() => setView(v)}
+            className={`rounded-[var(--r-pill)] px-4 py-1 font-mono text-[0.6875rem] uppercase tracking-[0.14em] transition ${
+              view === v
+                ? "bg-rust-500 text-on-dark"
+                : "text-ash-300 hover:text-white"
+            }`}
+          >
+            {v === "month" ? "Month" : "List"}
+          </button>
+        ))}
+      </div>
+
+      {view === "list" ? (
+        <ul className="flex flex-col gap-2">
+          {upcoming.length === 0 && (
+            <li className="text-sm text-ash-300">
+              Nothing on the calendar yet — your first month of content
+              lands here after the intro call.
+            </li>
+          )}
+          {upcoming.map((item) => (
+            <li
+              key={item.id}
+              className="flex flex-wrap items-center gap-x-4 gap-y-1 rounded-[var(--r-sm)] bg-white/3 px-4 py-3"
+            >
+              <span className="tnum w-32 shrink-0 text-xs text-ash-300">
+                {formatSlot(item.scheduled_at)}
+              </span>
+              <span className="care-tag w-20 shrink-0">
+                {platformLabel[item.platform]}
+              </span>
+              <span className="min-w-0 flex-1 truncate text-sm text-paper">
+                {item.caption}
+              </span>
+              <span
+                className={`status-chip ${calendarStatus[item.status].cls}`}
+              >
+                {calendarStatus[item.status].label}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <>
       <div className="grid grid-cols-7 gap-1.5">
         {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
           <div key={d} className="care-tag pb-2 text-center">
@@ -161,6 +221,8 @@ export function CalendarGrid({
           Drag a post to reschedule — posts awaiting your review stay locked.
         </span>
       </div>
+        </>
+      )}
     </GlassPanel>
   );
 }

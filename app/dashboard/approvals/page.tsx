@@ -1,5 +1,6 @@
 import { CareTag } from "@/components/CareTag";
 import { ApprovalCard } from "@/components/app/ApprovalCard";
+import { EmptySlot } from "@/components/app/EmptySlot";
 import { getOpenApprovals } from "@/lib/data";
 import { brand } from "@/brand.config";
 
@@ -18,9 +19,10 @@ export default async function ApprovalsPage() {
 
       <div className="mt-8 flex flex-col gap-5">
         {approvals.length === 0 && (
-          <p className="text-sm text-ash-300">
-            Queue&apos;s clear. New drafts land here before they ship.
-          </p>
+          <EmptySlot title="Queue's clear">
+            New drafts land here before they ship. You&apos;ll get an email
+            the moment one needs you.
+          </EmptySlot>
         )}
         {approvals.map(({ approval, item }) => (
           <ApprovalCard key={approval.id} approval={approval} item={item} />

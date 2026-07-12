@@ -5,6 +5,7 @@ import { CareTag } from "@/components/CareTag";
 import { Reveal } from "@/components/Reveal";
 import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
+import { AwardsShowcase } from "@/components/marketing/AwardsShowcase";
 import { CrewTicker } from "@/components/marketing/CrewTicker";
 import { FallGlow } from "@/components/marketing/FallGlow";
 import { ProblemSlabs } from "@/components/marketing/ProblemSlabs";
@@ -28,11 +29,11 @@ const SYSTEM_SLABS = [
 
 const OBJECTIONS = [
   {
-    q: "“Isn’t this just buying a résumé line?”",
-    a: "No — and it wouldn’t work if it were. We don’t invent anything. The org is yours, the work is real, the numbers come from things that actually happened. We execute at a level that’s hard to hit with eighteen credit hours. Ask us to fake a number and we’ll say no, because it falls apart the first time someone asks a follow-up — and someone will.",
+    q: "“Isn’t this just buying credibility?”",
+    a: "No — and it wouldn’t work if it were. We don’t invent anything. The org is yours, the work is real, the numbers come from things that actually happened. We execute at a level that’s hard to hit while you’re running everything else. Ask us to fake a number and we’ll say no, because it falls apart the first time someone asks a follow-up — and someone will.",
   },
   {
-    q: "“What do I put on my résumé?”",
+    q: "“What do I claim on a résumé or pitch?”",
     a: "Whatever the numbers support and nothing more.",
   },
   {
@@ -48,8 +49,8 @@ const OBJECTIONS = [
     a: "You do. Always. Even if you leave.",
   },
   {
-    q: "“I graduate in five months.”",
-    a: "That’s a semester of shipped work and five reports.",
+    q: "“I only need a few months.”",
+    a: "Fine by us — month to month, cancel with one email. That’s still months of shipped work and a report for each one.",
   },
   {
     q: "“How is $59 realistic?”",
@@ -66,17 +67,17 @@ export default function Home() {
         <FallGlow>
           <section className="mx-auto max-w-6xl px-6 pb-16 pt-36 sm:pt-44">
             <div className="max-w-3xl">
-            <CareTag>For students who run things</CareTag>
+            <CareTag>For people who run things</CareTag>
             <h1 className="headline mt-5">
               Run something real.
               <br />
               Keep the <span className="text-rust-500">receipts</span>.
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-ash-300">
-              We run the site, the socials, and the reporting for your club,
-              org, or startup — so it actually grows, and so you finish the
-              semester with numbers you can put on a résumé and defend in an
-              interview.
+              We build and run the whole online side of your organization —
+              site, socials, content, events, reporting — so it actually
+              grows, and so you end every month with numbers you can put in
+              front of anyone and defend.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link href="/contact" className="btn btn-primary">
@@ -156,30 +157,66 @@ export default function Home() {
           </div>
         </section>
 
-        {/* THE WORK — honest, no invented clients */}
+        {/* THE WORK — three current engagements, real numbers only */}
         <section id="work" className="scroll-mt-28 px-6 pb-28">
           <div className="mx-auto max-w-6xl">
             <Reveal>
               <CareTag>The work</CareTag>
               <h2 className="subhead mt-4">Real orgs. Real numbers.</h2>
               <p className="mt-5 max-w-md leading-relaxed text-ash-300">
-                Every number on this site came from work we actually ran.
-                We&apos;re early — so right now that list is short, and we
-                won&apos;t pad it.
+                Three organizations we&apos;re running right now. Every
+                number comes from work that actually shipped — write-ups
+                land as each engagement matures.
+              </p>
+            </Reveal>
+            {/* [FILL: per card — org name (or honest anonymization),
+                one-line summary, one real stat + label] */}
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {[1, 2, 3].map((n, i) => (
+                <Reveal key={n} delay={i * 90}>
+                  <GlassPanel
+                    depth="mid"
+                    radius="lg"
+                    contentClassName="flex h-full flex-col p-7"
+                  >
+                    <CareTag>Current engagement</CareTag>
+                    <h3 className="mt-3 text-lg font-semibold text-white">
+                      Client {n} — write-up in progress
+                    </h3>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-ash-300">
+                      Name and numbers publish once the client signs off on
+                      sharing them — by name or anonymized.
+                    </p>
+                    <div className="mt-6 border-t border-white/10 pt-4">
+                      <span className="tnum text-3xl font-bold text-ash-300">
+                        —
+                      </span>
+                      <span className="care-tag ml-2">
+                        first report pending
+                      </span>
+                    </div>
+                  </GlassPanel>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* THE BANDANA AWARDS */}
+        <section className="px-6 pb-28">
+          <div className="mx-auto max-w-6xl">
+            <Reveal>
+              <CareTag>The Bandana Awards</CareTag>
+              <h2 className="subhead mt-4">
+                Ship all year. Take home the proof.
+              </h2>
+              <p className="mt-5 max-w-md leading-relaxed text-ash-300">
+                Bronze, silver, and gold — awarded to client orgs whose
+                numbers earned it. A physical award, and one more receipt.
               </p>
             </Reveal>
             <Reveal delay={100} className="mt-10">
-              <GlassPanel depth="far" radius="lg" contentClassName="p-8">
-                {/* [FILL: real work + real numbers — named, anonymized
-                    ("a robotics club in Texas"), or omit entirely] */}
-                <CareTag>Concept — not a client engagement</CareTag>
-                <p className="mt-4 max-w-2xl leading-relaxed text-paper">
-                  This is where client work goes, labeled honestly: a name if
-                  they agree, &ldquo;a robotics club in Texas&rdquo; if they
-                  don&apos;t. Until then, this card stays a placeholder —
-                  because a fake case study dies at the first Google search.
-                </p>
-              </GlassPanel>
+              <AwardsShowcase />
             </Reveal>
           </div>
         </section>
@@ -191,7 +228,7 @@ export default function Home() {
               <div className="text-center">
                 <CareTag>Pricing</CareTag>
                 <h2 className="subhead mt-4">
-                  Costs less than your textbooks.
+                  Serious work. Unserious price.
                 </h2>
               </div>
             </Reveal>

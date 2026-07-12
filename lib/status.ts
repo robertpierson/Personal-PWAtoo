@@ -1,6 +1,7 @@
 import type {
   CalendarStatus,
   ContentStatus,
+  DesignRequestStatus,
   InvoiceStatus,
 } from "@/lib/db/types";
 
@@ -24,6 +25,13 @@ export const contentStatus: Record<ContentStatus, StatusStyle> = {
   in_review: { label: "In review", cls: "status-action" },
   approved: { label: "Approved", cls: "status-done" },
   delivered: { label: "Delivered", cls: "status-done" },
+};
+
+export const designRequestStatus: Record<DesignRequestStatus, StatusStyle> = {
+  requested: { label: "Requested", cls: "status-action" },
+  in_progress: { label: "In progress", cls: "status-action" },
+  delivered: { label: "Delivered", cls: "status-done" },
+  declined: { label: "Declined", cls: "status-idle" },
 };
 
 export const invoiceStatus: Record<InvoiceStatus, StatusStyle> = {
