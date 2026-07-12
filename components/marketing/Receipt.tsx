@@ -95,7 +95,7 @@ export function Receipt() {
               <p className="mt-2 leading-relaxed">
                 Grew org reach{" "}
                 <strong style={{ color: "var(--gold)" }}>46%</strong> in one
-                semester (
+                month (
                 <strong style={{ color: "var(--gold)" }}>18.2K reach</strong>,{" "}
                 <strong style={{ color: "var(--gold)" }}>
                   +312 followers
@@ -113,7 +113,7 @@ export function Receipt() {
                 LinkedIn headline
               </p>
               <p className="mt-2 leading-relaxed">
-                Founder, [Your Org] — grew campus reach to{" "}
+                Founder, [Your Org] — grew monthly reach to{" "}
                 <strong style={{ color: "var(--gold)" }}>18K/month</strong>
               </p>
             </div>

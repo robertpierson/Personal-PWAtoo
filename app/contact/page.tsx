@@ -10,13 +10,14 @@ import { isDemoMode } from "@/lib/demo";
 import { createClient } from "@/lib/supabase/client";
 
 const ORG_TYPES = [
-  "Student org",
-  "Fraternity / sorority",
   "Startup",
-  "Robotics / engineering team",
-  "Investment or case club",
-  "Club sports",
-  "Nonprofit I started",
+  "Nonprofit",
+  "Community org",
+  "Local business",
+  "Student org",
+  "Sports club",
+  "Creator / personal brand",
+  "Something else",
 ];
 
 const PAIN_POINTS = [

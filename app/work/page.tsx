@@ -26,30 +26,50 @@ export default function WorkPage() {
             Real <span className="text-rust-500">numbers</span>.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ash-300">
-            Every number on this site came from work we actually ran.
-            We&apos;re early, so this list is short — and it stays honest.
-            Client work appears here named, anonymized, or not at all.
+            Three organizations we&apos;re running right now. Every number
+            comes from work that actually shipped — each write-up publishes
+            once the client signs off on sharing it, named or anonymized.
           </p>
 
-          <Reveal className="mt-12">
-            <GlassPanel depth="mid" radius="lg" contentClassName="p-8">
-              {/* [FILL: real work + real numbers. Label each card:
-                  named / anonymized ("a robotics club in Texas") /
-                  "Concept — not a client engagement"] */}
-              <CareTag>Concept — not a client engagement</CareTag>
-              <p className="mt-4 leading-relaxed text-paper">
-                This slot is reserved for the first real engagement. Until a
-                client agrees to be shown — by name or anonymized — nothing
-                sits here pretending to be one. A fake case study dies at the
-                first Google search, and so would we.
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-ash-300">
-                Want to be the first card? The intro call is twenty minutes.
-              </p>
-              <Link href="/contact" className="btn btn-primary mt-6">
-                Book an intro call
+          {/* [FILL: per card — org name (or honest anonymization),
+              one-line summary, one real stat + label] */}
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {[1, 2, 3].map((n, i) => (
+              <Reveal key={n} delay={i * 90}>
+                <GlassPanel
+                  depth="mid"
+                  radius="lg"
+                  contentClassName="flex h-full flex-col p-7"
+                >
+                  <CareTag>Current engagement</CareTag>
+                  <h2 className="mt-3 text-lg font-semibold text-white">
+                    Client {n} — write-up in progress
+                  </h2>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-ash-300">
+                    Site, socials, and reporting in motion. Numbers publish
+                    with the first signed-off report.
+                  </p>
+                  <div className="mt-6 border-t border-white/10 pt-4">
+                    <span className="tnum text-3xl font-bold text-ash-300">
+                      —
+                    </span>
+                    <span className="care-tag ml-2">first report pending</span>
+                  </div>
+                </GlassPanel>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-10">
+            <p className="text-sm leading-relaxed text-ash-300">
+              Want the fourth slot? The intro call is twenty minutes.{" "}
+              <Link
+                href="/contact"
+                className="text-rust-400 hover:text-rust-300"
+              >
+                Book it →
               </Link>
-            </GlassPanel>
+            </p>
           </Reveal>
         </div>
         <SiteFooter />

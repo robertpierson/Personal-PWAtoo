@@ -1,4 +1,3 @@
-import { CareTag } from "@/components/CareTag";
 import { GlassPanel } from "@/components/glass/GlassPanel";
 
 /**

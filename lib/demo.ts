@@ -131,7 +131,7 @@ export function demoCalendar(): CalendarItem[] {
       6,
       11,
       "facebook",
-      "End-of-semester survey — two minutes, one question that matters: tacos or pizza?",
+      "End-of-season survey — two minutes, one question that matters: tacos or pizza?",
       "drafting",
     ),
   ];

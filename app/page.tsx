@@ -105,7 +105,7 @@ export default function Home() {
                 A résumé line you can actually defend.
               </h2>
               <p className="mt-5 max-w-md leading-relaxed text-ash-300">
-                Anyone can write &ldquo;Founder, Campus Org.&rdquo; Almost
+                Anyone can write &ldquo;Founder&rdquo; on a profile. Almost
                 nobody can answer the follow-up question. The monthly report
                 is the product: what ran, what grew, and how it reads on
                 paper.

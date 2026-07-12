@@ -28,7 +28,7 @@ const INCLUDED = [
     items: [
       "Setup fees",
       "Surprise invoices",
-      "Contracts that outlive your semester",
+      "Contracts that outlive your commitment",
       "Invented numbers — a fake stat dies at the first follow-up question",
     ],
   },

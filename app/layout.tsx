@@ -6,7 +6,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: `${brand.name} — ${brand.tagline}`,
-  description: `We run the site, the socials, and the reporting for your club, org, or startup — so it grows, and you finish the semester with numbers you can defend in an interview. ${brand.promise}`,
+  description: `We build and run the whole online side of your organization — site, socials, content, events, reporting — so it grows, and you end every month with numbers you can defend. ${brand.promise}`,
 };
 
 export const viewport: Viewport = {
