@@ -254,22 +254,25 @@ function Banner({ tone, children }: { tone: "error" | "ok"; children: React.Reac
   const error = tone === "error";
   return (
     <p
-      className="mt-5 rounded-[var(--r-sm)] px-4 py-3 text-sm"
+      className="mt-5 flex items-center gap-2 rounded-[var(--r-sm)] px-4 py-3 text-sm font-medium"
       style={
         error
           ? {
-              color: "var(--rust-200)",
-              background: "rgba(142, 74, 51, 0.14)",
-              boxShadow: "inset 0 0 0 1px rgba(142, 74, 51, 0.35)",
+              color: "var(--white)",
+              background: "color-mix(in srgb, var(--rust-500) 26%, transparent)",
+              boxShadow: "inset 0 0 0 1.5px var(--rust-500)",
             }
           : {
-              color: "var(--olive)",
-              background: "color-mix(in srgb, var(--olive) 14%, transparent)",
-              boxShadow: "inset 0 0 0 1px color-mix(in srgb, var(--olive) 35%, transparent)",
+              color: "var(--white)",
+              background: "color-mix(in srgb, var(--olive) 24%, transparent)",
+              boxShadow: "inset 0 0 0 1.5px var(--olive)",
             }
       }
       role="alert"
     >
+      <span aria-hidden style={{ color: error ? "var(--rust-500)" : "var(--olive)" }}>
+        {error ? "⚠" : "✓"}
+      </span>
       {children}
     </p>
   );
