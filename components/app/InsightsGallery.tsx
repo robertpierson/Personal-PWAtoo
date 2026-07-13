@@ -4,12 +4,14 @@ import { useState } from "react";
 import { GlassPanel } from "@/components/glass/GlassPanel";
 import { CareTag } from "@/components/CareTag";
 import { StatChart } from "@/components/app/StatChart";
+import { PostingCalendar } from "@/components/app/PostingCalendar";
+import { LoadingReveal } from "@/components/app/LoadingReveal";
 import {
   METRICS,
   kpi,
   audienceSplit,
   topPosts,
-  postingHeat,
+  postsMetric,
   type Metric,
 } from "@/lib/placeholder-insights";
 
@@ -191,29 +193,37 @@ function AudienceView() {
 }
 
 function ContentView() {
-  const reach = METRICS.find((m) => m.key === "reach")!;
-  const eng = METRICS.find((m) => m.key === "engagement")!;
   return (
     <div className="mt-5 flex flex-col gap-4">
-      <Card title="Reach by post" tag full>
-        <RankBars data={topPosts.map((p) => ({ label: p.label, value: p.value }))} />
+      {/* Horizontal 1 — GitHub-style yearly posting calendar */}
+      <Card title="Posting calendar — this year">
+        <LoadingReveal height={200}>
+          <PostingCalendar />
+        </LoadingReveal>
       </Card>
-      <div className="grid gap-4 lg:grid-cols-2">
-        <Card title="When posts land best" tag>
-          <Heatmap data={postingHeat} />
-        </Card>
-        <Card title="Engagement rate" tag>
-          <MiniLine points={eng.points.map((p) => p.v)} color={eng.color} />
-          <p className="mt-3 text-sm text-paper">Holding at {kpi(eng).value}% — short video is carrying it.</p>
-        </Card>
-      </div>
-      <GlassPanel radius="lg" depth="mid" contentClassName="p-5 sm:p-6">
+
+      {/* Horizontal 2 — the good interactive chart, like Overview */}
+      <GlassPanel radius="lg" depth="mid" light contentClassName="p-5 sm:p-6">
         <div className="flex items-center justify-between">
-          <CareTag>Reach — inspect the spikes</CareTag>
+          <div className="flex items-center gap-2">
+            <span className="inline-block h-3 w-3 rounded-sm" style={{ background: postsMetric.color }} />
+            <h2 className="text-base font-semibold text-white">{postsMetric.label} — 26 weeks</h2>
+          </div>
           <PlaceholderTag />
         </div>
-        <StatChart points={reach.points} marks={reach.marks} color={reach.color} format={fmt} />
+        <LoadingReveal height={300} delay={1100}>
+          <>
+            <StatChart points={postsMetric.points} marks={postsMetric.marks} color={postsMetric.color} format={fmt} />
+            <p className="mt-1 border-t border-white/8 pt-3 text-sm leading-relaxed text-paper">{postsMetric.blurb}</p>
+          </>
+        </LoadingReveal>
       </GlassPanel>
+
+      <Card title="Reach by post">
+        <LoadingReveal height={170} delay={700}>
+          <RankBars data={topPosts.map((p) => ({ label: p.label, value: p.value }))} />
+        </LoadingReveal>
+      </Card>
     </div>
   );
 }
@@ -386,26 +396,6 @@ function MiniBars({ data, suffix = "" }: { data: { label: string; value: number 
           <span className="text-[0.7rem] text-ash-300">{d.label}</span>
         </div>
       ))}
-    </div>
-  );
-}
-
-function Heatmap({ data }: { data: number[][] }) {
-  const days = ["M", "T", "W", "T", "F", "S", "S"];
-  return (
-    <div className="mt-3 flex gap-2">
-      <div className="flex flex-col justify-around pr-1 text-[0.7rem] text-ash-300">
-        {days.map((d, i) => <span key={i}>{d}</span>)}
-      </div>
-      <div className="flex flex-1 flex-col gap-1.5">
-        {data.map((row, r) => (
-          <div key={r} className="flex gap-1.5">
-            {row.map((v, c) => (
-              <div key={c} className="aspect-square flex-1 rounded-[4px]" style={{ background: `color-mix(in srgb, var(--rust-400) ${Math.round(v * 100)}%, transparent)` }} />
-            ))}
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

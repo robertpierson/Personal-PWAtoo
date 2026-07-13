@@ -164,13 +164,78 @@ export const topPosts = [
   { label: "New-member form", value: 3200 },
 ];
 
-export const postingHeat = [
-  // rows = weekday (Mon–Sun), each a 0–1 intensity per week-slot
-  [0.2, 0.9, 0.3, 0.7, 0.4, 0.1],
-  [0.4, 0.6, 0.8, 0.5, 0.9, 0.3],
-  [0.1, 0.3, 0.5, 0.6, 0.2, 0.7],
-  [0.6, 0.8, 0.4, 0.9, 0.5, 0.6],
-  [0.3, 0.5, 0.7, 0.4, 0.8, 0.9],
-  [0.7, 0.2, 0.6, 0.3, 0.5, 0.4],
-  [0.1, 0.1, 0.2, 0.1, 0.3, 0.2],
+// Weekly posts-shipped series — feeds the interactive chart on Content.
+export const postsMetric: Metric = {
+  key: "posts",
+  label: "Posts shipped",
+  color: "var(--rust-400)",
+  points: toPoints([
+    2, 3, 2, 4, 3, 3, 5, 4, 3, 4, 5, 6, 4, 4, 5, 7, 5, 4, 6, 8, 6, 5, 7, 7, 6, 5,
+  ]),
+  marks: [
+    { i: 9, label: "Season calendar kicked in — three posts a week became the floor." },
+    { i: 19, label: "Demo-day push — heaviest posting week of the season." },
+  ],
+  blurb: "Cadence, not bursts. A predictable week is what keeps reach climbing.",
+};
+
+// GitHub-style contribution calendar — one authored year of posting days,
+// each day carrying its count and the actual posts that shipped (with a
+// link to each on the live site).
+export type PostRef = { title: string; url: string };
+export type PostDay = { t: string; count: number; posts: PostRef[] };
+
+const POST_POOL: { title: string; slug: string }[] = [
+  { title: "Qualifier recap reel", slug: "qualifier-recap" },
+  { title: "Meet the build leads", slug: "meet-the-build-leads" },
+  { title: "Demo-day invite", slug: "demo-day" },
+  { title: "Sponsor thank-you: Hilltop Hardware", slug: "sponsor-hilltop" },
+  { title: "New-member interest form", slug: "join-us" },
+  { title: "Drivetrain build log", slug: "drivetrain-log" },
+  { title: "Workshop hours update", slug: "workshop-hours" },
+  { title: "CAD-from-zero workshop", slug: "cad-workshop" },
+  { title: "Match highlight — 3rd of 42", slug: "match-highlight" },
+  { title: "End-of-season survey", slug: "season-survey" },
 ];
+
+const SITE = "https://ridgelinerobotics.org/posts";
+
+function rngFor(seed: number) {
+  let s = (seed * 2654435761) >>> 0;
+  return () => {
+    s = (s * 1664525 + 1013904223) >>> 0;
+    return s / 0xffffffff;
+  };
+}
+
+// 53 weeks × 7 days ending on the most recent Saturday, so the grid
+// aligns to whole weeks like GitHub's.
+export function postingYear(): PostDay[] {
+  const end = new Date();
+  end.setHours(0, 0, 0, 0);
+  end.setDate(end.getDate() + (6 - end.getDay())); // upcoming/this Saturday
+  const DAYS = 53 * 7;
+  const out: PostDay[] = [];
+  for (let i = DAYS - 1; i >= 0; i--) {
+    const d = new Date(end);
+    d.setDate(end.getDate() - i);
+    const idx = DAYS - 1 - i;
+    const r = rngFor(idx + 1);
+    const dow = d.getDay();
+    const future = d.getTime() > Date.now();
+    // Weekends quieter; no posts in the future.
+    let count = 0;
+    if (!future) {
+      const roll = r();
+      count = roll > 0.82 ? 2 : roll > 0.5 ? 1 : 0;
+      if ((dow === 0 || dow === 6) && r() > 0.5) count = Math.max(0, count - 1);
+    }
+    const posts: PostRef[] = [];
+    for (let k = 0; k < count; k++) {
+      const p = POST_POOL[Math.floor(r() * POST_POOL.length)];
+      posts.push({ title: p.title, url: `${SITE}/${p.slug}` });
+    }
+    out.push({ t: d.toISOString(), count, posts });
+  }
+  return out;
+}
