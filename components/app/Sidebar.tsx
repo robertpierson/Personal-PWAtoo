@@ -1,18 +1,32 @@
 "use client";
 
+import { Fragment } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/components/Logo";
 import type { Organization, UserProfile } from "@/lib/db/types";
 
-const NAV = [
-  { href: "/dashboard", label: "This week", icon: "home" },
-  { href: "/dashboard/approvals", label: "Approvals", icon: "check" },
-  { href: "/dashboard/calendar", label: "Calendar", icon: "cal" },
-  { href: "/dashboard/designs", label: "Designs", icon: "spark" },
-  { href: "/dashboard/insights", label: "Insights", icon: "chart" },
-  { href: "/dashboard/website", label: "Website", icon: "globe" },
+// Grouped by relevance: monitoring the numbers vs. producing the work.
+const GROUPS = [
+  {
+    label: "Overview",
+    items: [
+      { href: "/dashboard", label: "This week", icon: "home" },
+      { href: "/dashboard/insights", label: "Insights", icon: "chart" },
+    ],
+  },
+  {
+    label: "Production",
+    items: [
+      { href: "/dashboard/approvals", label: "Approvals", icon: "check" },
+      { href: "/dashboard/calendar", label: "Calendar", icon: "cal" },
+      { href: "/dashboard/designs", label: "Designs", icon: "spark" },
+      { href: "/dashboard/website", label: "Website", icon: "globe" },
+    ],
+  },
 ];
+
+const NAV = GROUPS.flatMap((g) => g.items);
 
 // Account group — billing + config. Gold-tinted, parked at the bottom,
 // deliberately set apart from the day-to-day workspace links.
@@ -46,30 +60,54 @@ function useActive() {
     href === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(href);
 }
 
+function NavLink({ n, vertical, active }: { n: { href: string; label: string; icon: string }; vertical: boolean; active: boolean }) {
+  return (
+    <Link
+      href={n.href}
+      aria-current={active ? "page" : undefined}
+      className={`flex items-center gap-2.5 rounded-[var(--r-sm)] text-sm transition ${
+        vertical ? "px-3.5 py-2.5" : "shrink-0 px-3.5 py-2"
+      } ${
+        active
+          ? "bg-brick/40 font-medium text-white shadow-[inset_0_0_0_1px_var(--rust-500)]"
+          : "text-ash-300 hover:bg-white/5 hover:text-paper"
+      }`}
+    >
+      <NavIcon name={n.icon} />
+      {n.label}
+    </Link>
+  );
+}
+
 function NavLinks({ vertical }: { vertical: boolean }) {
   const isActive = useActive();
+
+  if (vertical) {
+    return (
+      <>
+        {GROUPS.map((g) => (
+          <div key={g.label} className="flex flex-col gap-1">
+            <p className="care-tag px-1 pb-0.5">{g.label}</p>
+            {g.items.map((n) => (
+              <NavLink key={n.href} n={n} vertical active={isActive(n.href)} />
+            ))}
+          </div>
+        ))}
+      </>
+    );
+  }
+
+  // Mobile rail — flat, groups split by a hairline divider.
   return (
     <>
-      {NAV.map((n) => {
-        const active = isActive(n.href);
-        return (
-          <Link
-            key={n.href}
-            href={n.href}
-            aria-current={active ? "page" : undefined}
-            className={`flex items-center gap-2.5 rounded-[var(--r-sm)] text-sm transition ${
-              vertical ? "px-3.5 py-2.5" : "shrink-0 px-3.5 py-2"
-            } ${
-              active
-                ? "bg-brick/40 font-medium text-white shadow-[inset_0_0_0_1px_var(--rust-500)]"
-                : "text-ash-300 hover:bg-white/5 hover:text-paper"
-            }`}
-          >
-            <NavIcon name={n.icon} />
-            {n.label}
-          </Link>
-        );
-      })}
+      {GROUPS.map((g, gi) => (
+        <Fragment key={g.label}>
+          {gi > 0 && <span className="mx-1 h-6 w-px shrink-0 bg-white/10" aria-hidden />}
+          {g.items.map((n) => (
+            <NavLink key={n.href} n={n} vertical={false} active={isActive(n.href)} />
+          ))}
+        </Fragment>
+      ))}
     </>
   );
 }
@@ -141,7 +179,7 @@ export function Sidebar({
             </p>
           </div>
 
-          <nav className="mt-6 flex flex-col gap-1" aria-label="Workspace">
+          <nav className="mt-6 flex flex-col gap-4" aria-label="Workspace">
             <NavLinks vertical />
           </nav>
 
