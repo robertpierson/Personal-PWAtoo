@@ -5,15 +5,6 @@ import { useState } from "react";
 import { GlassPanel } from "@/components/glass/GlassPanel";
 import { CareTag } from "@/components/CareTag";
 
-// Stripe Payment Links; set in .env.local. Empty = CTA falls back to
-// /contact. [FILL: create the three Payment Links in the Stripe
-// dashboard and paste the URLs]
-const STRIPE_LINKS: Record<string, string | undefined> = {
-  Starter: process.env.NEXT_PUBLIC_STRIPE_LINK_STARTER,
-  Growth: process.env.NEXT_PUBLIC_STRIPE_LINK_GROWTH,
-  Studio: process.env.NEXT_PUBLIC_STRIPE_LINK_STUDIO,
-};
-
 const TIERS = [
   {
     name: "Starter",
@@ -140,33 +131,22 @@ export function PricingTiers() {
               ))}
             </ul>
 
-            {STRIPE_LINKS[tier.name] ? (
-              <a
-                href={STRIPE_LINKS[tier.name]}
-                className={`btn mt-8 w-full ${
-                  tier.featured ? "btn-primary" : "btn-ghost"
-                }`}
-              >
-                Pick {tier.name} — pay with Stripe
-              </a>
-            ) : (
-              <Link
-                href="/contact"
-                className={`btn mt-8 w-full ${
-                  tier.featured ? "btn-primary" : "btn-ghost"
-                }`}
-              >
-                Pick {tier.name}
-              </Link>
-            )}
+            <Link
+              href={`/contact?plan=${tier.name}`}
+              className={`btn mt-8 w-full ${
+                tier.featured ? "btn-primary" : "btn-ghost"
+              }`}
+            >
+              Book a call to start {tier.name}
+            </Link>
           </GlassPanel>
         ))}
       </div>
 
       <p className="mt-8 text-center text-sm text-ash-300">
         Month to month, cancel with one email. Your accounts and your numbers
-        are yours to keep. Checkout runs through Stripe — we never see your
-        card.
+        are yours to keep. No card, no checkout page — start with a call, then
+        pay by direct bank transfer. Details arrive with each invoice.
       </p>
       <p className="mt-2 text-center text-sm text-ash-300">
         Paying from an organization budget? We&apos;ll send a one-page

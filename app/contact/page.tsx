@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { GlassPanel } from "@/components/glass/GlassPanel";
 import { MatteSection } from "@/components/glass/MatteSection";
 import { CareTag } from "@/components/CareTag";
@@ -28,10 +29,14 @@ const PAIN_POINTS = [
   "We're starting from zero",
 ];
 
+const PLANS = ["Starter", "Growth", "Studio"];
+
 const inputClass =
   "mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-paper outline-none transition placeholder:text-smoke-400 focus:border-rust-400";
 
-export default function ContactPage() {
+function ContactForm() {
+  const planParam = useSearchParams().get("plan") ?? "";
+  const initialPlan = PLANS.includes(planParam) ? planParam : "";
   const [step, setStep] = useState(1);
   const [sent, setSent] = useState(false);
   const [pending, setPending] = useState(false);
@@ -44,11 +49,19 @@ export default function ContactPage() {
     pains: [] as string[],
     email: "",
     note: "",
+    plan: initialPlan,
   });
 
   const submit = async () => {
     setPending(true);
     setError(null);
+    // No `plan` column on leads — fold the interest into the note.
+    const noteWithPlan = [
+      form.note.trim(),
+      form.plan && `Interested in the ${form.plan} plan.`,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
     // Demo mode has no live backend — just show the thank-you screen.
     if (!isDemoMode) {
       const supabase = createClient();
@@ -59,7 +72,7 @@ export default function ContactPage() {
         website: form.website.trim() || null,
         pains: form.pains,
         email: form.email.trim(),
-        note: form.note.trim() || null,
+        note: noteWithPlan || null,
       });
       if (insertError) {
         setError("Couldn't send that just now. Try once more?");
@@ -222,6 +235,31 @@ export default function ContactPage() {
                   value={form.note}
                   onChange={(e) => set({ note: e.target.value })}
                 />
+                <p className="care-tag mt-6">
+                  Planning to buy a plan? (optional)
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {PLANS.map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() =>
+                        set({ plan: form.plan === p ? "" : p })
+                      }
+                      className={`rounded-[var(--r-pill)] px-4 py-1.5 text-sm transition ${
+                        form.plan === p
+                          ? "bg-brick text-on-dark"
+                          : "bg-white/5 text-ash-300 hover:bg-white/10 hover:text-paper"
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-3 text-xs text-ash-300">
+                  Just so we come prepared — no commitment. You pay by direct
+                  bank transfer after the call.
+                </p>
               </>
             )}
 
@@ -271,5 +309,14 @@ export default function ContactPage() {
         <SiteFooter />
       </MatteSection>
     </>
+  );
+}
+
+export default function ContactPage() {
+  // Suspense boundary: useSearchParams requires one for static rendering.
+  return (
+    <Suspense>
+      <ContactForm />
+    </Suspense>
   );
 }

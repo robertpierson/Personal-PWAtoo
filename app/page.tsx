@@ -5,7 +5,6 @@ import { CareTag } from "@/components/CareTag";
 import { Reveal } from "@/components/Reveal";
 import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
-import { AwardsShowcase } from "@/components/marketing/AwardsShowcase";
 import { CrewTicker } from "@/components/marketing/CrewTicker";
 import { FallGlow } from "@/components/marketing/FallGlow";
 import { ProblemSlabs } from "@/components/marketing/ProblemSlabs";
@@ -199,25 +198,6 @@ export default function Home() {
                 </Reveal>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* THE BANDANA AWARDS */}
-        <section className="px-6 pb-28">
-          <div className="mx-auto max-w-6xl">
-            <Reveal>
-              <CareTag>The Bandana Awards</CareTag>
-              <h2 className="subhead mt-4">
-                Ship all year. Take home the proof.
-              </h2>
-              <p className="mt-5 max-w-md leading-relaxed text-ash-300">
-                Bronze, silver, and gold — awarded to client orgs whose
-                numbers earned it. A physical award, and one more receipt.
-              </p>
-            </Reveal>
-            <Reveal delay={100} className="mt-10">
-              <AwardsShowcase />
-            </Reveal>
           </div>
         </section>
 

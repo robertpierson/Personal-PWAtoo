@@ -8,7 +8,6 @@ import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { StitchedTimeline } from "@/components/StitchedTimeline";
 import { ServicesExplorer } from "@/components/marketing/ServicesExplorer";
-import { AwardsShowcase } from "@/components/marketing/AwardsShowcase";
 
 export const metadata: Metadata = {
   title: "How it works — Bandana",
@@ -135,21 +134,6 @@ export default function HowItWorksPage() {
               </GlassPanel>
             </Reveal>
           </div>
-        </section>
-
-        {/* Awards */}
-        <section className="mx-auto max-w-6xl px-6 pb-24">
-          <Reveal>
-            <CareTag>The Bandana Awards</CareTag>
-            <h2 className="subhead mt-4">Ship all year. Take home the proof.</h2>
-            <p className="mt-5 max-w-md leading-relaxed text-ash-300">
-              Bronze, silver, and gold — awarded to client orgs whose numbers
-              earned it. A physical award, and one more receipt.
-            </p>
-          </Reveal>
-          <Reveal delay={100} className="mt-10">
-            <AwardsShowcase />
-          </Reveal>
         </section>
 
         {/* CTA */}
