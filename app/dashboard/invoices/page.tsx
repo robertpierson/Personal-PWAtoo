@@ -28,30 +28,42 @@ export default async function InvoicesPage() {
     .reduce((sum, i) => sum + i.amount_cents, 0);
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-5xl">
       <CareTag>Invoices</CareTag>
-      <h1 className="subhead mt-2">Billing, no surprises.</h1>
+      <h1 className="subhead mt-1.5">Billing, no surprises.</h1>
 
-      <GlassPanel radius="lg" depth="near" className="mt-8" contentClassName="p-6">
-        <p className="care-tag">Outstanding balance</p>
-        <p className="tnum mt-2 text-5xl font-bold text-white">
-          {money(outstanding)}
-        </p>
-        {outstanding > 0 && (
-          <p className="mt-2 text-sm text-ash-300">
-            One open invoice — due{" "}
-            {day(
-              invoices.find((i) => i.status === "outstanding")!.due_at ??
-                invoices[0].issued_at,
-            )}
-            .
+      <div className="mt-6 grid gap-4 md:grid-cols-5">
+        <GlassPanel radius="lg" depth="near" light className="md:col-span-3" contentClassName="p-6">
+          <p className="care-tag">Outstanding balance</p>
+          <p className="tnum mt-2 text-5xl font-bold text-white">
+            {money(outstanding)}
           </p>
-        )}
-        <p className="mt-2 text-xs text-ash-300">
-          We bill by direct bank transfer — details arrive with each
-          invoice. No card on file, ever.
-        </p>
-      </GlassPanel>
+          {outstanding > 0 ? (
+            <p className="mt-2 text-sm text-ash-300">
+              One open invoice — due{" "}
+              {day(
+                invoices.find((i) => i.status === "outstanding")!.due_at ??
+                  invoices[0].issued_at,
+              )}
+              .
+            </p>
+          ) : (
+            <p className="mt-2 text-sm" style={{ color: "var(--olive)" }}>
+              All settled — nothing owing.
+            </p>
+          )}
+        </GlassPanel>
+
+        <GlassPanel radius="lg" depth="far" className="md:col-span-2" contentClassName="p-6">
+          <p className="care-tag">How we bill</p>
+          <ul className="mt-3 space-y-2.5 text-sm text-paper">
+            <li className="flex gap-2"><span style={{ color: "var(--gold)" }}>✦</span> Direct bank transfer only</li>
+            <li className="flex gap-2"><span style={{ color: "var(--gold)" }}>✦</span> Details arrive with each invoice</li>
+            <li className="flex gap-2"><span style={{ color: "var(--gold)" }}>✦</span> No card on file, ever</li>
+            <li className="flex gap-2"><span style={{ color: "var(--gold)" }}>✦</span> Cancel with one email</li>
+          </ul>
+        </GlassPanel>
+      </div>
 
       {/* Zero balance — pick or change your plan right here */}
       {outstanding === 0 && (
