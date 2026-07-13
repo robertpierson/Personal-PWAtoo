@@ -211,7 +211,7 @@ function ContentView() {
           </div>
           <PlaceholderTag />
         </div>
-        <LoadingReveal height={300} delay={1100}>
+        <LoadingReveal height={300}>
           <>
             <StatChart points={postsMetric.points} marks={postsMetric.marks} color={postsMetric.color} format={fmt} />
             <p className="mt-1 border-t border-white/8 pt-3 text-sm leading-relaxed text-paper">{postsMetric.blurb}</p>
@@ -220,7 +220,7 @@ function ContentView() {
       </GlassPanel>
 
       <Card title="Reach by post">
-        <LoadingReveal height={170} delay={700}>
+        <LoadingReveal height={170}>
           <RankBars data={topPosts.map((p) => ({ label: p.label, value: p.value }))} />
         </LoadingReveal>
       </Card>
