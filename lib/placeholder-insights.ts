@@ -136,13 +136,15 @@ export function kpi(m: Metric) {
   const v = m.points.map((p) => p.v);
   const last = v[v.length - 1];
   const prev = v[v.length - 2];
-  const first = v[0];
+  // Baseline: first non-zero week, so series that start at 0 (events)
+  // don't report a nonsense percentage.
+  const base = v.find((x) => x > 0) ?? 0;
   return {
     label: m.label,
     unit: m.unit ?? "",
     value: last,
     delta: last - prev,
-    pct: Math.round(((last - first) / (first || 1)) * 100),
+    pct: base ? Math.round(((last - base) / base) * 100) : null,
   };
 }
 

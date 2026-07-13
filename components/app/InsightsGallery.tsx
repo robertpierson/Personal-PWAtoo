@@ -103,7 +103,7 @@ function OverviewView({
               </div>
               <p className="tnum mt-1 text-[0.7rem]" style={{ color: k.delta >= 0 ? "var(--olive)" : "var(--rust-300)" }}>
                 {k.delta >= 0 ? "▲" : "▼"} {Math.abs(k.delta).toLocaleString("en-US")}
-                <span className="text-ash-300"> · {k.pct >= 0 ? "+" : ""}{k.pct}% season</span>
+                <span className="text-ash-300"> · {k.pct == null ? "new" : `${k.pct >= 0 ? "+" : ""}${k.pct}% season`}</span>
               </p>
             </button>
           );
