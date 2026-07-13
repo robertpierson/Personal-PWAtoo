@@ -41,6 +41,7 @@ const UPTIME = [100, 100, 99.98, 100, 100, 99.95, 100, 100, 100, 99.99, 100, 100
 export default function WebsitePage() {
   const [request, setRequest] = useState("");
   const [sent, setSent] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   return (
     <div className="mx-auto max-w-6xl">
@@ -141,7 +142,24 @@ export default function WebsitePage() {
       <GlassPanel radius="lg" depth="mid" className="mt-5" contentClassName="p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <CareTag>Website requests</CareTag>
-          <span className="care-tag" style={{ color: "var(--gold)" }}>Placeholder</span>
+          <div className="flex items-center gap-3">
+            <span className="care-tag" style={{ color: "var(--gold)" }}>Placeholder</span>
+            <button
+              type="button"
+              aria-label={showForm ? "Close request form" : "New request"}
+              aria-expanded={showForm}
+              onClick={() => setShowForm((v) => !v)}
+              className="grid h-8 w-8 place-items-center rounded-full text-on-dark transition"
+              style={{
+                background: "linear-gradient(180deg, var(--rust-500), var(--brick))",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.28), 0 6px 16px -8px rgba(193,95,61,0.6)",
+              }}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden style={{ transform: showForm ? "rotate(45deg)" : "none", transition: "transform 180ms ease" }}>
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         <ul className="mt-4 flex flex-col gap-2">
@@ -160,37 +178,57 @@ export default function WebsitePage() {
           ))}
         </ul>
 
-        <div className="mt-5 border-t border-white/8 pt-5">
-          <label htmlFor="w-req" className="care-tag block">Request a change or a new page</label>
-          <textarea
-            id="w-req"
-            rows={3}
-            value={request}
-            onChange={(e) => { setRequest(e.target.value); setSent(false); }}
-            placeholder="e.g. Add a donations page with our Stripe-free bank details, and a photo gallery from the last event."
-            className="mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-paper outline-none transition placeholder:text-smoke-400 focus:border-rust-400"
-          />
-          <div className="mt-3 flex flex-wrap items-center gap-3">
+        {showForm ? (
+          <div className="mt-5 border-t border-white/8 pt-5">
+            <label htmlFor="w-req" className="care-tag block">Request a change or a new page</label>
+            <textarea
+              id="w-req"
+              rows={3}
+              autoFocus
+              value={request}
+              onChange={(e) => { setRequest(e.target.value); setSent(false); }}
+              placeholder="e.g. Add a donations page with our Stripe-free bank details, and a photo gallery from the last event."
+              className="mt-2 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-3 text-sm text-paper outline-none transition placeholder:text-smoke-400 focus:border-rust-400"
+            />
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                disabled={!request.trim()}
+                onClick={() => { setSent(true); setRequest(""); setShowForm(false); }}
+                className="btn btn-primary text-sm disabled:opacity-50"
+              >
+                Submit request
+              </button>
+              <button
+                type="button"
+                onClick={() => { setShowForm(false); setRequest(""); }}
+                className="btn btn-ghost text-sm"
+              >
+                Cancel
+              </button>
+            </div>
+            <p className="mt-4 text-xs leading-relaxed text-ash-300">
+              Something big or technical — a domain move, a data migration, anything
+              that could take the site down — <span className="text-paper">DM or call us directly</span> and
+              we&apos;ll handle it by hand. Everyday changes go right here.
+            </p>
+          </div>
+        ) : (
+          <div className="mt-4">
+            {sent && (
+              <p className="text-sm" style={{ color: "var(--olive)" }}>
+                Logged — we&apos;ll pick it up and confirm scope.
+              </p>
+            )}
             <button
               type="button"
-              disabled={!request.trim()}
-              onClick={() => { setSent(true); setRequest(""); }}
-              className="btn btn-primary text-sm disabled:opacity-50"
+              onClick={() => setShowForm(true)}
+              className="mt-1 flex w-full items-center justify-center gap-2 rounded-[var(--r-sm)] border border-dashed border-white/18 py-3 text-sm text-ash-300 transition hover:border-rust-400 hover:text-paper"
             >
-              Submit request
+              <span className="text-base leading-none">+</span> Request a change or a new page
             </button>
-            {sent && (
-              <span className="text-sm" style={{ color: "var(--olive)" }}>
-                Logged — we&apos;ll pick it up and confirm scope.
-              </span>
-            )}
           </div>
-          <p className="mt-4 text-xs leading-relaxed text-ash-300">
-            Something big or technical — a domain move, a data migration, anything
-            that could take the site down — <span className="text-paper">DM or call us directly</span> and
-            we&apos;ll handle it by hand. Everyday changes go right here.
-          </p>
-        </div>
+        )}
       </GlassPanel>
     </div>
   );

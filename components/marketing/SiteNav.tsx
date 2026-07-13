@@ -52,7 +52,7 @@ export function SiteNav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-sm text-on-dark/65 transition-colors hover:text-on-dark"
+                className="text-sm font-medium text-on-dark/90 transition-colors hover:text-on-dark"
               >
                 {l.label}
               </Link>
@@ -62,7 +62,7 @@ export function SiteNav() {
           <div className="hidden items-center gap-3 md:flex">
             <Link
               href="/login"
-              className="text-sm text-on-dark/65 transition-colors hover:text-on-dark"
+              className="text-sm font-medium text-on-dark/90 transition-colors hover:text-on-dark"
             >
               Client login
             </Link>

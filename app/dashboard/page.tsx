@@ -29,7 +29,7 @@ export default async function ThisWeekPage() {
   const prev = insights.at(-2);
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="mx-auto max-w-6xl">
       <CareTag>This week</CareTag>
       <h1 className="subhead mt-2">
         {approvals.length > 0
@@ -103,7 +103,10 @@ export default async function ThisWeekPage() {
       {/* The rest recedes */}
       <div className="mt-8 grid gap-6 md:grid-cols-2">
         <GlassPanel depth="far" radius="lg" contentClassName="p-6">
-          <CareTag>Scheduled this week</CareTag>
+          <Link href="/dashboard/calendar" className="group flex items-center justify-between gap-2">
+            <CareTag>Scheduled this week</CareTag>
+            <span className="text-xs text-ash-300 transition group-hover:text-rust-400">Calendar →</span>
+          </Link>
           {scheduled.length === 0 ? (
             <p className="mt-4 text-sm text-ash-300">
               Nothing locked in yet — approved posts land here with their
@@ -125,7 +128,10 @@ export default async function ThisWeekPage() {
         </GlassPanel>
 
         <GlassPanel depth="far" radius="lg" contentClassName="p-6">
-          <CareTag>Shipped</CareTag>
+          <Link href="/dashboard/calendar" className="group flex items-center justify-between gap-2">
+            <CareTag>Shipped</CareTag>
+            <span className="text-xs text-ash-300 transition group-hover:text-rust-400">Calendar →</span>
+          </Link>
           {shipped.length === 0 ? (
             <p className="mt-4 text-sm text-ash-300">
               Published work shows up here once posts start going out.
