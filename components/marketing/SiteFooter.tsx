@@ -20,14 +20,14 @@ export function SiteFooter() {
           <nav className="flex gap-14" aria-label="Footer">
             <div className="flex flex-col gap-3">
               <CareTag>Studio</CareTag>
-              <Link href="/#how" className="text-sm text-ash-300 hover:text-paper">
+              <Link href="/how-it-works" className="text-sm text-ash-300 hover:text-paper">
                 How it works
-              </Link>
-              <Link href="/work" className="text-sm text-ash-300 hover:text-paper">
-                Work
               </Link>
               <Link href="/pricing" className="text-sm text-ash-300 hover:text-paper">
                 Pricing
+              </Link>
+              <Link href="/work" className="text-sm text-ash-300 hover:text-paper">
+                Work
               </Link>
             </div>
             <div className="flex flex-col gap-3">
