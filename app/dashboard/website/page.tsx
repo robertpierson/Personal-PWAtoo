@@ -50,7 +50,6 @@ export default function WebsitePage() {
           <CareTag>Website</CareTag>
           <h1 className="subhead mt-1.5">Your site, run for you.</h1>
         </div>
-        <span className="care-tag" style={{ color: "var(--gold)" }}>Placeholder</span>
       </div>
 
       {/* Live status hero */}
@@ -143,7 +142,6 @@ export default function WebsitePage() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <CareTag>Website requests</CareTag>
           <div className="flex items-center gap-3">
-            <span className="care-tag" style={{ color: "var(--gold)" }}>Placeholder</span>
             <button
               type="button"
               aria-label={showForm ? "Close request form" : "New request"}

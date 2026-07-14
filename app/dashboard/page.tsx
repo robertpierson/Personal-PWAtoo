@@ -3,6 +3,7 @@ import { GlassPanel } from "@/components/glass/GlassPanel";
 import { CareTag } from "@/components/CareTag";
 import { ApprovalCard } from "@/components/app/ApprovalCard";
 import { EmptySlot } from "@/components/app/EmptySlot";
+import { Skeleton } from "@/components/app/LoadingReveal";
 import { getCalendar, getInsights, getOpenApprovals } from "@/lib/data";
 import { calendarStatus, formatSlot, platformLabel } from "@/lib/status";
 
@@ -78,17 +79,23 @@ export default async function ThisWeekPage() {
           ].map((m) => (
             <GlassPanel key={m.label} depth="far" radius="md" contentClassName="p-4">
               <p className="care-tag">{m.label}</p>
-              <p className="tnum mt-1.5 text-2xl font-bold text-white">
-                {m.value != null ? m.value.toLocaleString("en-US") : "—"}
-              </p>
-              <p
-                className="tnum mt-0.5 text-xs"
-                style={{ color: m.delta != null && m.delta >= 0 ? "var(--olive)" : "var(--ash-300)" }}
-              >
-                {m.delta != null
-                  ? `${m.delta >= 0 ? "+" : ""}${m.delta.toLocaleString("en-US")} this week`
-                  : "no data yet"}
-              </p>
+              {m.value != null ? (
+                <>
+                  <p className="tnum mt-1.5 text-2xl font-bold text-white">
+                    {m.value.toLocaleString("en-US")}
+                  </p>
+                  <p
+                    className="tnum mt-0.5 text-xs"
+                    style={{ color: m.delta != null && m.delta >= 0 ? "var(--olive)" : "var(--ash-300)" }}
+                  >
+                    {m.delta != null
+                      ? `${m.delta >= 0 ? "+" : ""}${m.delta.toLocaleString("en-US")} this week`
+                      : ""}
+                  </p>
+                </>
+              ) : (
+                <Skeleton variant="tile" height={52} label={false} />
+              )}
             </GlassPanel>
           ))}
         </div>
@@ -108,10 +115,9 @@ export default async function ThisWeekPage() {
             <span className="text-xs text-ash-300 transition group-hover:text-rust-400">Calendar →</span>
           </Link>
           {scheduled.length === 0 ? (
-            <p className="mt-4 text-sm text-ash-300">
-              Nothing locked in yet — approved posts land here with their
-              slot.
-            </p>
+            <div className="mt-4">
+              <Skeleton variant="rows" height={140} />
+            </div>
           ) : (
             <ul className="mt-4 space-y-3">
               {scheduled.map((c) => (
@@ -133,9 +139,9 @@ export default async function ThisWeekPage() {
             <span className="text-xs text-ash-300 transition group-hover:text-rust-400">Calendar →</span>
           </Link>
           {shipped.length === 0 ? (
-            <p className="mt-4 text-sm text-ash-300">
-              Published work shows up here once posts start going out.
-            </p>
+            <div className="mt-4">
+              <Skeleton variant="rows" height={140} />
+            </div>
           ) : (
             <ul className="mt-4 space-y-3">
               {shipped.map((c) => (
