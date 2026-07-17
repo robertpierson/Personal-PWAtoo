@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { OWNER_EMAIL } from "@/lib/owner";
 
 /**
  * OAuth callback — exchanges the code, then applies the routing matrix:
@@ -25,6 +26,12 @@ export async function GET(request: Request) {
   } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.redirect(`${origin}/login?error=no_session`);
+  }
+
+  // Owner-only app: any other Google account lands on the paywall.
+  if (user.email?.toLowerCase() !== OWNER_EMAIL) {
+    await supabase.auth.signOut();
+    return NextResponse.redirect(`${origin}/pricing`);
   }
 
   const { data: profile } = await supabase
