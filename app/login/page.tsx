@@ -8,6 +8,7 @@ import { MatteSection } from "@/components/glass/MatteSection";
 import { Logo } from "@/components/Logo";
 import { isDemoMode } from "@/lib/demo";
 import { createClient } from "@/lib/supabase/client";
+import { OWNER_EMAIL } from "@/lib/owner";
 import { brand } from "@/brand.config";
 
 const ERROR_COPY: Record<string, string> = {
@@ -24,19 +25,14 @@ const DEMO_PASSWORD = "bandana";
 const inputClass =
   "mt-1.5 w-full rounded-[var(--r-sm)] border border-white/12 bg-ink-800/70 px-4 py-2.5 text-sm text-paper outline-none transition placeholder:text-smoke-400 focus:border-rust-400";
 
-type Mode = "signin" | "signup";
-
 function LoginCard() {
   const params = useSearchParams();
   const oauthError = params.get("error");
 
-  const [mode, setMode] = useState<Mode>("signin");
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [info, setInfo] = useState<string | null>(null);
 
   const googleSignIn = async () => {
     setPending(true);
@@ -50,14 +46,9 @@ function LoginCard() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setInfo(null);
 
     if (!email.trim() || !password) {
       setError("Email and password are both required.");
-      return;
-    }
-    if (mode === "signup" && password.length < 8) {
-      setError("Use a password of at least 8 characters.");
       return;
     }
 
@@ -65,12 +56,6 @@ function LoginCard() {
 
     // Demo mode: validate against the fixed demo login only.
     if (isDemoMode) {
-      if (mode === "signup") {
-        setInfo("Demo mode doesn't save accounts — sign in with the demo login below.");
-        setMode("signin");
-        setPending(false);
-        return;
-      }
       if (email.trim().toLowerCase() === DEMO_EMAIL && password === DEMO_PASSWORD) {
         window.location.href = "/dashboard";
         return;
@@ -80,79 +65,42 @@ function LoginCard() {
       return;
     }
 
-    const supabase = createClient();
-
-    if (mode === "signin") {
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      });
-      if (signInError) {
-        setError("Wrong email or password.");
-        setPending(false);
-        return;
-      }
-      window.location.href = "/dashboard";
-      return;
-    }
-
-    // Sign up
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email: email.trim(),
-      password,
-      options: { data: { full_name: name.trim() || null } },
-    });
-    if (signUpError) {
-      setError(signUpError.message);
+    // Owner-only app: the form never even attempts other accounts.
+    // Server side (middleware + callback + DB trigger) enforces the same rule.
+    if (email.trim().toLowerCase() !== OWNER_EMAIL) {
+      setError("Wrong email or password.");
       setPending(false);
       return;
     }
-    if (data.session && data.user) {
-      // Email confirmation is off — session is live. Seed the profile row.
-      await supabase.from("users").insert({
-        id: data.user.id,
-        email: email.trim(),
-        full_name: name.trim() || null,
-      });
-      window.location.href = "/onboarding";
+
+    const supabase = createClient();
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    });
+    if (signInError) {
+      setError("Wrong email or password.");
+      setPending(false);
       return;
     }
-    setInfo("Check your email to confirm your account, then sign in.");
-    setMode("signin");
-    setPending(false);
+    window.location.href = "/dashboard";
   };
 
   return (
     <GlassPanel radius="lg" light contentClassName="p-9">
       <Logo />
-      <h1 className="subhead mt-8">
-        {mode === "signin" ? "Client login" : "Create your login"}
-      </h1>
+      <h1 className="subhead mt-8">Owner login</h1>
       <p className="mt-3 text-sm leading-relaxed text-ash-300">
-        {mode === "signin"
-          ? "Your command center: approvals, calendar, designs, and numbers — all in one place."
-          : "Set up an email and password to reach your workspace."}
+        Your command center: approvals, calendar, designs, and numbers — all in
+        one place.
       </p>
 
       {oauthError && (
         <Banner tone="error">{ERROR_COPY[oauthError] ?? "Something went sideways. Try again."}</Banner>
       )}
       {error && <Banner tone="error">{error}</Banner>}
-      {info && <Banner tone="ok">{info}</Banner>}
 
       <form onSubmit={submit} className="mt-6">
-        {mode === "signup" && (
-          <div className="mb-4">
-            <label htmlFor="l-name" className="care-tag block">Name</label>
-            <input
-              id="l-name"
-              className={inputClass}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              autoComplete="name"
-            />
-          </div>
-        )}
         <div>
           <label htmlFor="l-email" className="care-tag block">Email</label>
           <input
@@ -174,43 +122,23 @@ function LoginCard() {
             className={inputClass}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            autoComplete={mode === "signin" ? "current-password" : "new-password"}
+            autoComplete="current-password"
           />
         </div>
 
         <button type="submit" disabled={pending} className="btn btn-primary mt-6 w-full disabled:opacity-60">
-          {pending
-            ? "One moment…"
-            : mode === "signin"
-              ? "Sign in"
-              : "Create account"}
+          {pending ? "One moment…" : "Sign in"}
         </button>
       </form>
 
       <p className="mt-4 text-center text-sm text-ash-300">
-        {mode === "signin" ? (
-          <>
-            New here?{" "}
-            <button
-              type="button"
-              onClick={() => { setMode("signup"); setError(null); setInfo(null); }}
-              className="text-rust-400 underline-offset-4 hover:text-rust-300 hover:underline"
-            >
-              Create a login
-            </button>
-          </>
-        ) : (
-          <>
-            Already have one?{" "}
-            <button
-              type="button"
-              onClick={() => { setMode("signin"); setError(null); setInfo(null); }}
-              className="text-rust-400 underline-offset-4 hover:text-rust-300 hover:underline"
-            >
-              Sign in
-            </button>
-          </>
-        )}
+        Private workspace — owner access only.{" "}
+        <Link
+          href="/pricing"
+          className="text-rust-400 underline-offset-4 hover:text-rust-300 hover:underline"
+        >
+          Want in? See pricing
+        </Link>
       </p>
 
       {isDemoMode ? (
@@ -240,8 +168,11 @@ function LoginCard() {
               <path d="M6.4 13.95a6.03 6.03 0 0 1 0-3.9L3.1 7.5a10 10 0 0 0 0 9l3.3-2.55Z" />
               <path d="M12 6c1.47 0 2.8.5 3.84 1.5l2.86-2.86A9.96 9.96 0 0 0 12 2a10 10 0 0 0-8.9 5.5l3.3 2.55A6 6 0 0 1 12 6Z" />
             </svg>
-            Continue with Google
+            Sign in as owner with Google
           </button>
+          <p className="mt-3 text-center text-xs leading-relaxed text-ash-300">
+            Any other Google account is sent to pricing.
+          </p>
         </>
       )}
 
