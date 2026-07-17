@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { isDemoMode } from "@/lib/demo";
+import { OWNER_EMAIL } from "@/lib/owner";
 
 /**
  * Session guard for the client command center.
@@ -39,6 +40,14 @@ export async function middleware(request: NextRequest) {
   if (!user) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
+    url.search = "";
+    return NextResponse.redirect(url);
+  }
+
+  // Owner-only app: any other signed-in account gets the paywall.
+  if (user.email?.toLowerCase() !== OWNER_EMAIL) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/pricing";
     url.search = "";
     return NextResponse.redirect(url);
   }
